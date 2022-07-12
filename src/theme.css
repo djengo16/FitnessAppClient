@@ -1,0 +1,9 @@
+:root {
+    --primary: #009FAF;
+    --secondary: #82E9DE;
+    --textInput: #29434E;
+    --error: #FF5722;
+    --white: rgb(255, 255, 255);
+    --pageBackground: #C3C6C7;
+    --cardBackground: #455A64;
+  }

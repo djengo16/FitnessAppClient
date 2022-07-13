@@ -11,20 +11,11 @@ export default function Login(){
   const [errorMessages, setErrorMessages] = useState({email: '', password: ''});
   const [navigate, setNavigate] = useState(false);
 
-  function onFormSubmit (data){
-    login(data)
-    .then((user) => {
-      setNavigate(true);
-    }).catch((error) => {
-
-    });
-  }
-
 return(
     <Card className={cardStyles['card-wrapper-10p']}>
       {navigate && <Navigate to="/home" />}
       <Formik
-       initialValues={{ email: '', password: '' }}
+       initialValues={{ email: '', password: '', server: '' }}
        validate={values => {
          const errors = {};
 
@@ -43,11 +34,17 @@ return(
          setErrorMessages(errors);
          return errors;
        }}
-       onSubmit={(values, { setSubmitting }) => {
-         setTimeout(() => {
-           onFormSubmit(values);
+       onSubmit={(values, { setSubmitting, setFieldError }) => {
+
+          //  onFormSubmit(values);
+          login(values).then(() =>
+          setNavigate(true)
+          ).catch((err) => {
+            console.log(err);
+            setFieldError('server', err.message);
+          }).finally(() => {
            setSubmitting(false);
-         }, 400);
+          })
        }}
      >
        {({

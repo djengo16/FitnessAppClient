@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-constructor */
-import React from "react";
+import React, { Suspense } from "react";
 import {Main} from './main/Main'
 
 export default class Layout extends React.Component{
@@ -8,7 +8,7 @@ export default class Layout extends React.Component{
     }
         render() {
             return(
-                <Main></Main>
+                <Suspense fallback={null}><Main></Main></Suspense>
             )
         };
 }

@@ -1,8 +1,4 @@
 import { lazy } from "react";
-//{
-/* <Route path="/login" element={<NonAuthenticatedRoute><Login /></NonAuthenticatedRoute>} />
-<Route path='/home' element={<AuthenticatedRoute><Home/></AuthenticatedRoute>} /> */
-//}
 const routes = [
   {
     path: "login",

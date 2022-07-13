@@ -6,6 +6,11 @@ const routes = [
     authenticated: false,
   },
   {
+    path: "register",
+    component: lazy(() => import("../pages/register/Register")),
+    authenticated: false,
+  },
+  {
     path: "home",
     component: lazy(() => import("../pages/home/Home")),
     authenticated: true,

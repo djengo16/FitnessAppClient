@@ -3,42 +3,45 @@ import cardStyles from '../../components/card/card.module.css'
 import formStyles from '../../styles/form.module.css';
 import errorMessageConstats from '../../utils/messages/errorMessages';
 import { Formik, ErrorMessage } from 'formik';
-import {login} from './../../utils/services/authService';
-import {Navigate, Link} from 'react-router-dom'
+import {register} from './../../utils/services/authService';
+import {Link, Navigate} from 'react-router-dom'
 import { useState } from 'react';
 
-export default function Login(){
+export default function Register(){
 
-  const [errorMessages, setErrorMessages] = useState({email: '', password: ''});
+  const [errorMessages, setErrorMessages] = useState({email: '', password: '', confirmPassword: ''});
   const [navigate, setNavigate] = useState(false);
 
 return(
     <Card className={cardStyles['card-wrapper-10p']}>
       {navigate && <Navigate to="/home" />}
       <Formik
-       initialValues={{ email: '', password: '', server: '' }}
+       initialValues={{email: '', password: '', confirmPassword: ''}}
        validate={values => {
          const errors = {};
 
          if (!values.email) {
-           errors.email = `Error: ${errorMessageConstats.emptyEmail}`;
-         } else if (
-           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-         ) {
-           errors.email = `Error: ${errorMessageConstats.invalidEmail}`;
-         }
-         if(!values.password){
-          errors.password = `Error: ${errorMessageConstats.emptyPassword}`;
-         } else if(values.password.length < 6){
-          errors.password = `Error: ${errorMessageConstats.passwordMinLength}`;;
-         }
-         setErrorMessages(errors);
-         return errors;
-       }}
+            errors.email = `Error: ${errorMessageConstats.emptyEmail}`;
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = `Error: ${errorMessageConstats.invalidEmail}`;
+          }
+          if(!values.password){
+           errors.password = `Error: ${errorMessageConstats.emptyPassword}`;
+          } else if(values.password.length < 6){
+           errors.password = `Error: ${errorMessageConstats.passwordMinLength}`;;
+          }else if (values.password !== values.confirmPassword){
+            errors.password = `Error: ${errorMessageConstats.passwordsMatch}`;;
+          }
+
+
+          setErrorMessages(errors);
+          return errors;
+        }}
        onSubmit={(values, { setSubmitting, setFieldError }) => {
 
-          //  onFormSubmit(values);
-          login(values).then(() =>
+          register(values).then(() =>
           setNavigate(true)
           ).catch((err) => {
             console.log(err);
@@ -81,20 +84,35 @@ return(
              value={values.password}
              className={`${formStyles['form-input']} ${errorMessages.password ? formStyles['form-input-error'] : ''}`}
            />
+           <label 
+          name="confirmPassword" 
+          className={`${formStyles['form-label']} ${errorMessages.confirmPassword ? formStyles['label-input-error'] : ''}`}>Confirm Password</label>
+           <input
+             type="password"
+             name="confirmPassword"
+             id="confirmPassword"
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.confirmPassword}
+             className={`${formStyles['form-input']} ${errorMessages.confirmPassword ? formStyles['form-input-error'] : ''}`}
+           />
            <div className={`${formStyles['form-error']}`}>
            <ErrorMessage className={formStyles['error-message']} name="email" component="span" />
            <ErrorMessage className={formStyles['error-message']} name="password" component="span" />
+           <ErrorMessage className={formStyles['error-message']} name="confirmPassword" component="span" />
            <ErrorMessage className={formStyles['error-message']} name="server" component="span" />
            </div>
            <div className={'d-flex justify-content-between'}>
-             <button 
-             type="submit" 
-             disabled={isSubmitting} 
-             className={`${formStyles.btn} ${formStyles['btn-login']} `}>
-               Login
-             </button>
-             <Link to="/register" 
-             className={`${formStyles.btn} ${formStyles['btn-register']} `}>Register</Link>
+               <button 
+               type="submit" 
+               disabled={isSubmitting} 
+               className={`${formStyles.btn} ${formStyles['btn-register']} `}>
+                 Register
+               </button>
+               <Link to='/login'
+               className={`${formStyles.btn} ${formStyles['btn-login']} `}>
+                Login
+               </Link>
            </div>
          </form>
        )}

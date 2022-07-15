@@ -27,3 +27,7 @@ export async function register(userData) {
     throw new Error(e.response.data);
   }
 }
+
+export async function logout() {
+  localStorage.removeItem("token");
+}

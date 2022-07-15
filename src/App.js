@@ -4,7 +4,6 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Layout from "./components/layout/Layout";
 import { NonAuthenticatedRoute } from "./utils/guards/NonAuthenticatedRoute";
-import routes from "./utils/routes";
 import "./App.css";
 import Home from "./pages/home/Home";
 

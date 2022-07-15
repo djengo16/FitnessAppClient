@@ -6,7 +6,7 @@ export function Header() {
     const [navigate, setNavigate] = useState(false);
 
     let clickedElement;
-    const handleClick = (event) =>{
+    const handleNavClick = (event) =>{
         event.preventDefault();
         if(clickedElement){
             clickedElement.classList.remove(styles['active']);
@@ -26,8 +26,8 @@ export function Header() {
             <div>
                 <ul>
                     <li><a><img src="/dumbell.svg" alt="" /></a></li>
-                    <li ><a onClick={handleClick} href='/' >Home</a></li>
-                    <li><a onClick={handleClick} href='/other'>Other</a></li>
+                    <li ><a onClick={handleNavClick} href='/' >Home</a></li>
+                    <li><a onClick={handleNavClick} href='/other'>Other</a></li>
                 </ul>
             </div>
             <div>

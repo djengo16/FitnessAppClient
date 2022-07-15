@@ -32,7 +32,7 @@ return(
           } else if(values.password.length < 6){
            errors.password = `Error: ${errorMessageConstats.passwordMinLength}`;;
           }else if (values.password !== values.confirmPassword){
-            errors.password = `Error: ${errorMessageConstats.passwordsMatch}`;;
+            errors.confirmPassword = `Error: ${errorMessageConstats.passwordsMatch}`;;
           }
 
 

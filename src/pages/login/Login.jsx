@@ -14,7 +14,7 @@ export default function Login(){
 
 return(
     <Card className={cardStyles['card-wrapper-10p']}>
-      {navigate && <Navigate to="/home" />}
+      {navigate && <Navigate to="/" />}
       <Formik
        initialValues={{ email: '', password: '', server: '' }}
        validate={values => {

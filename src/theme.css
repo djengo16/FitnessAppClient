@@ -1,9 +1,11 @@
 :root {
-    --primary: #009FAF;
-    --secondary: #82E9DE;
-    --textInput: #29434E;
-    --error: #FF5722;
-    --white: rgb(255, 255, 255);
-    --pageBackground: #C3C6C7;
-    --cardBackground: #455A64;
-  }
+  --primary: #009faf;
+  --secondary: #82e9de;
+  --textInput: #29434e;
+  --error: #ff5722;
+  --white: rgb(255, 255, 255);
+  --pageBackground: #c3c6c7;
+  --cardBackground: #455a64;
+
+  --mainBoxShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}

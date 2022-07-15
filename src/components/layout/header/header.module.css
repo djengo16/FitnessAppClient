@@ -1,0 +1,84 @@
+@import url("../../../theme.css");
+
+.navbar {
+  height: 60px;
+  background-color: var(--cardBackground);
+  max-width: 100%;
+  box-shadow: var(--mainBoxShadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.navbar li {
+  color: var(--white);
+}
+
+.navbar li a {
+  font-style: normal;
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 14px;
+  display: block;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  padding: 7px 18px;
+  margin: 10px 16px 8px 16px;
+  text-decoration: none;
+  transition: 0.4s all;
+}
+
+.navbar li a:hover,
+.navbar li a.active {
+  background: rgba(0, 159, 175, 0.5);
+}
+
+.navbar .dropdown {
+  position: relative;
+  padding: 0 40px;
+}
+
+.navbar .dropdown > a {
+  display: block;
+  border: 1px solid #fff;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar .dropdown > a + div {
+  transition: 0.4s all;
+  position: absolute;
+  top: 100%;
+  right: 40px;
+  opacity: 0;
+  padding-top: 20px;
+  pointer-events: none;
+}
+
+.navbar .dropdown:hover > a + div {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.navbar .dropdown > a + div a {
+  display: block;
+  padding: 8px 30px;
+  border-radius: 4px;
+  background: var(--cardBackground);
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 8px;
+  cursor: pointer;
+}

@@ -1,14 +1,15 @@
 /* eslint-disable no-useless-constructor */
-import React, { Suspense } from "react";
+import React from "react";
 import {Main} from './main/Main'
+import {Header} from './header/Header'
+import {Footer} from './footer/Footer'
 
-export default class Layout extends React.Component{
-    constructor(props){
-        super(props);
-    }
-        render() {
-            return(
-                <Suspense fallback={null}><Main></Main></Suspense>
-            )
-        };
+export default function Layout() {
+    return (
+        <div>
+            <Header />
+            <Main />
+            <Footer />
+        </div>
+    );
 }

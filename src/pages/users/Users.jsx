@@ -7,6 +7,7 @@
  function Users(){
     const [users, setUsers] = useState([]);
     useEffect(() => {
+        console.log('change')
         getAllUsers().then(response => {
            setUsers(response.data);
         });

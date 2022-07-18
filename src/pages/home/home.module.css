@@ -1,10 +1,11 @@
-.header {
+.home-page {
+  margin: 20px 110px;
+}
+.title {
   text-align: left;
   font-style: normal;
   font-weight: 400;
   font-size: 36px;
   line-height: 44px;
-  margin-top: 20px;
-  margin-left: 115px;
   color: #29434e;
 }

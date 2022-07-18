@@ -6,6 +6,9 @@ import Layout from "./components/layout/Layout";
 import { NonAuthenticatedRoute } from "./utils/guards/NonAuthenticatedRoute";
 import "./App.css";
 import Home from "./pages/home/Home";
+import Users from "./pages/users/Users";
+import UserDetails from "./pages/user-details/UserDetails";
+import routes from "./utils/routes";
 
 function App() {
   return (
@@ -21,17 +24,7 @@ function App() {
                 authenticated ? (
                   <AuthenticatedRoute>
                     {" "}
-                    <Component>
-                      {childRoutes.map(
-                        ({ childPath, childComponent: ChildComponent }) => (
-                          <Route
-                            path={childPath}
-                            key={childPath}
-                            element={<ChildComponent />}
-                          />
-                        )
-                      )}
-                    </Component>
+                    <Component />
                   </AuthenticatedRoute>
                 ) : (
                   <NonAuthenticatedRoute>
@@ -40,7 +33,18 @@ function App() {
                   </NonAuthenticatedRoute>
                 )
               }
-            ></Route>
+            >
+              {childRoutes.length > 0 &&
+                childRoutes.map(
+                  ({ childPath, childComponent: ChildComponent }) => (
+                    <Route
+                      path={childPath}
+                      key={childPath}
+                      element={<ChildComponent />}
+                    />
+                  )
+                )}
+            </Route>
           )
         )} */}
 
@@ -72,6 +76,8 @@ function App() {
           }
         >
           <Route path="/" element={<Home />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/:id" element={<UserDetails />} />
         </Route>
       </Routes>
     </div>

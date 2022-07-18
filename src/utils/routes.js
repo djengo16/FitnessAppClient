@@ -21,7 +21,20 @@ const routes = [
         childPath: "/",
         childComponent: lazy(() => import("../pages/home/Home")),
       },
+      {
+        childPath: "/users",
+        childComponent: lazy(() => import("../pages/users/Users")),
+      },
+      {
+        childPath: "/users/:id",
+        childComponent: lazy(() => import("../pages/user-details/UserDetails")),
+      },
     ],
   },
 ];
+{
+  /* <Route path="/" element={<Home />} />
+<Route path="/users" element={<Users />} />
+<Route path="/users/:id" element={<UserDetails />} /> */
+}
 export default routes;

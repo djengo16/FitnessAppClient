@@ -1,5 +1,5 @@
 import styles from './header.module.css'
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import {logout} from '../../../utils/services/authService'
 export function Header() {
@@ -25,9 +25,9 @@ export function Header() {
             {navigate && <Navigate to="/login" />}
             <div>
                 <ul>
-                    <li><a><img src="/dumbell.svg" alt="" /></a></li>
-                    <li ><a onClick={handleNavClick} href='/' >Home</a></li>
-                    <li><a onClick={handleNavClick} href='/other'>Other</a></li>
+                    <li><Link to='/'><img src="/dumbell.svg" alt="" /></Link></li>
+                    <li ><Link  to='/'>Home</Link></li>
+                    <li><Link to='/users'>Users</Link></li>
                 </ul>
             </div>
             <div>

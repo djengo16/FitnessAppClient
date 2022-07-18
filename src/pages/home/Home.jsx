@@ -1,9 +1,10 @@
 import tokenStorage from '../../utils/services/tokenStorage';
 import styles from './home.module.css'
+import headingStyles from '../../styles/headings.module.css'
 function Home(){
     const user = tokenStorage.decodeToken().email;
     return(
-        <div><h4 className={styles.header}>Welcome: {user} to FitnesApp!</h4></div>
+        <div className={styles['home-page']}><h4 className={headingStyles['page-title']}>Welcome: {user} to FitnesApp!</h4></div>
     )
 }
 

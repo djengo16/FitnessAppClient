@@ -82,3 +82,7 @@
   margin-bottom: 8px;
   cursor: pointer;
 }
+.navbar .dropdown > a + div a:hover {
+  color: white;
+  background-color: var(--primaryOp50);
+}

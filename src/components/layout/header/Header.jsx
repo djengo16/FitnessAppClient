@@ -1,19 +1,14 @@
 import styles from './header.module.css'
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import {logout} from '../../../utils/services/authService'
 export function Header() {
     const [navigate, setNavigate] = useState(false);
-
-    let clickedElement;
-    const handleNavClick = (event) =>{
-        event.preventDefault();
-        if(clickedElement){
-            clickedElement.classList.remove(styles['active']);
+    const handleNavClick = (isActive) => { 
+        let activeStyle = {backgroundColor: ''};
+        activeStyle.backgroundColor = isActive ? 'var(--primaryOp50)': 'transparent';
+         return activeStyle;
         }
-        event.target.classList.add(styles['active']);
-        clickedElement = event.target;
-    }
 
     const handleLogout = (evenet) => {
         logout();
@@ -25,9 +20,9 @@ export function Header() {
             {navigate && <Navigate to="/login" />}
             <div>
                 <ul>
-                    <li><Link to='/'><img src="/dumbell.svg" alt="" /></Link></li>
-                    <li ><Link  to='/'>Home</Link></li>
-                    <li><Link to='/users'>Users</Link></li>
+                    <li ><NavLink exact to='/'><img src="/dumbell.svg" alt="" /></NavLink></li>
+                    <li><NavLink  style={({ isActive }) => handleNavClick(isActive)} to='/'>Home</NavLink></li>
+                    <li><NavLink   style={({ isActive }) => handleNavClick(isActive)} to='/users'>Users</NavLink></li>
                 </ul>
             </div>
             <div>

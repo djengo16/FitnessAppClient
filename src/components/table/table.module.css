@@ -1,0 +1,65 @@
+@import url("../../theme.css");
+.table {
+  max-width: 100%;
+  border-collapse: collapse;
+  cursor: initial;
+  font-size: 20px;
+  text-align: left;
+  box-shadow: var(--mainBoxShadow);
+}
+.table thead {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--cardBackground);
+  box-shadow: var(--mainBoxShadow);
+  color: white;
+}
+.table tbody tr:nth-child(odd),
+tbody tr:nth-child(odd) td {
+  background-color: #d0d0d0;
+}
+.table tr {
+  height: 60px;
+}
+
+.table td {
+  border-bottom: 1px solid var(--cardBackground);
+}
+
+.table td:not(:last-child) {
+  border-right: 1px solid var(--cardBackground);
+}
+/* Using ::before and ::after to draw something like left and right border
+    because with regular border property, it is disappearing when we have parent with position sticky.
+  */
+.table th {
+  position: relative;
+}
+.table th:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  border-left: 1px solid #fff;
+}
+
+.table td,
+.table th {
+  padding: 9px;
+  max-width: 100%;
+}
+.table-btn {
+  background: var(--primary);
+  text-decoration: none;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  box-shadow: var(--mainBoxShadow);
+  border-radius: 4px;
+}
+.table-btn:hover {
+  color: #fff;
+}

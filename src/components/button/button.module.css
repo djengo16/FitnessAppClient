@@ -1,0 +1,15 @@
+@import "../../theme.css";
+
+.user-details-btn {
+  background: var(--primary);
+  text-decoration: none;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  box-shadow: var(--mainBoxShadow);
+  border-radius: 4px;
+}
+.user-details-btn:hover {
+  background-color: var(--primaryOp50);
+  color: #fff;
+}

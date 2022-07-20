@@ -1,0 +1,12 @@
+@import url("../../theme.css");
+.pagination-nav {
+  margin-top: 15px;
+}
+.pagination-nav a {
+  background-color: transparent;
+  color: var(--cardBackground);
+}
+.active-item {
+  background-color: var(--primary);
+  color: white;
+}

@@ -4,6 +4,16 @@ html {
   background-color: var(--pageBackground);
   font-size: 20px;
 }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--cardBackgroundOp50);
+}
+::-webkit-scrollbar-track {
+  background: var(--pageBackground);
+}
 #root {
   background-color: var(--pageBackground);
 }

@@ -5,3 +5,20 @@
 .users-page * {
   font-weight: 400;
 }
+.search-btn {
+  background-color: var(--secondary);
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0px 2px;
+  cursor: pointer;
+}
+.search-btn:hover {
+  background-color: var(--secondaryOp50);
+}

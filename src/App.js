@@ -9,6 +9,7 @@ import Home from "./pages/home/Home";
 import Users from "./pages/users/Users";
 import UserDetails from "./pages/user-details/UserDetails";
 import routes from "./utils/routes";
+import Admin from "./pages/admin/Admin";
 
 function App() {
   return (
@@ -78,6 +79,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<UserDetails />} />
+          <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>
     </div>

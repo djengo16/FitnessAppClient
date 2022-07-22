@@ -16,40 +16,6 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* {routes.map(
-          ({ component: Component, path, authenticated, childRoutes }) => (
-            <Route
-              exact
-              path={path}
-              key={path}
-              element={
-                authenticated ? (
-                  <AuthenticatedRoute>
-                    {" "}
-                    <Component />
-                  </AuthenticatedRoute>
-                ) : (
-                  <NonAuthenticatedRoute>
-                    {" "}
-                    <Component />
-                  </NonAuthenticatedRoute>
-                )
-              }
-            >
-              {childRoutes.length > 0 &&
-                childRoutes.map(
-                  ({ childPath, childComponent: ChildComponent }) => (
-                    <Route
-                      path={childPath}
-                      key={childPath}
-                      element={<ChildComponent />}
-                    />
-                  )
-                )}
-            </Route>
-          )
-        )} */}
-
         <Route
           path="/register"
           element={

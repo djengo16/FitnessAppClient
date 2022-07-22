@@ -16,9 +16,10 @@
 .close:before,
 .close:after {
   position: absolute;
-  left: 17.5px;
+  left: 18px;
+  top: 2px;
   content: "";
-  height: 40px;
+  height: 35px;
   width: 4px;
   background-color: #fff;
 }

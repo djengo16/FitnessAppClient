@@ -31,3 +31,22 @@
 .active-li {
   text-decoration: underline;
 }
+.health-label {
+  font-size: 16px;
+  position: absolute;
+  top: 3.5rem;
+  right: 5.5rem;
+  color: var(--textInput);
+}
+.status-label {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  margin-left: 0.1rem;
+}
+.healthy {
+  background-color: var(--success);
+}
+.unhealthy {
+  background-color: var(--cardBackground);
+}

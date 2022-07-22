@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PrimarySmallBtn from '../../components/button/PrimarySmallBtn'
 import tableStyles from '../../styles/table.module.css';
 import headingStyles from '../../styles/headings.module.css'
@@ -5,11 +6,12 @@ import styles from './admin.module.css'
 import Table from '../../components/table/Table';
 import { Fragment, useEffect, useState } from 'react';
 import { getAllExercises } from '../../utils/services/exerciseServices';
-import {DATA_PER_PAGE, UNSAVED_CHANGES_MESSAGE} from '../../utils/constants'
+import {DATA_PER_PAGE, HEALTHY_STATUS, UNSAVED_CHANGES_MESSAGE} from '../../utils/constants'
 import Pagination from '../../components/pagination/Pagination';
 import SearchBar from '../../components/searchbar/SearchBar';
 import { Modal } from '../../components/modal/Modal';
 import { ConfirmModal } from '../../components/modal/ConfirmModal';
+import { getAppHelath } from '../../utils/services/apiService';
 
 function Admin(){
     const [exercises, setExercises] = useState([]);
@@ -21,14 +23,41 @@ function Admin(){
     const [totalExercises, setTotalExercises] = useState(1);
     const [showModal, setShowModal] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [apiStatus, setApiStatus] = useState('');
+    const [isFirstRender, setIsFirstRender] = useState(true);
 
+    /* First mounting of the component triggers api call to health check endpoint and
+    gets info if the App is Healthy or not, after that it does the same check every 
+    10 minutes and updates the current status.
+    We have this first render check here because of setInteral, which
+    code will execute after 10 minutes for the first time, but we
+    need this status info at the moment we open admin page.
+    */
     useEffect(() => {
         getAllExercises(searchParams, currentPage, dataCountPerPage)
         .then(response => {
            setExercises(response.data.exercises);
            setTotalExercises(response.data.pagesCount)
         });
+        if(isFirstRender){
+            checkApiStatus();
+            setIsFirstRender(false);
+        }
+        /* 1000 miliseconds * 60 seconds * 10 min = 10 minutes*/
+        const intervalTime = 1000 * 60 * 10; 
+        const interval = setInterval(() => {
+            checkApiStatus();
+          }, intervalTime);
+
+          return () => clearInterval(interval);
     }, [currentPage, searchParams]);
+
+    const checkApiStatus = () => {
+        getAppHelath()
+            .then(response => {
+                setApiStatus(response.data)
+            });
+    }
 
     const openModal = () => {
         setShowModal(true);
@@ -92,8 +121,13 @@ return (
         && 
         <ConfirmModal onConfirm={hideModal} onCancel={hideConfirmModal} message={UNSAVED_CHANGES_MESSAGE}/>}
         <div className={styles['admin-page']}>
-            <h4 className={`${headingStyles['page-title']} ${styles['admin-page-title']}`}>Admin Panel</h4>
-            
+           <header >
+                <h4 className={`${headingStyles['page-title']} ${styles['admin-page-title']}`}>Admin Panel</h4>
+                <label className={styles['health-label']}>
+                    Server status: 
+                    <label title={apiStatus} 
+                    className={`${styles['status-label']} ${apiStatus === HEALTHY_STATUS ? styles.healthy : styles.unhealthy}`}/></label>
+           </header>
             <nav className={styles['admin-page-nav']}>
                 <div className='d-flex justify-content-between'>
                     <ul className={`${styles['admin-ul']} d-flex align-items-center`}>

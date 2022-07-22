@@ -12,6 +12,7 @@ import SearchBar from '../../components/searchbar/SearchBar';
 import { Modal } from '../../components/modal/Modal';
 import { ConfirmModal } from '../../components/modal/ConfirmModal';
 import { getAppHelath } from '../../utils/services/apiService';
+import DangerSamllBtn from '../../components/button/DangerSmallBtn';
 
 function Admin(){
     const [exercises, setExercises] = useState([]);
@@ -94,13 +95,16 @@ function Admin(){
         title: 'Action',
         field: 'action',
         dataField: 'id',
-        action: 'createEditExerciseBtn', 
+        action: 'createEditAndDeleteBtn', 
         type: 'button',
         width: '450px'
        }];
        const actions = {
-        createEditExerciseBtn: () => 
-        <PrimarySmallBtn action={openModal} content='Edit'/>
+        createEditAndDeleteBtn: () => 
+        <div className='d-flex justify-content-between'>
+          <PrimarySmallBtn action={openModal} content='Edit'/>
+          <DangerSamllBtn action={openConfirmModal} content='Delete'/>
+        </div>
        }
        const handleSearchParams = (e) => {
         e.preventDefault();

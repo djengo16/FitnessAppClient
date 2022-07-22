@@ -25,13 +25,19 @@
 .primary-btn-sm {
   background: var(--primary);
   text-decoration: none;
-  padding: 10px 24px;
-  font-size: 16px;
+  width: 6rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
   color: #fff;
   border: none;
   box-shadow: var(--mainBoxShadow);
   cursor: pointer;
   border-radius: 4px;
+}
+.primary-btn-link {
+  width: 0 !important;
+  height: 0 !important;
+  padding: 0.5rem 1.5rem;
 }
 .primary-btn-sm:hover,
 .primary-btn:hover {
@@ -70,6 +76,22 @@
   border-radius: 4px;
 }
 .danger-btn:hover {
+  background: var(--errorOp50);
+  cursor: pointer;
+}
+.danger-btn-sm {
+  background: var(--error);
+  text-decoration: none;
+  width: 6rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  color: #fff;
+  border: none;
+  box-shadow: var(--mainBoxShadow);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.danger-btn-sm:hover {
   background: var(--errorOp50);
   cursor: pointer;
 }

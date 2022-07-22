@@ -15,6 +15,11 @@ import { getAppHelath } from '../../utils/services/apiService';
 import DangerSamllBtn from '../../components/button/DangerSmallBtn';
 
 function Admin(){
+    const navItems = {
+        exercises: 'exercises',
+        other: 'other',
+    }
+
     const [exercises, setExercises] = useState([]);
     const dataCountPerPage = DATA_PER_PAGE;
     const [refresh, setRefresh] = useState(0);
@@ -26,6 +31,7 @@ function Admin(){
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [apiStatus, setApiStatus] = useState('');
     const [isFirstRender, setIsFirstRender] = useState(true);
+    const [selectedNavItem, setSelectedNavItem] = useState('');
 
     /* First mounting of the component triggers api call to health check endpoint and
     gets info if the App is Healthy or not, after that it does the same check every 
@@ -41,6 +47,7 @@ function Admin(){
            setTotalExercises(response.data.pagesCount)
         });
         if(isFirstRender){
+            setSelectedNavItem(navItems.exercises);
             checkApiStatus();
             setIsFirstRender(false);
         }
@@ -74,6 +81,10 @@ function Admin(){
     }
     const hideConfirmModal = () => {
         setShowConfirmModal(false);
+    }
+    const handleNavClick = (value) => {
+        console.log(value)
+        setSelectedNavItem(value)
     }
 
     const tableColumnsInfo = [{
@@ -134,9 +145,11 @@ return (
            </header>
             <nav className={styles['admin-page-nav']}>
                 <div className='d-flex justify-content-between'>
-                    <ul className={`${styles['admin-ul']} d-flex align-items-center`}>
-                        <li>Exercises</li>
-                        <li> Other</li>
+                    <ul className={`${styles['admin-ul']} d-flex align-items-end`}>
+                        <li  className={selectedNavItem === navItems.exercises && `${styles['active-li']}`}
+                             onClick={() => handleNavClick(navItems.exercises)}>Exercises</li>
+                        <li  className={selectedNavItem === navItems.other && `${styles['active-li']}`} 
+                             onClick={() => handleNavClick(navItems.other)}> Other</li>
                     </ul>
                     <SearchBar 
                     placeholder={'Find Exercise'}
@@ -144,6 +157,8 @@ return (
                     handleSearchParams={handleSearchParams}/>
                 </div>
                 </nav>
+                {
+                selectedNavItem === navItems.exercises && 
                 <div id="exercises">
                 <div className={tableStyles.scrollable}>
                     <Table data={exercises} columns={tableColumnsInfo} actions={actions}/>
@@ -153,8 +168,9 @@ return (
                 totalData={totalExercises}
                 paginate={paginate}
                 refresh={refresh}
-          />
+                />
                 </div>
+                }
         </div>
     </Fragment>
 )

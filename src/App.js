@@ -8,7 +8,6 @@ import "./App.css";
 import Home from "./pages/home/Home";
 import Users from "./pages/users/Users";
 import UserDetails from "./pages/user-details/UserDetails";
-import routes from "./utils/routes";
 import Admin from "./pages/admin/Admin";
 import { AdminRoute } from "./utils/guards/AdminRoute";
 

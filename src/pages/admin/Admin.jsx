@@ -21,10 +21,8 @@ function Admin(){
     const [totalExercises, setTotalExercises] = useState(1);
     const [showModal, setShowModal] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
-    
 
     useEffect(() => {
-        console.log('exercise useeff')
         getAllExercises(searchParams, currentPage, dataCountPerPage)
         .then(response => {
            setExercises(response.data.exercises);

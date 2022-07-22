@@ -3,7 +3,7 @@ import { API_URL } from "./../environment";
 import { DATA_PER_PAGE } from "../constants";
 /**
  *
- * @param userData  => {email, password}
+ * @param exercise  => {id, name, musclegroup}
  */
 export function getAllExercises(
   searchParams = "",

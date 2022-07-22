@@ -151,14 +151,14 @@ return (
                         <li  className={selectedNavItem === navItems.other && `${styles['active-li']}`} 
                              onClick={() => handleNavClick(navItems.other)}> Other</li>
                     </ul>
+                    {selectedNavItem === navItems.exercises && 
                     <SearchBar 
                     placeholder={'Find Exercise'}
                     setEnteredSearchParams={setEnteredSearchParams} 
-                    handleSearchParams={handleSearchParams}/>
+                    handleSearchParams={handleSearchParams}/>}
                 </div>
-                </nav>
-                {
-                selectedNavItem === navItems.exercises && 
+            </nav>
+                {selectedNavItem === navItems.exercises && 
                 <div id="exercises">
                 <div className={tableStyles.scrollable}>
                     <Table data={exercises} columns={tableColumnsInfo} actions={actions}/>
@@ -169,8 +169,7 @@ return (
                 paginate={paginate}
                 refresh={refresh}
                 />
-                </div>
-                }
+                </div>}
         </div>
     </Fragment>
 )

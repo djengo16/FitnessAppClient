@@ -17,3 +17,7 @@ export function getAllExercises(
 
   return axios.get(url);
 }
+
+export function deleteExercise(id) {
+  return axios.delete(`${API_URL}/Exercises/${id}`);
+}

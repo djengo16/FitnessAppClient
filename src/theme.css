@@ -5,10 +5,12 @@
   --secondaryOp50: rgba(130, 233, 222, 0.5);
   --textInput: #29434e;
   --error: #ff5722;
+  --errorOp50: rgba(255, 87, 34, 0.5);
   --white: rgb(255, 255, 255);
   --pageBackground: #c3c6c7;
   --cardBackground: #455a64;
   --cardBackgroundOp50: rgba(69, 90, 100, 0.5);
+  --success: #89c402;
 
   --mainBoxShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }

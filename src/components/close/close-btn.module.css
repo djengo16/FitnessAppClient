@@ -1,0 +1,31 @@
+@import url("../../theme.css");
+.close {
+  position: absolute;
+  cursor: pointer;
+  background-color: var(--primary);
+  right: 21px;
+  top: 21px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  opacity: 1;
+}
+.close:hover {
+  opacity: 0.5;
+}
+.close:before,
+.close:after {
+  position: absolute;
+  left: 18px;
+  top: 2px;
+  content: "";
+  height: 35px;
+  width: 4px;
+  background-color: #fff;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}

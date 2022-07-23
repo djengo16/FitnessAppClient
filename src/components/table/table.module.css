@@ -3,7 +3,7 @@
   max-width: 100%;
   border-collapse: collapse;
   cursor: initial;
-  font-size: 20px;
+  font-size: 1rem;
   text-align: left;
   box-shadow: var(--mainBoxShadow);
 }

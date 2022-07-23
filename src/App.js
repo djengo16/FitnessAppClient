@@ -8,46 +8,13 @@ import "./App.css";
 import Home from "./pages/home/Home";
 import Users from "./pages/users/Users";
 import UserDetails from "./pages/user-details/UserDetails";
-import routes from "./utils/routes";
+import Admin from "./pages/admin/Admin";
+import { AdminRoute } from "./utils/guards/AdminRoute";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        {/* {routes.map(
-          ({ component: Component, path, authenticated, childRoutes }) => (
-            <Route
-              exact
-              path={path}
-              key={path}
-              element={
-                authenticated ? (
-                  <AuthenticatedRoute>
-                    {" "}
-                    <Component />
-                  </AuthenticatedRoute>
-                ) : (
-                  <NonAuthenticatedRoute>
-                    {" "}
-                    <Component />
-                  </NonAuthenticatedRoute>
-                )
-              }
-            >
-              {childRoutes.length > 0 &&
-                childRoutes.map(
-                  ({ childPath, childComponent: ChildComponent }) => (
-                    <Route
-                      path={childPath}
-                      key={childPath}
-                      element={<ChildComponent />}
-                    />
-                  )
-                )}
-            </Route>
-          )
-        )} */}
-
         <Route
           path="/register"
           element={
@@ -78,6 +45,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<UserDetails />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <Admin />
+              </AdminRoute>
+            }
+          />
         </Route>
       </Routes>
     </div>

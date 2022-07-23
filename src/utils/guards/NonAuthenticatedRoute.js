@@ -6,7 +6,7 @@ export function NonAuthenticatedRoute({ children }) {
   const token = tokenStorage.getToken();
 
   if (token) {
-    return <Navigate to="/home" />;
+    return <Navigate to="/" />;
   }
   return children;
 }

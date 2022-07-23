@@ -1,15 +1,97 @@
 @import "../../theme.css";
 
-.user-details-btn {
+.btn {
+  color: white;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0px 2px;
+}
+.primary-btn {
+  background: var(--primary);
+  margin: 10px;
+  text-decoration: none;
+  width: 8rem;
+  height: 2.5rem;
+  font-size: 30px;
+  color: #fff;
+  border: none;
+  box-shadow: var(--mainBoxShadow);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.primary-btn-sm {
   background: var(--primary);
   text-decoration: none;
-  padding: 10px 20px;
+  width: 6rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  color: #fff;
+  border: none;
+  box-shadow: var(--mainBoxShadow);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.primary-btn-link {
+  width: 0 !important;
+  height: 0 !important;
+  padding: 0.5rem 1.5rem;
+}
+.primary-btn-sm:hover,
+.primary-btn:hover {
+  background-color: var(--primaryOp50);
+  cursor: pointer;
+  color: #fff;
+}
+.secondary-btn {
+  background-color: var(--secondary);
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0px 2px;
+  cursor: pointer;
+}
+.secondary-btn:hover {
+  background-color: var(--secondaryOp50);
+  cursor: pointer;
+}
+.danger-btn {
+  background: var(--error);
+  margin: 10px;
+  text-decoration: none;
+  width: 8rem;
+  height: 2.5rem;
+  font-size: 30px;
   color: #fff;
   border: none;
   box-shadow: var(--mainBoxShadow);
   border-radius: 4px;
 }
-.user-details-btn:hover {
-  background-color: var(--primaryOp50);
+.danger-btn:hover {
+  background: var(--errorOp50);
+  cursor: pointer;
+}
+.danger-btn-sm {
+  background: var(--error);
+  text-decoration: none;
+  width: 6rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
   color: #fff;
+  border: none;
+  box-shadow: var(--mainBoxShadow);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.danger-btn-sm:hover {
+  background: var(--errorOp50);
+  cursor: pointer;
 }

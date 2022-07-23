@@ -1,0 +1,52 @@
+@import url("../../theme.css");
+.admin-page {
+  margin: 1rem 110px;
+}
+.admin-page * {
+  font-weight: 400;
+}
+.admin-page-title {
+  margin-bottom: 0.2rem;
+}
+.admin-ul {
+  display: flex;
+  list-style-type: none;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  padding: 0;
+  color: var(--cardBackground);
+}
+.admin-page-nav {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 3px solid var(--cardBackground);
+}
+.admin-ul li {
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+.admin-ul li:hover {
+  text-decoration: underline;
+}
+.active-li {
+  text-decoration: underline;
+}
+.health-label {
+  font-size: 16px;
+  position: absolute;
+  top: 3.5rem;
+  right: 5.5rem;
+  color: var(--textInput);
+}
+.status-label {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  margin-left: 0.1rem;
+}
+.healthy {
+  background-color: var(--success);
+}
+.unhealthy {
+  background-color: var(--cardBackground);
+}

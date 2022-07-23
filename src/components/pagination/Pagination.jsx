@@ -1,10 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { useEffect } from 'react';
 import { useState } from 'react';
 import styles from './pagination.module.css'
-function Pagination({dataPerPage, totalData, paginate}){
+function Pagination({dataPerPage, totalData, paginate, refresh}){
     const pageNumbers = [];
     const totalPages = Math.ceil(totalData / dataPerPage);
     const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+      setCurrentPage(1);
+    }, [refresh])
 
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
@@ -14,7 +19,7 @@ function Pagination({dataPerPage, totalData, paginate}){
 
     if(pageNum >= 1 && pageNum <= totalPages){
       setCurrentPage(pageNum);
-      paginate(currentPage);
+      paginate(pageNum);
     }
   }
 

@@ -71,7 +71,6 @@ function Users() {
       >
         Go to
       </Button>
-      //<UserDetailsLinkBtn url={`/users/${userId}`} content="Go to" />
     ),
   };
 

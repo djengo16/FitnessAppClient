@@ -1,8 +1,10 @@
 import { Fragment } from "react";
+
 import CloseBtn from "../close/CloseBtn";
 import styles from "./modal.module.css";
 import ReactDOM from "react-dom";
 import Button from "../button/Button";
+
 const portalElement = document.getElementById("overlays");
 
 function ConfirmBackdrop(props) {
@@ -40,6 +42,7 @@ function ConfirmModalOverlay(props) {
         >
           No
         </Button>
+
       </footer>
     </div>
   );

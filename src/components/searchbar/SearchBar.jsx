@@ -1,6 +1,7 @@
 import styles from './searchbar.module.css'
 import React from 'react';
 import Button from '../button/Button';
+
 const SearchBar = React.forwardRef((props, ref) =>{
     return (
     <form className={`row g-3`}>

@@ -4,6 +4,7 @@ import styles from "./modal.module.css";
 import ReactDOM from "react-dom";
 import Button from "../button/Button";
 
+
 const portalElement = document.getElementById("overlays");
 
 function Backdrop(props) {
@@ -37,6 +38,7 @@ function ModalOverlay(props) {
         >
           Cancel
         </Button>
+
       </footer>
     </div>
   );

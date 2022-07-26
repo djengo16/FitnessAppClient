@@ -5,9 +5,6 @@
 .admin-page * {
   font-weight: 400;
 }
-.admin-page-title {
-  margin-bottom: 0.2rem;
-}
 .admin-ul {
   display: flex;
   list-style-type: none;
@@ -23,6 +20,7 @@
 }
 .admin-ul li {
   margin-left: 0.5rem;
+  margin-top: 1rem;
   cursor: pointer;
 }
 .admin-ul li:hover {

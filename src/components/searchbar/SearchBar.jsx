@@ -1,18 +1,20 @@
 import SecondaryBtn from '../button/SecondaryBtn';
-
-function SearchBar(props){
+import styles from './searchbar.module.css'
+import React from 'react';
+const SearchBar = React.forwardRef((props, ref) =>{
     return (
-    <form class="row g-3">
-    <div class="col-auto">
+    <form className={`row g-3`}>
+    <div className={`${styles['form-col']} col-auto`}>
         <label for="" class="visually-hidden">Find User</label>
-        <input onChange={(e) => {props.setEnteredSearchParams(e.target.value)}} 
+        <input 
+        ref={ref} 
         type="text" 
         class="form-control" 
         placeholder={props.placeholder}/>
     </div>
-    <div class="col-auto">
+    <div className={`${styles['form-col']} col-auto`}>
         <SecondaryBtn action={props.handleSearchParams} content={'Search'}/>
     </div>
     </form>)
-}
+})
 export default SearchBar;

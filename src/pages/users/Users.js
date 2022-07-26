@@ -5,11 +5,11 @@ import tableStyles from "../../styles/table.module.css";
 import { useEffect, useRef, useState } from "react";
 import { getAllUsers } from "../../utils/services/usersService";
 import Table from "../../components/table/Table";
-import UserDetailsLinkBtn from "../../components/button/UserDetailsLinkBtn";
 import { DATA_PER_PAGE } from "../../utils/constants";
 
 import Pagination from "../../components/pagination/Pagination";
 import SearchBar from "../../components/searchbar/SearchBar";
+import Button from "../../components/button/Button";
 
 function Users() {
   const initalPageable = {
@@ -62,7 +62,16 @@ function Users() {
   ];
   const actions = {
     createUserDetailsBtn: (userId) => (
-      <UserDetailsLinkBtn url={`/users/${userId}`} content="Go to" />
+      <Button
+        type="button"
+        isLink={true}
+        to={`/users/${userId}`}
+        buttonStyle="btn-primary"
+        buttonSize="btn-medium"
+      >
+        Go to
+      </Button>
+      //<UserDetailsLinkBtn url={`/users/${userId}`} content="Go to" />
     ),
   };
 

@@ -6,6 +6,7 @@ import { Formik, ErrorMessage } from 'formik';
 import {register} from './../../utils/services/authService';
 import {Link, Navigate} from 'react-router-dom'
 import { useState } from 'react';
+import Button from '../../components/button/Button';
 
 export default function Register(){
 
@@ -103,16 +104,18 @@ return(
            <ErrorMessage className={formStyles['error-message']} name="server" component="span" />
            </div>
            <div className={'d-flex justify-content-between'}>
-               <button 
+              <Button 
                type="submit" 
                disabled={isSubmitting} 
-               className={`${formStyles.btn} ${formStyles['btn-register']} `}>
+               buttonStyle='btn-secondary'
+               buttonSize='btn-small'>
                  Register
-               </button>
-               <Link to='/login'
-               className={`${formStyles.btn} ${formStyles['btn-login']} `}>
-                Login
-               </Link>
+               </Button>
+               <Button>
+                 <Link to='/login'>
+                  Login
+                 </Link>
+               </Button>
            </div>
          </form>
        )}

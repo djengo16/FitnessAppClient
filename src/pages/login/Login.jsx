@@ -6,6 +6,7 @@ import { Formik, ErrorMessage } from 'formik';
 import {login} from './../../utils/services/authService';
 import {Navigate, Link} from 'react-router-dom'
 import { useState } from 'react';
+import Button from '../../components/button/Button';
 
 export default function Login(){
 
@@ -87,14 +88,16 @@ return(
            <ErrorMessage className={formStyles['error-message']} name="server" component="span" />
            </div>
            <div className={'d-flex justify-content-between'}>
-             <button 
+             <Button 
              type="submit" 
              disabled={isSubmitting} 
-             className={`${formStyles.btn} ${formStyles['btn-login']} `}>
+             buttonStyle='btn-primary'
+             buttonSize='btn-small'
+             >
                Login
-             </button>
-             <Link to="/register" 
-             className={`${formStyles.btn} ${formStyles['btn-register']} `}>Register</Link>
+             </Button>
+             <Button isLink={true} to="/register"buttonStyle='btn-secondary'
+             buttonSize='btn-small'>Register</Button>
            </div>
          </form>
        )}

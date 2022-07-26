@@ -16,7 +16,7 @@ const tokenStorage = {
       );
       return token;
     } catch (err) {
-      return console.log(err);
+      return err.message;
     }
   },
 };

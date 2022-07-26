@@ -146,7 +146,6 @@ function Admin() {
       searchParamsInputRef &&
       searchParamsInputRef.current.value.trim() !== ""
     ) {
-      console.log(searchParamsInputRef.current.value);
       setPageable((prev) => ({
         ...prev,
         currentPage: 1,

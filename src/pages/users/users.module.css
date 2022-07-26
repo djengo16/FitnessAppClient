@@ -22,3 +22,8 @@
 .search-btn:hover {
   background-color: var(--secondaryOp50);
 }
+.header-nav {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 20px;
+}

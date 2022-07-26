@@ -2,7 +2,7 @@
 import styles from "./users.module.css";
 import headingStyles from "../../styles/headings.module.css";
 import tableStyles from "../../styles/table.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getAllUsers } from "../../utils/services/usersService";
 import Table from "../../components/table/Table";
 import UserDetailsLinkBtn from "../../components/button/UserDetailsLinkBtn";
@@ -12,22 +12,31 @@ import Pagination from "../../components/pagination/Pagination";
 import SearchBar from "../../components/searchbar/SearchBar";
 
 function Users() {
-  const dataCountPerPage = DATA_PER_PAGE;
+  const initalPageable = {
+    currentPage: 1,
+    totalUsersPerPage: 0,
+  };
+  const [pageable, setPageable] = useState(initalPageable);
   const [users, setUsers] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [searchParams, setSearchParams] = useState("");
-  const [enteredSearchParams, setEnteredSearchParams] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalUsers, setTotalUsers] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalUsers, setTotalUsers] = useState(1);
+
+  const searchParamsInputRef = useRef();
 
   useEffect(() => {
-    getAllUsers(searchParams, currentPage, dataCountPerPage).then(
+    getAllUsers(searchParams, pageable.currentPage, DATA_PER_PAGE).then(
       (response) => {
         setUsers(response.data.users);
-        setTotalUsers(response.data.pagesCount);
+
+        setPageable((prev) => ({
+          ...prev,
+          totalUsersPerPage: response.data.pagesCount,
+        }));
       }
     );
-  }, [currentPage, searchParams]);
+  }, [pageable.currentPage, searchParams]);
 
   const tableColumnsInfo = [
     {
@@ -59,22 +68,29 @@ function Users() {
 
   const handleSearchParams = (e) => {
     e.preventDefault();
-    if (enteredSearchParams.trim() !== "") {
-      setCurrentPage(1);
+    if (searchParamsInputRef.current.value.trim() !== "") {
+      setPageable((prev) => ({
+        ...prev,
+        currentPage: 1,
+      }));
       //this will trigger child's useffect and then will set curr page to 1
       setRefresh((prev) => prev + 1);
-      setSearchParams(enteredSearchParams);
+      setSearchParams(searchParamsInputRef.current.value);
     }
   };
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) =>
+    setPageable((prev) => ({
+      ...prev,
+      currentPage: pageNumber,
+    }));
   return (
     <div className={styles["users-page"]}>
       <h4 className={headingStyles["page-title"]}>Users</h4>
       <div className={styles["header-nav"]}>
         <SearchBar
+          ref={searchParamsInputRef}
           placeholder={"Find User"}
-          setEnteredSearchParams={setEnteredSearchParams}
           handleSearchParams={handleSearchParams}
         />
       </div>
@@ -83,7 +99,7 @@ function Users() {
       </div>
       <Pagination
         dataPerPage={10}
-        totalData={totalUsers}
+        totalData={pageable.totalUsersPerPage}
         paginate={paginate}
         refresh={refresh}
       />

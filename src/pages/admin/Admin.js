@@ -50,7 +50,7 @@ const tableColumnsInfo = [
 function Admin() {
   const initalPageable = {
     currentPage: 1,
-    totalExercises: 0,
+    totalExercisesPerPage: 0,
   };
   const [pageable, setPageable] = useState(initalPageable);
   const [exercises, setExercises] = useState([]);
@@ -77,7 +77,7 @@ function Admin() {
         setExercises(response.data.exercises);
         setPageable((prev) => ({
           ...prev,
-          totalExercises: response.data.pagesCount,
+          totalExercisesPerPage: response.data.pagesCount,
         }));
       }
     );
@@ -191,7 +191,7 @@ function Admin() {
             </div>
             <Pagination
               dataPerPage={10}
-              totalData={pageable.totalExercises}
+              totalData={pageable.totalExercisesPerPage}
               paginate={paginate}
               refresh={refresh}
             />

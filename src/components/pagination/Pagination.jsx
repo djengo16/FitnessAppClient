@@ -26,8 +26,8 @@ function Pagination({dataPerPage, totalData, paginate, refresh}){
   return (
     <nav className={`${styles['pagination-nav']} center-block`}>
       <ul className='pagination'>
-      <li class="page-item">
-      <a onClick={() => handlePaginationClick(currentPage - 1)} class="page-link" href="#" aria-label="Previous">
+      <li className="page-item">
+      <a onClick={() => handlePaginationClick(currentPage - 1)} className="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
@@ -38,8 +38,8 @@ function Pagination({dataPerPage, totalData, paginate, refresh}){
             </a>
           </li>
         ))}
-        <li class="page-item">
-      <a onClick={() => handlePaginationClick(currentPage + 1)} class="page-link" href="#" aria-label="Next">
+        <li className="page-item">
+      <a onClick={() => handlePaginationClick(currentPage + 1)} className="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

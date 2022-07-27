@@ -43,13 +43,13 @@ function Users() {
       title: "ID",
       field: "id",
       type: "cell", //cell/button (options),
-      width: "500px", //(some size -> px, %, rem...),
+      width: "30vw", //(some size -> px, %, rem...),
     },
     {
       title: "Email",
       field: "email",
       type: "cell", //cell/button (options),
-      width: "500px", //(some size -> px, %, rem...),
+      width: "40vw", //(some size -> px, %, rem...),
     },
     {
       title: "Action",
@@ -57,7 +57,7 @@ function Users() {
       dataField: "id", //since we need user id for this action we add one extra property
       action: "createUserDetailsBtn", //this property will help when creating the button
       type: "button", //cell/button (options),
-      width: "500px", //(some size -> px, %, rem...),
+      width: "30vw", //(some size -> px, %, rem...),
     },
   ];
   const actions = {

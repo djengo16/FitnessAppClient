@@ -5,11 +5,11 @@ const SearchBar = React.forwardRef((props, ref) =>{
     return (
     <form className={`row g-3`}>
     <div className={`${styles['form-col']} col-auto`}>
-        <label for="" class="visually-hidden">Find User</label>
+        <label htmlFor="" className="visually-hidden">Find User</label>
         <input 
         ref={ref} 
         type="text" 
-        class="form-control" 
+        className="form-control" 
         placeholder={props.placeholder}/>
     </div>
     <div className={`${styles['form-col']} col-auto`}>

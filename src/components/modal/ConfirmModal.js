@@ -54,6 +54,7 @@ function ConfirmModal(props) {
       )}
       {ReactDOM.createPortal(
         <ConfirmModalOverlay
+          message={props.message}
           action={props.action}
           onConfirm={props.onConfirm}
           onCancel={props.onCancel}

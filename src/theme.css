@@ -4,8 +4,8 @@
   --secondary: #82e9de;
   --secondaryOp50: rgba(130, 233, 222, 0.5);
   --textInput: #29434e;
-  --error: #ff5722;
-  --errorOp50: rgba(255, 87, 34, 0.5);
+  --danger: #ff5722;
+  --dangerOp50: rgba(255, 87, 34, 0.5);
   --white: rgb(255, 255, 255);
   --pageBackground: #c3c6c7;
   --cardBackground: #455a64;

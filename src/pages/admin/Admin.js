@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import PrimarySmallBtn from "../../components/button/PrimarySmallBtn";
 import tableStyles from "../../styles/table.module.css";
 import headingStyles from "../../styles/headings.module.css";
 import styles from "./admin.module.css";
@@ -15,9 +14,10 @@ import Pagination from "../../components/pagination/Pagination";
 import { Modal } from "../../components/modal/Modal";
 import { ConfirmModal } from "../../components/modal/ConfirmModal";
 import { getAppHelath } from "../../utils/services/apiService";
-import DangerSamllBtn from "../../components/button/DangerSmallBtn";
 import AdminNav from "./AdminNav";
 import { adminNavItems } from "../../utils/adminNavItems";
+import Button from "../../components/button/Button";
+
 const tableColumnsInfo = [
   {
     title: "ID",
@@ -123,8 +123,20 @@ function Admin() {
   const actions = {
     createEditAndDeleteBtn: () => (
       <div className="d-flex justify-content-between">
-        <PrimarySmallBtn action={openModal} content="Edit" />
-        <DangerSamllBtn action={openConfirmModal} content="Delete" />
+        <Button
+          onClick={openModal}
+          buttonStyle="btn-primary"
+          buttonSize="btn-medium"
+        >
+          Edit
+        </Button>
+        <Button
+          onClick={openConfirmModal}
+          buttonStyle="btn-danger"
+          buttonSize="btn-medium"
+        >
+          Delete
+        </Button>
       </div>
     ),
   };

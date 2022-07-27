@@ -1,6 +1,7 @@
-import SecondaryBtn from '../button/SecondaryBtn';
 import styles from './searchbar.module.css'
 import React from 'react';
+import Button from '../button/Button';
+
 const SearchBar = React.forwardRef((props, ref) =>{
     return (
     <form className={`row g-3`}>
@@ -13,7 +14,9 @@ const SearchBar = React.forwardRef((props, ref) =>{
         placeholder={props.placeholder}/>
     </div>
     <div className={`${styles['form-col']} col-auto`}>
-        <SecondaryBtn action={props.handleSearchParams} content={'Search'}/>
+        <Button onClick={props.handleSearchParams} 
+        buttonStyle="btn-secondary"
+        buttonSize="btn-small">Search</Button>
     </div>
     </form>)
 })

@@ -1,0 +1,12 @@
+.status-label {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  margin-left: 0.1rem;
+}
+.active {
+  background-color: var(--success);
+}
+.inactive {
+  background-color: var(--cardBackground);
+}

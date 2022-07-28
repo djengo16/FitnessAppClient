@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import tableStyles from "../../styles/table.module.css";
-import headingStyles from "../../styles/headings.module.css";
+import pageStyles from "../../styles/page.module.css";
 import styles from "./admin.module.css";
 import Table from "../../components/table/Table";
 import { Fragment, useEffect, useRef, useState } from "react";
@@ -21,6 +21,7 @@ import { getAppHelath } from "../../utils/services/apiService";
 import AdminNav from "./AdminNav";
 import { adminNavItems } from "../../utils/adminNavItems";
 import Button from "../../components/button/Button";
+import StatusLabel from "../../components/status-label/StatusLabel";
 
 const tableColumnsInfo = [
   {
@@ -183,14 +184,14 @@ function Admin() {
         <Button
           onClick={openModal}
           buttonStyle="btn-primary"
-          buttonSize="btn-medium"
+          buttonSize="btn-small"
         >
           Edit
         </Button>
         <Button
           onClick={(result) => setupDeleteModal(id)}
           buttonStyle="btn-danger"
-          buttonSize="btn-medium"
+          buttonSize="btn-small"
         >
           Delete
         </Button>
@@ -226,15 +227,10 @@ function Admin() {
 
       <div className={styles["admin-page"]}>
         <header>
-          <h4 className={`${headingStyles["page-title"]}`}>Admin Panel</h4>
+          <h4 className={`${pageStyles["page-title"]}`}>Admin Panel</h4>
           <label className={styles["health-label"]}>
             Server status:
-            <label
-              title={apiStatus}
-              className={`${styles["status-label"]} ${
-                apiStatus === HEALTHY_STATUS ? styles.healthy : styles.unhealthy
-              }`}
-            />
+            <StatusLabel status={apiStatus} targetStatus={HEALTHY_STATUS} />
           </label>
         </header>
         <AdminNav

@@ -1,5 +1,5 @@
 .scrollable {
-  max-height: 63.5vh;
+  max-height: 58vh;
   overflow: auto;
   position: relative;
   box-shadow: var(--mainBoxShadow);

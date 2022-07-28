@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./users.module.css";
-import headingStyles from "../../styles/headings.module.css";
+import pageStyles from "../../styles/page.module.css";
 import tableStyles from "../../styles/table.module.css";
 import { useEffect, useRef, useState } from "react";
 import { getAllUsers } from "../../utils/services/usersService";
@@ -43,13 +43,13 @@ function Users() {
       title: "ID",
       field: "id",
       type: "cell", //cell/button (options),
-      width: "30vw", //(some size -> px, %, rem...),
+      width: "50vw", //(some size -> px, %, rem...),
     },
     {
       title: "Email",
       field: "email",
       type: "cell", //cell/button (options),
-      width: "40vw", //(some size -> px, %, rem...),
+      width: "30vw", //(some size -> px, %, rem...),
     },
     {
       title: "Action",
@@ -57,7 +57,7 @@ function Users() {
       dataField: "id", //since we need user id for this action we add one extra property
       action: "createUserDetailsBtn", //this property will help when creating the button
       type: "button", //cell/button (options),
-      width: "30vw", //(some size -> px, %, rem...),
+      width: "20vw", //(some size -> px, %, rem...),
     },
   ];
   const actions = {
@@ -67,7 +67,7 @@ function Users() {
         isLink={true}
         to={`/users/${userId}`}
         buttonStyle="btn-primary"
-        buttonSize="btn-medium"
+        buttonSize="btn-small"
       >
         Go to
       </Button>
@@ -94,7 +94,7 @@ function Users() {
     }));
   return (
     <div className={styles["users-page"]}>
-      <h4 className={headingStyles["page-title"]}>Users</h4>
+      <h4 className={pageStyles["page-title"]}>Users</h4>
       <div className={styles["header-nav"]}>
         <SearchBar
           ref={searchParamsInputRef}

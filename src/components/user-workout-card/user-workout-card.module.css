@@ -1,0 +1,53 @@
+@import url("../../theme.css");
+.user-workout-card {
+  background-color: var(--workoutCardBackground);
+  width: 27rem;
+  max-width: 100%;
+  height: 40vh;
+  box-shadow: var(--mainBoxShadow);
+  font-size: 1.2rem;
+  margin: 10px;
+  padding: 10px;
+  color: var(--cardBackground);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.user-workout-card:hover {
+  transform: scale(1.01);
+}
+.user-workout-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+}
+.user-workout-card-head p {
+  width: 50%;
+  max-width: 100%;
+}
+
+.user-workout-card-footer p {
+  margin-bottom: 0.2rem;
+}
+.plan-id {
+  font-size: 1rem;
+}
+@media all and (max-width: 600px) {
+  .user-workout-card {
+    font-size: 0.9rem;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+  .user-workout-card-head {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+  }
+  .user-workout-card-head p {
+    flex-basis: 100%;
+  }
+}

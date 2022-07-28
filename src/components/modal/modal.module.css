@@ -53,6 +53,7 @@
 .modal-message {
   color: var(--textInput);
   font-size: 24px;
+  text-align: center;
   margin-bottom: 2rem;
   margin-top: 2rem;
 }

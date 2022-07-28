@@ -4,11 +4,15 @@ import headingStyles from "../../styles/headings.module.css";
 import styles from "./admin.module.css";
 import Table from "../../components/table/Table";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { getAllExercises } from "../../utils/services/exerciseServices";
+import {
+  deleteExercise,
+  getAllExercises,
+} from "../../utils/services/exerciseServices";
 import {
   DATA_PER_PAGE,
   HEALTHY_STATUS,
   UNSAVED_CHANGES_MESSAGE,
+  DELETE_EXERCISE_MESSAGE,
 } from "../../utils/constants";
 import Pagination from "../../components/pagination/Pagination";
 import { Modal } from "../../components/modal/Modal";
@@ -23,19 +27,19 @@ const tableColumnsInfo = [
     title: "ID",
     field: "id",
     type: "cell",
-    width: "100px",
+    width: "10vw",
   },
   {
     title: "Exercise Name",
     field: "name",
     type: "cell",
-    width: "500px",
+    width: "30vw",
   },
   {
     title: "Muscle group",
     field: "muscleGroup",
     type: "cell",
-    width: "450px",
+    width: "30vw",
   },
   {
     title: "Action",
@@ -43,7 +47,7 @@ const tableColumnsInfo = [
     dataField: "id",
     action: "createEditAndDeleteBtn",
     type: "button",
-    width: "450px",
+    width: "30vw",
   },
 ];
 
@@ -52,16 +56,28 @@ function Admin() {
     currentPage: 1,
     totalExercisesPerPage: 0,
   };
+  const initialModalData = {
+    onConfirm: () => {},
+    onCancel: () => {},
+    message: "",
+    action: "",
+  };
   const [pageable, setPageable] = useState(initalPageable);
   const [exercises, setExercises] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [searchParams, setSearchParams] = useState("");
+
   const [showModal, setShowModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
   const [apiStatus, setApiStatus] = useState("");
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [selectedNavItem, setSelectedNavItem] = useState("");
 
+  //Confirm modal data
+  const [confirmModalData, setConfirmModalData] = useState(initialModalData);
+
+  //Keeps reference to searchbar's input
   const searchParamsInputRef = useRef();
 
   /* First mounting of the component triggers api call to health check endpoint and
@@ -101,27 +117,68 @@ function Admin() {
     });
   };
 
+  //Main modal
   const openModal = () => {
     setShowModal(true);
   };
   const hideModal = () => {
-    if (showConfirmModal) {
-      hideConfirmModal();
-    }
+    hideConfirmModal();
     setShowModal(false);
   };
+
+  //Confirm modal 'unsaved changes'
   const openConfirmModal = () => {
     setShowConfirmModal(true);
   };
   const hideConfirmModal = () => {
     setShowConfirmModal(false);
   };
+
+  //Navigation
   const handleNavClick = (value) => {
     setSelectedNavItem(value);
   };
 
+  //DELETE SETUP
+  const handleDeleteExercise = (id) => {
+    deleteExercise(id)
+      .then((response) => {
+        setExercises(exercises.filter((x) => x.id !== id));
+      })
+      .catch((error) => console.error(error));
+    setShowConfirmModal(false);
+  };
+  const setupDeleteModal = (id) => {
+    //First sets up confirm modal for deleting
+    setConfirmModalData({
+      onConfirm: () => handleDeleteExercise(id),
+      onCancel: () => {
+        hideConfirmModal();
+      },
+      message: DELETE_EXERCISE_MESSAGE,
+      action: "Deleting!",
+    });
+
+    //then renders it
+    openConfirmModal();
+  };
+
+  //EDIT SETUP
+  const setupEditModal = (id) => {
+    //First sets up confirm modal for editing
+    setConfirmModalData({
+      onConfirm: () => hideModal(),
+      onCancel: () => hideConfirmModal(),
+      message: UNSAVED_CHANGES_MESSAGE,
+      action: "Exiting!",
+    });
+
+    //then renders it
+    openConfirmModal();
+  };
+
   const actions = {
-    createEditAndDeleteBtn: () => (
+    createEditAndDeleteBtn: (id) => (
       <div className="d-flex justify-content-between">
         <Button
           onClick={openModal}
@@ -131,7 +188,7 @@ function Admin() {
           Edit
         </Button>
         <Button
-          onClick={openConfirmModal}
+          onClick={(result) => setupDeleteModal(id)}
           buttonStyle="btn-danger"
           buttonSize="btn-medium"
         >
@@ -146,7 +203,6 @@ function Admin() {
       searchParamsInputRef &&
       searchParamsInputRef.current.value.trim() !== ""
     ) {
-      console.log(searchParamsInputRef.current.value);
       setPageable((prev) => ({
         ...prev,
         currentPage: 1,
@@ -163,15 +219,11 @@ function Admin() {
     }));
   return (
     <Fragment>
-      {showModal && <Modal onConfirm={hideModal} onCancel={openConfirmModal} />}
-      {showConfirmModal && (
-        <ConfirmModal
-          onConfirm={hideModal}
-          onCancel={hideConfirmModal}
-          message={UNSAVED_CHANGES_MESSAGE}
-          action="Exiting !"
-        />
+      {showModal && (
+        <Modal onConfirm={hideModal} onCancel={() => setupEditModal()} />
       )}
+      {showConfirmModal && <ConfirmModal {...confirmModalData} />}
+
       <div className={styles["admin-page"]}>
         <header>
           <h4 className={`${headingStyles["page-title"]}`}>Admin Panel</h4>

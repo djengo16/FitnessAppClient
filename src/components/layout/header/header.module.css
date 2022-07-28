@@ -78,7 +78,7 @@
   padding: 8px 30px;
   border-radius: 4px;
   background: var(--cardBackground);
-  color: #fff;
+  color: #fff !important;
   text-decoration: none;
   margin-bottom: 8px;
   cursor: pointer;

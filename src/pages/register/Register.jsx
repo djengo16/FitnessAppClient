@@ -45,7 +45,6 @@ return(
           register(values).then(() =>
           setNavigate(true)
           ).catch((err) => {
-            console.log(err);
             setFieldError('server', err.message);
           }).finally(() => {
            setSubmitting(false);

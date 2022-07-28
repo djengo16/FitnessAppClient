@@ -1,0 +1,35 @@
+@import "../theme.css";
+.page {
+  margin: 20px 110px;
+}
+.page-title {
+  text-align: left;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 2.1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.2rem;
+  color: var(--textInput);
+}
+@media all and (max-width: 1200px) {
+  .page {
+    margin: 20px 80px;
+  }
+}
+@media all and (max-width: 600px) {
+  .page {
+    margin: 20px 40px;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  .page-title {
+    font-size: 1.6rem;
+  }
+}
+@media all and (max-width: 600px) {
+  .page-title {
+    font-size: 1.4rem;
+  }
+}

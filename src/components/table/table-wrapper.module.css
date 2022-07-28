@@ -1,0 +1,15 @@
+.t-wrapper {
+  max-width: 100%;
+  cursor: initial;
+  font-size: 1.5rem;
+  font-size: 400;
+}
+.t-wrapper-title {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+.t-wrapper-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

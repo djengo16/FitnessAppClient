@@ -28,6 +28,10 @@
   width: 50%;
   max-width: 100%;
 }
+.user-workout-card-head p:nth-child(2),
+p:nth-child(4) {
+  text-align: right;
+}
 
 .user-workout-card-footer p {
   margin-bottom: 0.2rem;
@@ -49,5 +53,6 @@
   }
   .user-workout-card-head p {
     flex-basis: 100%;
+    text-align: center !important;
   }
 }

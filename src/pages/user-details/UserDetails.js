@@ -16,7 +16,6 @@ function UserDetails() {
     getUserById(params.id).then((response) => setUser(response.data));
     getUserWorkouts(params.id).then((response) => {
       setPlans(response.data);
-      console.log(response.data);
     });
   }, [params.id]);
   return (
@@ -27,18 +26,6 @@ function UserDetails() {
         style={{ backgroundColor: "#EAE9E9" }}
       >
         <TableAlikeWrapper title="Work plans">
-          {plans &&
-            plans.map((plan) => {
-              return <UserWorkoutCard key={plan.id} {...plan} />;
-            })}
-          {plans &&
-            plans.map((plan) => {
-              return <UserWorkoutCard key={plan.id} {...plan} />;
-            })}
-          {plans &&
-            plans.map((plan) => {
-              return <UserWorkoutCard key={plan.id} {...plan} />;
-            })}
           {plans &&
             plans.map((plan) => {
               return <UserWorkoutCard key={plan.id} {...plan} />;

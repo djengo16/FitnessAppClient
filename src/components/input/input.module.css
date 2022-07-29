@@ -1,0 +1,31 @@
+@import url("../../theme.css");
+.form-control {
+}
+.form-label {
+  color: #1e1e1e;
+  display: block;
+}
+.form-field {
+  background-color: #fff;
+  line-height: 1.7;
+  margin: 10px 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid black;
+}
+.form-input {
+  width: 300px;
+}
+.form-select {
+  width: 300px;
+}
+
+.error-form-cotrol input,
+.error-form-cotrol textarea {
+  border-color: var(--danger);
+}
+.error-form-cotrol label {
+  color: var(--danger);
+}
+.warning-icon {
+  width: 0.9rem;
+}

@@ -22,6 +22,8 @@ import AdminNav from "./AdminNav";
 import { adminNavItems } from "../../utils/adminNavItems";
 import Button from "../../components/button/Button";
 import StatusLabel from "../../components/status-label/StatusLabel";
+import ExerciseForm from "../../components/exercise-form/ExerciseForm";
+import { getExerciseById } from "../../utils/services/exerciseServices";
 
 const tableColumnsInfo = [
   {
@@ -57,12 +59,34 @@ function Admin() {
     currentPage: 1,
     totalExercisesPerPage: 0,
   };
-  const initialModalData = {
+
+  /**
+   * Initial confirm modal data because two of them can be
+   * displayed on this page, we have Confirm modal for deleting and another one when
+   * we want to exit from editing exercise.
+   */
+  const initialConfirmModalData = {
     onConfirm: () => {},
     onCancel: () => {},
     message: "",
     action: "",
   };
+
+  /**
+   * Initial exercise object model. We use it to set initial value to
+   * our entity exerciseEntity
+   *
+   */
+  const initalExerciseEntity = {
+    id: "",
+    name: "",
+    muscleGroup: "",
+    difficulty: "",
+    videoResourceUrl: "",
+    pictureResourceUrl: "",
+    description: "",
+  };
+
   const [pageable, setPageable] = useState(initalPageable);
   const [exercises, setExercises] = useState([]);
   const [refresh, setRefresh] = useState(0);
@@ -76,10 +100,25 @@ function Admin() {
   const [selectedNavItem, setSelectedNavItem] = useState("");
 
   //Confirm modal data
-  const [confirmModalData, setConfirmModalData] = useState(initialModalData);
+  const [confirmModalData, setConfirmModalData] = useState(
+    initialConfirmModalData
+  );
+
+  //Confirm modal data
+  const [modalTitle, setModalTitle] = useState("");
+
+  //Temporary solution (triggers useEffect and get actual data after exercise creation or update)
+  const [updatedCount, setUpdatedCount] = useState(0);
 
   //Keeps reference to searchbar's input
   const searchParamsInputRef = useRef();
+
+  /**
+   * We pass this entity on our form
+   * When we create exercise we pass it with empty properties
+   * When we edit exercise we pass it with it's values
+   */
+  const [exerciseEntity, setExerciseEntity] = useState(initalExerciseEntity);
 
   /* First mounting of the component triggers api call to health check endpoint and
     gets info if the App is Healthy or not, after that it does the same check every 
@@ -110,7 +149,7 @@ function Admin() {
     }, intervalTime);
 
     return () => clearInterval(interval);
-  }, [pageable.currentPage, searchParams]);
+  }, [pageable.currentPage, searchParams, updatedCount]);
 
   const checkApiStatus = () => {
     getAppHelath().then((response) => {
@@ -149,6 +188,14 @@ function Admin() {
       .catch((error) => console.error(error));
     setShowConfirmModal(false);
   };
+
+  //When exercise is created or updated
+  const handleExercisesUpdate = () => {
+    setExerciseEntity(initalExerciseEntity);
+    hideModal();
+    setUpdatedCount((prev) => prev + 1);
+  };
+
   const setupDeleteModal = (id) => {
     //First sets up confirm modal for deleting
     setConfirmModalData({
@@ -165,7 +212,7 @@ function Admin() {
   };
 
   //EDIT SETUP
-  const setupEditModal = (id) => {
+  const setupEditCancelModal = (id) => {
     //First sets up confirm modal for editing
     setConfirmModalData({
       onConfirm: () => hideModal(),
@@ -173,16 +220,27 @@ function Admin() {
       message: UNSAVED_CHANGES_MESSAGE,
       action: "Exiting!",
     });
-
     //then renders it
     openConfirmModal();
+  };
+  const setupEditModal = (id) => {
+    //fetch entity data
+    setModalTitle("Edit exercise");
+    getExerciseById(id).then((res) => {
+      setExerciseEntity(res.data);
+      openModal();
+    });
+  };
+  const setupCreateModal = () => {
+    setModalTitle("Create exercise");
+    openModal();
   };
 
   const actions = {
     createEditAndDeleteBtn: (id) => (
       <div className="d-flex justify-content-between">
         <Button
-          onClick={openModal}
+          onClick={() => setupEditModal(id)}
           buttonStyle="btn-primary"
           buttonSize="btn-small"
         >
@@ -221,7 +279,13 @@ function Admin() {
   return (
     <Fragment>
       {showModal && (
-        <Modal onConfirm={hideModal} onCancel={() => setupEditModal()} />
+        <Modal title={modalTitle} onConfirm={hideModal}>
+          <ExerciseForm
+            onConfirm={handleExercisesUpdate}
+            onCancel={setupEditCancelModal}
+            data={exerciseEntity}
+          />
+        </Modal>
       )}
       {showConfirmModal && <ConfirmModal {...confirmModalData} />}
 
@@ -249,12 +313,21 @@ function Admin() {
                 actions={actions}
               />
             </div>
-            <Pagination
-              dataPerPage={10}
-              totalData={pageable.totalExercisesPerPage}
-              paginate={paginate}
-              refresh={refresh}
-            />
+            <div className="d-flex justify-content-between align-items-center">
+              <Pagination
+                dataPerPage={10}
+                totalData={pageable.totalExercisesPerPage}
+                paginate={paginate}
+                refresh={refresh}
+              />
+              <Button
+                onClick={(result) => setupCreateModal()}
+                buttonStyle="btn-secondary"
+                buttonSize="btn-small"
+              >
+                + Add exercise
+              </Button>
+            </div>
           </div>
         )}
       </div>

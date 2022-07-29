@@ -17,3 +17,13 @@ export function getAllExercises(search = "", page = 1, count = DATA_PER_PAGE) {
 export function deleteExercise(id) {
   return interceptedHttpClient.delete(`${API_URL}/Exercises/${id}`);
 }
+
+export function getExerciseById(id) {
+  return interceptedHttpClient.get(`${API_URL}/Exercises/${id}`);
+}
+export function createExercise(model) {
+  return interceptedHttpClient.post(`${API_URL}/Exercises/create`, model);
+}
+export function updateExercise(model) {
+  return interceptedHttpClient.put(`${API_URL}/Exercises/update`, model);
+}

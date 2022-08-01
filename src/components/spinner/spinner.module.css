@@ -1,0 +1,4 @@
+@import url("../../theme.css");
+.spinner {
+  color: var(--cardBackground);
+}

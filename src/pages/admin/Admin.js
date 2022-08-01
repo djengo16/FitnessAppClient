@@ -24,6 +24,7 @@ import Button from "../../components/button/Button";
 import StatusLabel from "../../components/status-label/StatusLabel";
 import ExerciseForm from "../../components/exercise-form/ExerciseForm";
 import { getExerciseById } from "../../utils/services/exerciseServices";
+import Spinner from "../../components/spinner/Spinner";
 
 const tableColumnsInfo = [
   {
@@ -98,6 +99,7 @@ function Admin() {
   const [apiStatus, setApiStatus] = useState("");
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [selectedNavItem, setSelectedNavItem] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   //Confirm modal data
   const [confirmModalData, setConfirmModalData] = useState(
@@ -128,6 +130,7 @@ function Admin() {
     need this status info at the moment we open admin page.
     */
   useEffect(() => {
+    setIsLoading(true);
     getAllExercises(searchParams, pageable.currentPage, DATA_PER_PAGE).then(
       (response) => {
         setExercises(response.data.exercises);
@@ -135,6 +138,7 @@ function Admin() {
           ...prev,
           totalExercisesPerPage: response.data.pagesCount,
         }));
+        setIsLoading(false);
       }
     );
     if (isFirstRender) {
@@ -307,11 +311,14 @@ function Admin() {
         {selectedNavItem === adminNavItems.exercises && (
           <div id="exercises">
             <div className={tableStyles.scrollable}>
-              <Table
-                data={exercises}
-                columns={tableColumnsInfo}
-                actions={actions}
-              />
+              {isLoading && <Spinner />}
+              {!isLoading && (
+                <Table
+                  data={exercises}
+                  columns={tableColumnsInfo}
+                  actions={actions}
+                />
+              )}
             </div>
             <div className="d-flex justify-content-between align-items-center">
               <Pagination

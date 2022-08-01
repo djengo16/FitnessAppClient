@@ -58,7 +58,8 @@ const tableColumnsInfo = [
 function Admin() {
   const initalPageable = {
     currentPage: 1,
-    totalExercisesPerPage: 0,
+    totalDataPerPage: 0,
+    totalPages: 0,
   };
 
   /**
@@ -90,7 +91,6 @@ function Admin() {
 
   const [pageable, setPageable] = useState(initalPageable);
   const [exercises, setExercises] = useState([]);
-  const [refresh, setRefresh] = useState(0);
   const [searchParams, setSearchParams] = useState("");
 
   const [showModal, setShowModal] = useState(false);
@@ -136,7 +136,8 @@ function Admin() {
         setExercises(response.data.exercises);
         setPageable((prev) => ({
           ...prev,
-          totalExercisesPerPage: response.data.pagesCount,
+          totalDataPerPage: response.data.totalData,
+          totalPages: Math.ceil(response.data.totalData / DATA_PER_PAGE),
         }));
         setIsLoading(false);
       }
@@ -166,6 +167,7 @@ function Admin() {
     setShowModal(true);
   };
   const hideModal = () => {
+    setExerciseEntity(initalExerciseEntity);
     hideConfirmModal();
     setShowModal(false);
   };
@@ -194,10 +196,23 @@ function Admin() {
   };
 
   //When exercise is created or updated
-  const handleExercisesUpdate = () => {
-    setExerciseEntity(initalExerciseEntity);
+  const handleExerciseOperation = (operation) => {
+    /**
+     * If id is null it means that we created a new exercise,
+     * and we want to go to the last page to see it,
+     * otherwise we want to trigger useEffect and fetch
+     * the actual data
+     *
+     */
+    if (operation === "create") {
+      setPageable((prev) => ({
+        ...prev,
+        currentPage: pageable.totalPages,
+      }));
+    } else if (operation === "update") {
+      setUpdatedCount((prev) => prev + 1);
+    }
     hideModal();
-    setUpdatedCount((prev) => prev + 1);
   };
 
   const setupDeleteModal = (id) => {
@@ -271,21 +286,15 @@ function Admin() {
         currentPage: 1,
       }));
       //this will trigger child's useffect and then will set curr page to 1
-      setRefresh((prev) => prev + 1);
       setSearchParams(searchParamsInputRef.current.value);
     }
   };
-  const paginate = (pageNumber) =>
-    setPageable((prev) => ({
-      ...prev,
-      currentPage: pageNumber,
-    }));
   return (
     <Fragment>
       {showModal && (
         <Modal title={modalTitle} onConfirm={hideModal}>
           <ExerciseForm
-            onConfirm={handleExercisesUpdate}
+            onConfirm={(operation) => handleExerciseOperation(operation)}
             onCancel={setupEditCancelModal}
             data={exerciseEntity}
           />
@@ -321,12 +330,7 @@ function Admin() {
               )}
             </div>
             <div className="d-flex justify-content-between align-items-center">
-              <Pagination
-                dataPerPage={10}
-                totalData={pageable.totalExercisesPerPage}
-                paginate={paginate}
-                refresh={refresh}
-              />
+              <Pagination pageable={pageable} setPageable={setPageable} />
               <Button
                 onClick={(result) => setupCreateModal()}
                 buttonStyle="btn-secondary"

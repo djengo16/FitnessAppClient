@@ -1,19 +1,42 @@
 import styles from "./input.module.css";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
-const Select = (props) => {
+const Select = ({
+  type,
+  id,
+  label,
+  value,
+  onChange,
+  onBlur,
+  error,
+  options,
+  ...rest
+}) => {
   return (
     <div className={styles["form-control"]}>
-      <label className={styles["form-label"]} htmlFor={props.id}>
-        {props.label}
+      <label className={styles["form-label"]} htmlFor={id}>
+        {label}{" "}
+        {error && (
+          <Tooltip title={error} placement="right">
+            <IconButton>
+              <img
+                className={styles["warning-icon"]}
+                src="/warning.svg"
+                alt="warning"
+              />
+            </IconButton>
+          </Tooltip>
+        )}
       </label>
       <select
         className={`${styles["form-field"]} ${styles["form-select"]}`}
-        id={props.id}
-        value={props.value}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
+        id={id}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
       >
-        {props.options.map((option) => {
+        {options.map((option) => {
           return (
             <option key={option} value={option}>
               {option}

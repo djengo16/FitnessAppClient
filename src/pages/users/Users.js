@@ -15,14 +15,12 @@ import Spinner from "../../components/spinner/Spinner";
 function Users() {
   const initalPageable = {
     currentPage: 1,
-    totalUsersPerPage: 0,
+    totalDataPerPage: 0,
+    totalPages: 0,
   };
   const [pageable, setPageable] = useState(initalPageable);
   const [users, setUsers] = useState([]);
-  const [refresh, setRefresh] = useState(0);
   const [searchParams, setSearchParams] = useState("");
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalUsers, setTotalUsers] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const searchParamsInputRef = useRef();
@@ -32,10 +30,12 @@ function Users() {
     getAllUsers(searchParams, pageable.currentPage, DATA_PER_PAGE).then(
       (response) => {
         setUsers(response.data.users);
+        console.log(response.data);
 
         setPageable((prev) => ({
           ...prev,
-          totalUsersPerPage: response.data.pagesCount,
+          totalUsersPerPage: response.data.totalData,
+          totalPages: Math.ceil(response.data.totalData / DATA_PER_PAGE),
         }));
         setIsLoading(false);
       }
@@ -86,16 +86,10 @@ function Users() {
         currentPage: 1,
       }));
       //this will trigger child's useffect and then will set curr page to 1
-      setRefresh((prev) => prev + 1);
       setSearchParams(searchParamsInputRef.current.value);
     }
   };
 
-  const paginate = (pageNumber) =>
-    setPageable((prev) => ({
-      ...prev,
-      currentPage: pageNumber,
-    }));
   return (
     <div className={styles["users-page"]}>
       <h4 className={pageStyles["page-title"]}>Users</h4>
@@ -112,12 +106,7 @@ function Users() {
           <Table data={users} columns={tableColumnsInfo} actions={actions} />
         )}
       </div>
-      <Pagination
-        dataPerPage={10}
-        totalData={pageable.totalUsersPerPage}
-        paginate={paginate}
-        refresh={refresh}
-      />
+      <Pagination pageable={pageable} setPageable={setPageable} />
     </div>
   );
 }

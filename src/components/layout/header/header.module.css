@@ -43,7 +43,7 @@
 
 .navbar .dropdown {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   padding: 0 40px;
 }
 

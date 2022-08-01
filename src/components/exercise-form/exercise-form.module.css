@@ -1,0 +1,86 @@
+@import url("../../theme.css");
+.small-fields {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 400px;
+}
+.form-textarea {
+  width: 100%;
+  margin: 10px 0;
+}
+.form-img-section {
+  align-self: flex-end;
+  margin-right: 20px;
+}
+
+.img-label {
+  color: #1e1e1e;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+.exercise-img {
+  width: 250px;
+  height: 200px;
+  border: 1px solid black;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
+  background-color: white;
+  box-shadow: var(--mainBoxShadow);
+}
+.placeholder {
+  width: 250px;
+  height: 200px;
+  border: 1px solid black;
+  background-color: white;
+  margin-bottom: 0.5rem;
+  box-shadow: var(--mainBoxShadow);
+  justify-content: right;
+  position: relative;
+}
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  background-color: var(--pageBackground);
+  height: 4rem;
+}
+
+.placeholder:before,
+.placeholder:after {
+  position: absolute;
+  content: "";
+  left: 123.5px;
+  height: 319px;
+  bottom: -60px;
+  width: 1px;
+  background-color: black;
+}
+.placeholder:before {
+  transform: rotate(51.5deg);
+}
+.placeholder:after {
+  transform: rotate(-51.5deg);
+}
+.submit-btn {
+  display: none;
+}
+@media all and (max-width: 800px) {
+  .small-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    max-height: 100vh;
+  }
+  .form-img-section {
+    align-self: center;
+    margin-right: 0;
+  }
+}

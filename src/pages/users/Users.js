@@ -10,6 +10,7 @@ import { DATA_PER_PAGE } from "../../utils/constants";
 import Pagination from "../../components/pagination/Pagination";
 import SearchBar from "../../components/searchbar/SearchBar";
 import Button from "../../components/button/Button";
+import Spinner from "../../components/spinner/Spinner";
 
 function Users() {
   const initalPageable = {
@@ -22,10 +23,12 @@ function Users() {
   const [searchParams, setSearchParams] = useState("");
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalUsers, setTotalUsers] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchParamsInputRef = useRef();
 
   useEffect(() => {
+    setIsLoading(true);
     getAllUsers(searchParams, pageable.currentPage, DATA_PER_PAGE).then(
       (response) => {
         setUsers(response.data.users);
@@ -34,6 +37,7 @@ function Users() {
           ...prev,
           totalUsersPerPage: response.data.pagesCount,
         }));
+        setIsLoading(false);
       }
     );
   }, [pageable.currentPage, searchParams]);
@@ -103,7 +107,10 @@ function Users() {
         />
       </div>
       <div className={tableStyles.scrollable}>
-        <Table data={users} columns={tableColumnsInfo} actions={actions} />
+        {isLoading && <Spinner />}
+        {!isLoading && (
+          <Table data={users} columns={tableColumnsInfo} actions={actions} />
+        )}
       </div>
       <Pagination
         dataPerPage={10}

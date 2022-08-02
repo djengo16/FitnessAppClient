@@ -1,16 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useEffect } from 'react';
-import { useState } from 'react';
 import styles from './pagination.module.css'
-function Pagination({dataPerPage, totalData, paginate, refresh}){
+function Pagination({pageable: {totalPages, currentPage}, setPageable}){
     const pageNumbers = [];
-    const totalPages = Math.ceil(totalData / dataPerPage);
-    const [currentPage, setCurrentPage] = useState(1);
-
-    useEffect(() => {
-      setCurrentPage(1);
-    }, [refresh])
-
+    
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
@@ -18,16 +10,24 @@ function Pagination({dataPerPage, totalData, paginate, refresh}){
     //In case we hit prev button and returns -1 or something ..
 
     if(pageNum >= 1 && pageNum <= totalPages){
-      setCurrentPage(pageNum);
-      paginate(pageNum);
+      setPageable((prev) => ({
+        ...prev,
+        currentPage: pageNum,
+      }));
     }
+  }
+  const handlePreviousPageClick = () => {
+    handlePaginationClick(currentPage - 1);
+  }
+  const handleNextPageClick = () => {
+    handlePaginationClick(currentPage + 1);
   }
 
   return (
     <nav className={`${styles['pagination-nav']} center-block`}>
       <ul className='pagination'>
       <li className="page-item">
-      <a onClick={() => handlePaginationClick(currentPage - 1)} className="page-link" href="#" aria-label="Previous">
+      <a onClick={handlePreviousPageClick} className="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
@@ -39,7 +39,7 @@ function Pagination({dataPerPage, totalData, paginate, refresh}){
           </li>
         ))}
         <li className="page-item">
-      <a onClick={() => handlePaginationClick(currentPage + 1)} className="page-link" href="#" aria-label="Next">
+      <a onClick={handleNextPageClick} className="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

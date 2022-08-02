@@ -27,6 +27,12 @@ const ExerciseForm = ({ data, onConfirm, onCancel }) => {
     "Cardio",
   ];
   const difficulty = ["Easy", "Medium", "Hard"];
+
+  const operations = {
+    create: "create",
+    update: "update",
+  };
+
   return (
     <div>
       <Formik
@@ -67,7 +73,7 @@ const ExerciseForm = ({ data, onConfirm, onCancel }) => {
           if (values.id) {
             updateExercise(values)
               .then(() => {
-                onConfirm();
+                onConfirm(operations.update);
               })
               .catch((err) => {
                 console.log(err);
@@ -78,7 +84,7 @@ const ExerciseForm = ({ data, onConfirm, onCancel }) => {
           } else {
             createExercise(values)
               .then(() => {
-                onConfirm();
+                onConfirm(operations.create);
               })
               .catch((err) => {
                 console.log(err);

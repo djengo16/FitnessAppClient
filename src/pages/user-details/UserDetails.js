@@ -15,6 +15,7 @@ function UserDetails() {
   useEffect(() => {
     getUserById(params.id).then((response) => setUser(response.data));
     getUserWorkouts(params.id).then((response) => {
+      response.data.unshift(response.data && response.data.pop());
       setPlans(response.data);
     });
   }, [params.id]);

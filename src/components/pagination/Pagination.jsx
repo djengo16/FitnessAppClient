@@ -2,7 +2,7 @@
 import styles from './pagination.module.css'
 function Pagination({pageable: {totalPages, currentPage}, setPageable}){
     const pageNumbers = [];
-    console.log(totalPages)
+    
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }

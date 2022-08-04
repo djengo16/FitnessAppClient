@@ -10,7 +10,7 @@ import Users from "./pages/users/Users";
 import UserDetails from "./pages/user-details/UserDetails";
 import Admin from "./pages/admin/Admin";
 import { AdminRoute } from "./utils/guards/AdminRoute";
-
+import Personalize from "./pages/personalize-plan/Personalize";
 function App() {
   return (
     <div className="App">
@@ -44,6 +44,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<UserDetails />} />
+          <Route path="/personalize" element={<Personalize />} />
           <Route
             path="/admin"
             element={

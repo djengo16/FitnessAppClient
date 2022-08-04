@@ -8,25 +8,30 @@ import {
   updateExercise,
 } from "../../utils/services/exerciseServices";
 import errorMessages from "../../utils/messages/errorMessages";
+import { useEffect, useState } from "react";
+import {
+  getDifficultyOptions,
+  getMuscleGroupOptions,
+} from "../../utils/services/trainingOptionsService";
 /**
  * We will use this form for creating or updating exercises
  *
  */
 const ExerciseForm = ({ data, onConfirm, onCancel }) => {
+  const [muscleGroupOptions, setMuscleGroups] = useState("");
+  const [difficultyOptions, setDifficulty] = useState("");
+
+  useEffect(() => {
+    getMuscleGroupOptions().then((response) => {
+      setMuscleGroups(response.data);
+    });
+    getDifficultyOptions().then((response) => {
+      setDifficulty(response.data);
+    });
+  }, []);
+
   const urlExpression = /^(ftp|http|https):\/\/[^ "]+$/;
   const regex = new RegExp(urlExpression);
-  const muscleGroups = [
-    "Chest",
-    "Back",
-    "Shoulders",
-    "Biceps",
-    "Triceps",
-    "Legs",
-    "Abs",
-    "Traps",
-    "Cardio",
-  ];
-  const difficulty = ["Easy", "Medium", "Hard"];
 
   const operations = {
     create: "create",
@@ -125,7 +130,7 @@ const ExerciseForm = ({ data, onConfirm, onCancel }) => {
                 onBlur={handleBlur}
                 value={values.muscleGroup}
                 error={errors.muscleGroup}
-                options={muscleGroups}
+                options={muscleGroupOptions}
               />
               <Select
                 type="text"
@@ -136,7 +141,7 @@ const ExerciseForm = ({ data, onConfirm, onCancel }) => {
                 onBlur={handleBlur}
                 value={values.difficulty}
                 error={errors.difficulty}
-                options={difficulty}
+                options={difficultyOptions}
               />
               <Input
                 type="text"

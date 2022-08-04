@@ -6,3 +6,12 @@ export function getUserWorkouts(userId) {
     params: { userId },
   });
 }
+export function personalize(data) {
+  return interceptedHttpClient.post(`${API_URL}/Workouts/personalize`, data);
+}
+export function assignProgram(data) {
+  return interceptedHttpClient.post(
+    `${API_URL}/Workouts/personalize/assign`,
+    data
+  );
+}

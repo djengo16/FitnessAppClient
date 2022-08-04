@@ -30,19 +30,21 @@ const Select = ({
         )}
       </label>
       <select
+        type={type && "number"}
         className={`${styles["form-field"]} ${styles["form-select"]}`}
         id={id}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
       >
-        {options.map((option) => {
-          return (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          );
-        })}
+        {options &&
+          options.map((option) => {
+            return (
+              <option key={option.key} value={option.key}>
+                {option.value}
+              </option>
+            );
+          })}
       </select>
     </div>
   );

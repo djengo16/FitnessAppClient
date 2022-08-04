@@ -4,6 +4,7 @@
 .form-label {
   color: #1e1e1e;
   display: block;
+  font-size: 0.9rem;
 }
 .form-field {
   background-color: #fff;
@@ -14,9 +15,12 @@
 }
 .form-input {
   width: 300px;
+  font-size: 0.9rem;
 }
 .form-select {
   width: 300px;
+  height: 2rem;
+  font-size: 0.9rem;
 }
 
 .error-form-cotrol input,

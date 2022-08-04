@@ -58,6 +58,14 @@ export function Header() {
               Users
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              style={({ isActive }) => handleNavClick(isActive)}
+              to="/personalize"
+            >
+              Get plan
+            </NavLink>
+          </li>
           {getAdminLinks()}
         </ul>
       </div>

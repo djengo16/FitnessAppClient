@@ -1,6 +1,6 @@
 import tokenStorage from "../../utils/services/tokenStorage";
-import styles from "./home.module.css";
 import pageStyles from "../../styles/page.module.css";
+
 function Home() {
   const user = tokenStorage.decodeToken().email;
   return (

@@ -1,0 +1,20 @@
+@import url("../../theme.css");
+.acc {
+  background-color: var(--workoutCardBackground);
+  background: var(--workoutCardBackground);
+}
+.acc-item h2,
+.acc-item button {
+  background: var(--workoutCardBackground);
+}
+.acc-body {
+  background-color: var(--pageBackground);
+  background: var(--pageBackground);
+  overflow: auto;
+}
+.plan-title {
+  margin-bottom: 0;
+  margin-right: 1rem;
+  color: var(--textInput);
+  font-weight: bold;
+}

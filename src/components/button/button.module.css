@@ -18,23 +18,23 @@
 /*button style*/
 
 .btn-primary {
-  background-color: var(--primary);
+  background-color: var(--primary) !important;
 }
 .btn-primary:hover {
-  background-color: var(--primaryOp50);
+  background-color: var(--primaryOp50) !important;
 }
 
 .btn-secondary {
-  background-color: var(--secondary);
+  background-color: var(--secondary) !important;
 }
 .btn-secondary:hover {
-  background-color: var(--secondaryOp50);
+  background-color: var(--secondaryOp50) !important;
 }
 .btn-danger {
-  background-color: var(--danger);
+  background-color: var(--danger) !important;
 }
 .btn-danger:hover {
-  background-color: var(--danger);
+  background-color: var(--danger) !important;
 }
 
 /*button size*/

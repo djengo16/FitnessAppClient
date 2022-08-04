@@ -13,3 +13,10 @@
 .card-wrapper-10p {
   margin: 5% auto !important;
 }
+
+.card-dark {
+  background-color: var(--cardBackground);
+}
+.card-light {
+  background-color: var(--workoutCardBackground);
+}

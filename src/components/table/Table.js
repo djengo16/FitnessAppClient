@@ -49,9 +49,10 @@ function Table(props) {
         </tr>
       </thead>
       <tbody>
-        {props.data.map((current) => {
-          return <tr key={current.id}>{cellLoader(current)}</tr>;
-        })}
+        {props.data &&
+          props.data.map((current) => {
+            return <tr key={current.id}>{cellLoader(current)}</tr>;
+          })}
       </tbody>
     </table>
   );

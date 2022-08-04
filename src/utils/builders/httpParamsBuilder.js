@@ -1,11 +1,13 @@
-const httpParamsBuilder = (search, page, count) => {
+const httpParamsBuilder = (props) => {
   const config = {
-    params: { page, count },
+    params: {},
   };
+  Object.keys(props).forEach((key) => {
+    if (props[key]) {
+      config.params[key] = props[key];
+    }
+  });
 
-  if (search) {
-    config.params.search = search;
-  }
   return config;
 };
 export default httpParamsBuilder;

@@ -10,7 +10,7 @@ import interceptedHttpClient from "../httpClient/interceptedHttpClient";
 export function getAllExercises(search = "", page = 1, count = DATA_PER_PAGE) {
   return interceptedHttpClient.get(
     `${API_URL}/Exercises`,
-    httpParamsBuilder(search, page, count)
+    httpParamsBuilder({ search, page, count })
   );
 }
 

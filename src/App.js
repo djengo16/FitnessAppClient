@@ -11,6 +11,9 @@ import UserDetails from "./pages/user-details/UserDetails";
 import Admin from "./pages/admin/Admin";
 import { AdminRoute } from "./utils/guards/AdminRoute";
 import Personalize from "./pages/personalize-plan/Personalize";
+import UserWorkoutPlan from "./pages/user-workoutplan-details/UserWorkoutPlan";
+import { ActiveUserRoute } from "./utils/guards/ActiveUserRoute";
+
 function App() {
   return (
     <div className="App">
@@ -44,6 +47,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<UserDetails />} />
+          <Route
+            path="/users/:id/workoutplan/:planId"
+            element={
+              <ActiveUserRoute>
+                <UserWorkoutPlan />
+              </ActiveUserRoute>
+            }
+          />
           <Route path="/personalize" element={<Personalize />} />
           <Route
             path="/admin"

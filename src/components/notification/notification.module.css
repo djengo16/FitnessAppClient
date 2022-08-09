@@ -1,0 +1,94 @@
+.notifications-label {
+  position: relative;
+  z-index: 1;
+  padding: 0 40px;
+  color: white;
+}
+.notifications-span {
+  position: absolute;
+  font-size: small;
+  z-index: 1;
+  padding: 1px 7px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
+
+.notifications-label > a {
+  display: block;
+  color: white;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: brightness(0) invert(1);
+}
+.notifications-label > a:hover {
+  background-color: var(--primaryOp50);
+  cursor: pointer;
+  border-radius: 50%;
+}
+.label-clicked {
+  background-color: var(--primaryOp50);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.notifications-label > a + div {
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  width: 300px;
+  opacity: 0;
+  padding-top: 20px;
+  pointer-events: none;
+}
+@keyframes show-active {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.active {
+  animation-name: show-active;
+  animation-duration: 0.5s;
+}
+
+.non-active {
+  display: none;
+}
+.notification-header {
+  font-size: 1rem;
+}
+.notification-message {
+  font-size: 0.7rem;
+  margin-bottom: 0;
+}
+.notification-time {
+  font-size: 0.5rem;
+  color: var(--secondary);
+}
+.notifications-label > a + div {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.notifications-label > a + div article {
+  display: block;
+  text-align: left;
+  padding: 8px 30px;
+  background: var(--cardBackground);
+  color: #fff !important;
+  text-decoration: none;
+  border: 1px solid var(--pimaryOp90);
+  cursor: pointer;
+}
+.notifications-label > a + div article:hover {
+  color: white;
+  background-color: var(--pimaryOp90);
+}

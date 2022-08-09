@@ -1,5 +1,5 @@
 import { Navigate, useParams } from "react-router-dom";
-import { hasPermision } from "../services/usersService";
+import { hasPermision } from "../../utils/services/authService";
 
 export function ActiveUserRoute({ children }) {
   const params = useParams();

@@ -87,3 +87,6 @@
   color: white;
   background-color: var(--primaryOp50);
 }
+.user-items {
+  display: flex;
+}

@@ -21,18 +21,9 @@ export async function getUserWorkoutPlan(userId, planId) {
     httpParamsBuilder({ userId, planId })
   );
 }
-/**
- *
- * @param {current logged user id} id
- * @returns {True if parameter id is equal to current logged user's id or current user is in admin role}
- *
- */
-export function hasPermision(id) {
-  const token = tokenStorage.decodeToken();
-  const activeUserId = token.nameid;
-  const activeUserRole = token.role;
-
-  if (id === activeUserId || activeUserRole === ADMIN_ROLE) return true;
-
-  return false;
+export async function getUserActivePlanId(userId) {
+  return interceptedHttpClient.get(
+    `${API_URL}/Users/activePlanId`,
+    httpParamsBuilder({ userId })
+  );
 }

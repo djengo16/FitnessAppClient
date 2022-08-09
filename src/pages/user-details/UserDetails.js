@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
-import { getUserById, hasPermision } from "../../utils/services/usersService";
+import { getUserById } from "../../utils/services/usersService";
+import { hasPermision } from "../../utils/services/authService";
 import pageStyles from "../../styles/page.module.css";
 import tableStyles from "../../styles/table.module.css";
 import styles from "../../styles/page.module.css";

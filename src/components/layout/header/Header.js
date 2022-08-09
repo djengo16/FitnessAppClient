@@ -4,6 +4,7 @@ import { useState } from "react";
 import { logout } from "../../../utils/services/authService";
 import tokenStorage from "../../../utils/services/tokenStorage";
 import { ADMIN_ROLE } from "../../../utils/environment";
+import NotificationLabel from "../../notification/NotificationLabel";
 
 export function Header() {
   const [navigate, setNavigate] = useState(false);
@@ -69,7 +70,8 @@ export function Header() {
           {getAdminLinks()}
         </ul>
       </div>
-      <div>
+      <div className={styles["user-items"]}>
+        <NotificationLabel />
         <div className={styles.dropdown}>
           <a href="#">
             <img src="/user-icon.svg" alt="" />

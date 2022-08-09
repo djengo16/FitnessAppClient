@@ -1,6 +1,7 @@
 :root {
   --primary: #009faf;
   --primaryOp50: rgba(0, 159, 175, 0.5);
+  --pimaryOp90: rgba(0, 159, 175, 0.9);
   --secondary: #82e9de;
   --secondaryOp50: rgba(130, 233, 222, 0.5);
   --textInput: #29434e;

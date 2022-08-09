@@ -81,25 +81,23 @@ const NotificationLabel = () => {
       <a className={showNotifications && styles["label-clicked"]}>
         <img src="/notification.svg" alt="" />
       </a>
-      {showNotifications && (
-        <div>
-          {notifications.map((notification) => {
-            return (
-              <article onClick={() => viewNotification(notification.id)}>
-                <h6 className={styles["notification-header"]}>
-                  {notification.title}
-                </h6>
-                <p className={styles["notification-message"]}>
-                  {notification.body}
-                </p>
-                <span className={styles["notification-time"]}>
-                  {timeSince(notification.createdOn)}
-                </span>
-              </article>
-            );
-          })}
-        </div>
-      )}
+      <div className={showNotifications ? styles.active : styles["non-active"]}>
+        {notifications.map((notification) => {
+          return (
+            <article onClick={() => viewNotification(notification.id)}>
+              <h6 className={styles["notification-header"]}>
+                {notification.title}
+              </h6>
+              <p className={styles["notification-message"]}>
+                {notification.body}
+              </p>
+              <span className={styles["notification-time"]}>
+                {timeSince(notification.createdOn)}
+              </span>
+            </article>
+          );
+        })}
+      </div>
     </div>
   );
 };

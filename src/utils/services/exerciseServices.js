@@ -1,4 +1,3 @@
-import axios from "axios";
 import { API_URL } from "./../environment";
 import { DATA_PER_PAGE } from "../constants";
 import httpParamsBuilder from "../builders/httpParamsBuilder";
@@ -26,4 +25,10 @@ export function createExercise(model) {
 }
 export function updateExercise(model) {
   return interceptedHttpClient.put(`${API_URL}/Exercises/update`, model);
+}
+//Exercise in workout day
+export function deleteExerciseInWorkoutDay(exerciseId, workoutDayId) {
+  return interceptedHttpClient.delete(
+    `${API_URL}/ExerciseInWorkoutDay/exercise/${exerciseId}/workoutDay/${workoutDayId}`
+  );
 }

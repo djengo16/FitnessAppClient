@@ -6,10 +6,8 @@ import {
   getUserWorkoutPlan,
 } from "../../utils/services/usersService";
 import WorkoutPlan from "../../components/workout-plan/WorkoutPlan";
-import tokenStorage from "../../utils/services/tokenStorage";
 const UserWorkoutPlan = () => {
   const params = useParams();
-  const userEmail = tokenStorage.decodeToken().email;
   const [workoutPlan, setWorkoutPlan] = useState("");
   const [user, setUser] = useState("");
 
@@ -26,7 +24,9 @@ const UserWorkoutPlan = () => {
       <h4 className={pageStyles["page-title"]}>
         {user.email}'s Workout program
       </h4>
-      {workoutPlan && <WorkoutPlan workoutPlan={workoutPlan} />}
+      {workoutPlan && (
+        <WorkoutPlan isUserWorkoutPlan={true} workoutPlan={workoutPlan} />
+      )}
     </div>
   );
 };

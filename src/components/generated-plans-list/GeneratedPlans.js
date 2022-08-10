@@ -7,6 +7,7 @@ import { assignProgram } from "../../utils/services/workoutsService";
 import { Navigate } from "react-router-dom";
 import { Fragment, useState } from "react";
 import Spinner from "../spinner/Spinner";
+import { buildWorkoutPlanColumns } from "../../utils/builders/tableColumnsBuilder";
 function CustomToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
     console.log("totally custom!")
@@ -74,7 +75,10 @@ const GeneratedPlans = ({ plans }) => {
                   </Button>
                 </Accordion.Header>
                 <Accordion.Body className={styles["acc-body"]}>
-                  <WorkoutPlan workoutPlan={plan} />
+                  <WorkoutPlan
+                    tableColumnsInfo={buildWorkoutPlanColumns()}
+                    workoutPlan={plan}
+                  />
                 </Accordion.Body>
               </Accordion.Item>
             );

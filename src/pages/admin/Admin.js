@@ -25,37 +25,10 @@ import StatusLabel from "../../components/status-label/StatusLabel";
 import ExerciseForm from "../../components/exercise-form/ExerciseForm";
 import { getExerciseById } from "../../utils/services/exerciseServices";
 import Spinner from "../../components/spinner/Spinner";
-
-const tableColumnsInfo = [
-  {
-    title: "ID",
-    field: "id",
-    type: "cell",
-    width: "10vw",
-  },
-  {
-    title: "Exercise Name",
-    field: "name",
-    type: "cell",
-    width: "30vw",
-  },
-  {
-    title: "Muscle group",
-    field: "muscleGroup",
-    type: "cell",
-    width: "30vw",
-  },
-  {
-    title: "Action",
-    field: "action",
-    dataField: "id",
-    action: "createEditAndDeleteBtn",
-    type: "button",
-    width: "30vw",
-  },
-];
+import { buildExerciseColumnsInAdminPage } from "../../utils/builders/tableColumnsBuilder";
 
 function Admin() {
+  const tableColumnsInfo = buildExerciseColumnsInAdminPage();
   const initalPageable = {
     currentPage: 1,
     totalDataPerPage: 0,
@@ -303,7 +276,7 @@ function Admin() {
       {showConfirmModal && <ConfirmModal {...confirmModalData} />}
 
       <div className={pageStyles["page"]}>
-        <header>
+        <header className={styles["admin-header"]}>
           <h4 className={`${pageStyles["page-title"]}`}>Admin Panel</h4>
           <label className={styles["health-label"]}>
             Server status:

@@ -16,49 +16,6 @@ const WorkoutPlan = (props) => {
     action: "",
   };
 
-  let tableColumnsInfo = [
-    {
-      title: "Exercise Name",
-      field: "name",
-      type: "cell",
-      width: "40%",
-    },
-    {
-      title: "Sets",
-      field: "sets",
-      type: "cell",
-      width: "10%",
-    },
-    {
-      title: "Min reps",
-      field: "minReps",
-      type: "cell",
-      width: "10%",
-    },
-    {
-      title: "Max reps",
-      field: "maxReps",
-      type: "cell",
-      width: "10%",
-    },
-    {
-      title: "Details",
-      field: "details",
-      dataField: "name",
-      action: "createDetailsBtn",
-      type: "button",
-      width: "15%",
-    },
-    {
-      title: "Remove from plan",
-      field: "details",
-      dataField: "name",
-      action: "createRemoveBtn",
-      type: "button",
-      width: "15%",
-    },
-  ];
-
   const [workoutDay, setWorkoutDay] = useState("");
 
   const [showModal, setShowModal] = useState(false);
@@ -74,12 +31,6 @@ const WorkoutPlan = (props) => {
   const [confirmModalData, setConfirmModalData] = useState(
     initialConfirmModalData
   );
-
-  if (!props.isUserWorkoutPlan) {
-    tableColumnsInfo = tableColumnsInfo.filter(
-      (x) => x.title !== "Remove from plan"
-    );
-  }
 
   const openDetailsModal = (name) => {
     let exercise = workoutDay.exercisesInWorkoutDays.find(
@@ -199,7 +150,7 @@ const WorkoutPlan = (props) => {
       />
       <Table
         data={workoutDay.exercisesInWorkoutDays}
-        columns={tableColumnsInfo}
+        columns={props.tableColumnsInfo}
         actions={actions}
       />
     </div> //actions={actions}

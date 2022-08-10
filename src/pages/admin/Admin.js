@@ -302,7 +302,7 @@ function Admin() {
       )}
       {showConfirmModal && <ConfirmModal {...confirmModalData} />}
 
-      <div className={styles["admin-page"]}>
+      <div className={pageStyles["page"]}>
         <header>
           <h4 className={`${pageStyles["page-title"]}`}>Admin Panel</h4>
           <label className={styles["health-label"]}>

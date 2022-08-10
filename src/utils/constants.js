@@ -6,4 +6,7 @@ export const UNSAVED_CHANGES_MESSAGE =
 export const DELETE_EXERCISE_MESSAGE =
   "Are you sure you want to delete this exercise?";
 
+export const REMOVE_EXERCISE_FROM_PLAN =
+  "Are you sure you want to remove this exercise from your plan?";
+
 export const HEALTHY_STATUS = "Healthy";

@@ -11,9 +11,16 @@ const WorkoutPlanNav = ({ trainingDays, onNavClick }) => {
     6: "Saturday",
     7: "Sunday",
   };
-  const [selectedDay, setSelectedDay] = useState(
-    daysOfWeek[new Date().getDay()]
-  );
+  const [selectedDay, setSelectedDay] = useState(setInitialDay());
+
+  function setInitialDay() {
+    let today = new Date().getDay();
+    if (trainingDays.includes(today)) {
+      return daysOfWeek[today];
+    } else {
+      return daysOfWeek[1];
+    }
+  }
 
   const handleSelection = (e) => {
     onNavClick(e);

@@ -85,10 +85,16 @@
   background: var(--cardBackground);
   color: #fff !important;
   text-decoration: none;
-  border: 1px solid var(--pimaryOp90);
+  border: 1px solid var(--primaryOp90);
   cursor: pointer;
 }
 .notifications-label > a + div article:hover {
   color: white;
-  background-color: var(--pimaryOp90);
+  background-color: var(--primaryOp90);
+}
+
+@media all and (max-width: 600px) {
+  .notifications-label > a + div {
+    right: -130px;
+  }
 }

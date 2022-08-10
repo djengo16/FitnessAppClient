@@ -1,13 +1,13 @@
 import styles from "./header.module.css";
-import { Navigate, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../../utils/services/authService";
 import tokenStorage from "../../../utils/services/tokenStorage";
 import { ADMIN_ROLE } from "../../../utils/environment";
 import NotificationLabel from "../../notification/NotificationLabel";
 
 export function Header() {
-  const [navigate, setNavigate] = useState(false);
+  const navigate = useNavigate();
+
   const handleNavClick = (isActive) => {
     let activeStyle = { backgroundColor: "" };
     activeStyle.backgroundColor = isActive
@@ -16,10 +16,16 @@ export function Header() {
     return activeStyle;
   };
 
-  const handleLogout = (evenet) => {
+  const handleLogout = () => {
     logout();
-    setNavigate(true);
+    navigate("login");
   };
+  const handleWorkoutPlan = () => {
+    const userId = tokenStorage.decodeToken().nameid;
+    const planId = localStorage.getItem("activePlanId");
+    navigate(`/users/${userId}/workoutplan/${planId}`);
+  };
+
   const getAdminLinks = () => {
     const user = tokenStorage.decodeToken();
     if (user?.role === ADMIN_ROLE) {
@@ -38,7 +44,6 @@ export function Header() {
 
   return (
     <div className={styles.navbar}>
-      {navigate && <Navigate to="/login" />}
       <div>
         <ul>
           <li>
@@ -78,6 +83,7 @@ export function Header() {
           </a>
           <div>
             <a onClick={handleLogout}>Logout</a>
+            <a onClick={handleWorkoutPlan}>My plan</a>
           </div>
         </div>
       </div>

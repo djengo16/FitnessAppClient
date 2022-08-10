@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styles from "./table.module.css";
 /**
  * @param { data={data that will be displayed on the cells}
@@ -7,6 +8,7 @@ import styles from "./table.module.css";
  * @returns {table}
  */
 function Table(props) {
+  useEffect(() => {}, [props.columns, props.data]);
   /**
    * @param { data that will be displayed in column with type 'cell',
    * for example userId, email etc.} data

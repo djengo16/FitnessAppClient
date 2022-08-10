@@ -1,6 +1,7 @@
 import tokenStorage from "./tokenStorage";
 import axios from "axios";
-import { API_URL } from "./../environment";
+import { ADMIN_ROLE, API_URL } from "./../environment";
+import { getUserActivePlanId } from "./usersService";
 
 /**
  *
@@ -13,6 +14,17 @@ export async function login(userData) {
   } catch (e) {
     throw new Error(e.response.data);
   }
+  setActivePlanId(tokenStorage.decodeToken().nameid);
+}
+
+function setActivePlanId(userId) {
+  console.log(userId);
+  getUserActivePlanId(userId).then((response) => {
+    const planId = response.data;
+    if (planId) {
+      localStorage.setItem("activePlanId", planId);
+    }
+  });
 }
 
 /**
@@ -30,4 +42,22 @@ export async function register(userData) {
 
 export async function logout() {
   localStorage.removeItem("token");
+  localStorage.setItem({ IsLoggedIn: "0" });
+  localStorage.removeItem("activePlanId");
+}
+
+/**
+ *
+ * @param {current logged user id} id
+ * @returns {True if parameter id is equal to current logged user's id or current user is in admin role}
+ *
+ */
+export function hasPermision(id) {
+  const token = tokenStorage.decodeToken();
+  const activeUserId = token.nameid;
+  const activeUserRole = token.role;
+
+  if (id === activeUserId || activeUserRole === ADMIN_ROLE) return true;
+
+  return false;
 }

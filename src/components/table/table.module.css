@@ -1,6 +1,6 @@
 @import url("../../theme.css");
 .table {
-  max-width: 100%;
+  width: 100%;
   border-collapse: collapse;
   cursor: initial;
   font-size: 1rem;
@@ -63,4 +63,13 @@ tbody tr:nth-child(odd) td {
 }
 .table-btn:hover {
   color: #fff;
+}
+
+@media all and (max-width: 600px) {
+  .table {
+    font-size: 0.7rem;
+  }
+  .table button {
+    font-size: 0.7rem;
+  }
 }

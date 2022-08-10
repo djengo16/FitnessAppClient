@@ -2,7 +2,6 @@
 import { useState } from "react";
 import styles from "./workout-plan-nav.module.css";
 const WorkoutPlanNav = ({ trainingDays, onNavClick }) => {
-  const [selectedDay, setSelectedDay] = useState("Monday");
   const daysOfWeek = {
     1: "Monday",
     2: "Tuesday",
@@ -12,6 +11,16 @@ const WorkoutPlanNav = ({ trainingDays, onNavClick }) => {
     6: "Saturday",
     7: "Sunday",
   };
+  const [selectedDay, setSelectedDay] = useState(setInitialDay());
+
+  function setInitialDay() {
+    let today = new Date().getDay();
+    if (trainingDays.includes(today)) {
+      return daysOfWeek[today];
+    } else {
+      return daysOfWeek[1];
+    }
+  }
 
   const handleSelection = (e) => {
     onNavClick(e);

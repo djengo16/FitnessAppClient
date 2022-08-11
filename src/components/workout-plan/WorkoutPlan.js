@@ -6,7 +6,7 @@ import { Modal } from "../modal/Modal";
 import ExerciseDetails from "../exercise-details/ExerciseDetails";
 import { ConfirmModal } from "../modal/ConfirmModal";
 import { REMOVE_EXERCISE_FROM_PLAN } from "../../utils/constants";
-import { deleteExerciseInWorkoutDay } from "../../utils/services/exerciseServices";
+import { deleteExerciseInWorkoutDay } from "../../utils/services/exerciseInWorkoutDayService";
 import ExercisesInUserWorkoutPlan from "../exercises/ExercisesInUserWorkoutPlan";
 
 const WorkoutPlan = (props) => {
@@ -133,6 +133,13 @@ const WorkoutPlan = (props) => {
       }
     );
   };
+  const updateExercises = (exercise) => {
+    setWorkoutDay((prev) => {
+      prev.exercisesInWorkoutDays = [...prev.exercisesInWorkoutDays, exercise];
+      return [prev];
+    });
+  };
+
   return (
     <div>
       {showConfirmModal && <ConfirmModal {...confirmModalData} />}
@@ -154,7 +161,10 @@ const WorkoutPlan = (props) => {
         columns={props.tableColumnsInfo}
         actions={actions}
       />
-      <ExercisesInUserWorkoutPlan />
+      <ExercisesInUserWorkoutPlan
+        workoutDay={workoutDay}
+        handleUpdateExercises={updateExercises}
+      />
     </div>
   );
 };

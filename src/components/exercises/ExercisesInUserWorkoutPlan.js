@@ -6,13 +6,17 @@ const ExercisesInUserWorkoutPlan = (props) => {
     <Accordion defaultActiveKey="0" className={`mt-3`}>
       <Accordion.Item
         className={boostrapCustomizedStyles["acc-item"]}
-        eventKey="0"
+        eventKey="1"
       >
         <Accordion.Header className={boostrapCustomizedStyles["acc-header"]}>
-          Add new exercise to your plan
+          <h6>Add new exercise to your plan</h6>
         </Accordion.Header>
         <Accordion.Body className={boostrapCustomizedStyles["acc-body"]}>
-          <Exercises />
+          <Exercises
+            workoutDay={props.workoutDay}
+            setWorkoutDay={props.setWorkoutDay}
+            handleUpdateExercises={props.handleUpdateExercises}
+          />
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

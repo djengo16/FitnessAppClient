@@ -18,7 +18,6 @@ export async function login(userData) {
 }
 
 function setActivePlanId(userId) {
-  console.log(userId);
   getUserActivePlanId(userId).then((response) => {
     const planId = response.data;
     if (planId) {

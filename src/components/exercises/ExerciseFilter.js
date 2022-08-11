@@ -55,7 +55,6 @@ const ExerciseFilter = ({ setFilterable, refreshPage }) => {
   }, []);
 
   const handleMuscleGroupChange = (e) => {
-    console.log("are we");
     setFilterable((prev) => ({
       ...prev,
       muscleGroup: e.target.value,

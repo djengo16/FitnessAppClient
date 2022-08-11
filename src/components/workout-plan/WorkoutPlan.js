@@ -7,6 +7,7 @@ import ExerciseDetails from "../exercise-details/ExerciseDetails";
 import { ConfirmModal } from "../modal/ConfirmModal";
 import { REMOVE_EXERCISE_FROM_PLAN } from "../../utils/constants";
 import { deleteExerciseInWorkoutDay } from "../../utils/services/exerciseServices";
+import ExercisesInUserWorkoutPlan from "../exercises/ExercisesInUserWorkoutPlan";
 
 const WorkoutPlan = (props) => {
   const initialConfirmModalData = {
@@ -153,7 +154,8 @@ const WorkoutPlan = (props) => {
         columns={props.tableColumnsInfo}
         actions={actions}
       />
-    </div> //actions={actions}
+      <ExercisesInUserWorkoutPlan />
+    </div>
   );
 };
 export default WorkoutPlan;

@@ -3,6 +3,7 @@ import Button from "../button/Button";
 import WorkoutPlan from "../workout-plan/WorkoutPlan";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import styles from "./generated-plans.module.css";
+import boostrapCustomizedStyles from "../../styles/bootstrap.customized.module.css";
 import { assignProgram } from "../../utils/services/workoutsService";
 import { Navigate } from "react-router-dom";
 import { Fragment, useState } from "react";
@@ -52,16 +53,18 @@ const GeneratedPlans = ({ plans }) => {
       {redirect && <Navigate to={`/users/${userId}`} exact={true} />}
       {isLoading && <Spinner />}
       {!isLoading && (
-        <Accordion defaultActiveKey="1" className={`${styles["acc"]} mt-3`}>
+        <Accordion defaultActiveKey="1" className={`mt-3`}>
           {plans.map((plan) => {
             counter = counter + 1;
             return (
               <Accordion.Item
                 key={plan.id}
                 eventKey={counter}
-                className={styles["acc-item"]}
+                className={boostrapCustomizedStyles["acc-item"]}
               >
-                <Accordion.Header className={styles["acc-header"]}>
+                <Accordion.Header
+                  className={boostrapCustomizedStyles["acc-header"]}
+                >
                   <h6 className={styles["plan-title"]}>
                     Workout plan {counter}.{" "}
                   </h6>
@@ -74,7 +77,9 @@ const GeneratedPlans = ({ plans }) => {
                     Choose
                   </Button>
                 </Accordion.Header>
-                <Accordion.Body className={styles["acc-body"]}>
+                <Accordion.Body
+                  className={boostrapCustomizedStyles["acc-body"]}
+                >
                   <WorkoutPlan
                     tableColumnsInfo={buildWorkoutPlanColumns()}
                     workoutPlan={plan}

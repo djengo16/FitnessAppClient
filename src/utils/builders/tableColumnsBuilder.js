@@ -83,3 +83,39 @@ export function buildExerciseColumnsInAdminPage() {
     },
   ];
 }
+export function buildExerciseColumnsInUserPage() {
+  return [
+    {
+      title: "ID",
+      field: "id",
+      type: "cell",
+      width: "10%",
+    },
+    {
+      title: "Exercise Name",
+      field: "name",
+      type: "cell",
+      width: "30%",
+    },
+    {
+      title: "Muscle group",
+      field: "muscleGroup",
+      type: "cell",
+      width: "20%",
+    },
+    {
+      title: "Difficulty",
+      field: "difficulty",
+      type: "cell",
+      width: "20%",
+    },
+    {
+      title: "Action",
+      field: "action",
+      dataField: "id",
+      action: "createAddAndDetailsBtn",
+      type: "button",
+      width: "20%",
+    },
+  ];
+}

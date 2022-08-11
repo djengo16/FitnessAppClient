@@ -104,17 +104,15 @@ function Admin() {
     */
   useEffect(() => {
     setIsLoading(true);
-    getAllExercises(searchParams, pageable.currentPage, DATA_PER_PAGE).then(
-      (response) => {
-        setExercises(response.data.exercises);
-        setPageable((prev) => ({
-          ...prev,
-          totalDataPerPage: response.data.totalData,
-          totalPages: Math.ceil(response.data.totalData / DATA_PER_PAGE),
-        }));
-        setIsLoading(false);
-      }
-    );
+    getAllExercises(searchParams, pageable.currentPage).then((response) => {
+      setExercises(response.data.exercises);
+      setPageable((prev) => ({
+        ...prev,
+        totalDataPerPage: response.data.totalData,
+        totalPages: Math.ceil(response.data.totalData / DATA_PER_PAGE),
+      }));
+      setIsLoading(false);
+    });
     if (isFirstRender) {
       setSelectedNavItem(adminNavItems.exercises);
       checkApiStatus();

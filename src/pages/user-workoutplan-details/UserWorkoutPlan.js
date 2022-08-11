@@ -6,6 +6,7 @@ import {
   getUserWorkoutPlan,
 } from "../../utils/services/usersService";
 import WorkoutPlan from "../../components/workout-plan/WorkoutPlan";
+import { buildWorkoutPlanColumns } from "../../utils/builders/tableColumnsBuilder";
 const UserWorkoutPlan = () => {
   const params = useParams();
   const [workoutPlan, setWorkoutPlan] = useState("");
@@ -25,7 +26,10 @@ const UserWorkoutPlan = () => {
         {user.email}'s Workout program
       </h4>
       {workoutPlan && (
-        <WorkoutPlan isUserWorkoutPlan={true} workoutPlan={workoutPlan} />
+        <WorkoutPlan
+          tableColumnsInfo={buildWorkoutPlanColumns("full")}
+          workoutPlan={workoutPlan}
+        />
       )}
     </div>
   );

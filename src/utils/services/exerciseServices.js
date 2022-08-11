@@ -6,10 +6,16 @@ import interceptedHttpClient from "../httpClient/interceptedHttpClient";
  *
  * @param exercise  => {id, name, musclegroup}
  */
-export function getAllExercises(search = "", page = 1, count = DATA_PER_PAGE) {
+export function getAllExercises(
+  search = "",
+  page = 1,
+  count = DATA_PER_PAGE,
+  difficulty = 0,
+  muscleGroup = 0
+) {
   return interceptedHttpClient.get(
     `${API_URL}/Exercises`,
-    httpParamsBuilder({ search, page, count })
+    httpParamsBuilder({ search, page, count, difficulty, muscleGroup })
   );
 }
 

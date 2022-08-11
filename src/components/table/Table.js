@@ -41,13 +41,14 @@ function Table(props) {
     <table className={styles["table"]}>
       <thead className={styles["head"]}>
         <tr>
-          {props.columns.map((column) => {
-            return (
-              <th key={column.field} style={{ width: column.width }}>
-                {column.title}
-              </th>
-            );
-          })}
+          {props.columns &&
+            props.columns.map((column) => {
+              return (
+                <th key={column.field} style={{ width: column.width }}>
+                  {column.title}
+                </th>
+              );
+            })}
         </tr>
       </thead>
       <tbody>

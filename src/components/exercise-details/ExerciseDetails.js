@@ -1,18 +1,27 @@
 import styles from "./exercise-details.module.css";
 
 const ExerciseDetails = (props) => {
-  console.log(props.exercise.videoResourceUrl);
-  console.log(props.exercise.pictureResourceUrl);
+  console.log(props.exercise);
   const difficultyOptions = {
     1: "Easy",
     2: "Medium",
     3: "Hard",
   };
+
+  // Handles different cases, when we get the numeric value
+  // and when we get the string value
+  const getDifficulty = (diff) => {
+    if (isNaN(diff)) {
+      return diff;
+    } else {
+      return difficultyOptions[diff];
+    }
+  };
   return (
     <div>
+      <p>Difficulty: {getDifficulty(props.exercise.difficulty)}</p>
       {props.exercise.videoResourceUrl && (
         <section>
-          <p>Difficulty: {difficultyOptions[props.exercise.difficulty]}</p>
           <div className={styles["frame-container"]}>
             <iframe
               className={styles["exercise-video"]}

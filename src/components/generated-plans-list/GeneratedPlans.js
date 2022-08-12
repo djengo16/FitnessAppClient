@@ -9,6 +9,10 @@ import { Navigate } from "react-router-dom";
 import { Fragment, useState } from "react";
 import Spinner from "../spinner/Spinner";
 import { buildWorkoutPlanColumns } from "../../utils/builders/tableColumnsBuilder";
+import useToast from "../../hooks/useToast";
+import Toast from "../toast/Toast";
+import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
+import { WifiTetheringErrorRoundedTwoTone } from "@mui/icons-material";
 function CustomToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
     console.log("totally custom!")
@@ -33,18 +37,37 @@ const GeneratedPlans = ({ plans }) => {
   const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const {
+    open,
+    handleOpen: handleOpenToast,
+    handleClose,
+    toastConfig,
+    setToastConfig,
+  } = useToast();
+
   const handlePlanChoose = (id) => {
     const planToAssign = plans.find((plan) => plan.id === id);
     setIsLoading(true);
     assignProgram(planToAssign)
       .then(() => {
-        setUserId(planToAssign.userId);
-        setRedirect(true);
+        //configure toast message and setinterval to prevent immediate redirect
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        setToastConfig({
+          severity: severityTypes.success,
+          message: toastMessages.assignedProgram,
+        });
+        handleOpenToast();
+        setInterval(() => {
+          setIsLoading(false);
+          setUserId(planToAssign.userId);
+          setRedirect(true);
+        }, 3000);
       })
       .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
+        setToastConfig({
+          severity: severityTypes.error,
+          message: err.message,
+        });
         setIsLoading(false);
       });
   };
@@ -90,6 +113,12 @@ const GeneratedPlans = ({ plans }) => {
           })}
         </Accordion>
       )}
+      <Toast
+        open={open}
+        onClose={handleClose}
+        severity={toastConfig.severity}
+        message={toastConfig.message}
+      />
     </Fragment>
   );
 };

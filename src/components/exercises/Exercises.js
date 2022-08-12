@@ -10,6 +10,9 @@ import { Modal } from "../modal/Modal";
 import ExerciseDetails from "../exercise-details/ExerciseDetails";
 import { ConfirmModal } from "../modal/ConfirmModal";
 import { addExerciseInWorkoutDay } from "../../utils/services/exerciseInWorkoutDayService";
+import Toast from "../toast/Toast";
+import useToast from "../../hooks/useToast";
+import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
 
 const Exercises = ({ workoutDay, handleUpdateExercises }) => {
   const tableColumnsInfo = buildExerciseColumnsInUserPage();
@@ -52,6 +55,14 @@ const Exercises = ({ workoutDay, handleUpdateExercises }) => {
     description: "",
   });
 
+  const {
+    open,
+    handleOpen: handleOpenToast,
+    handleClose,
+    toastConfig,
+    setToastConfig,
+  } = useToast();
+
   useEffect(() => {
     getAllExercises(
       filterable.searchParams,
@@ -69,6 +80,9 @@ const Exercises = ({ workoutDay, handleUpdateExercises }) => {
     });
   }, [pageable.currentPage, filterable]);
 
+  const checkExerciseIfAlreadyInDay = (id) =>
+    workoutDay.exercisesInWorkoutDays.find((e) => e.exerciseId === id);
+
   const handleExerciseDetails = (id) => {
     setShowModal(true);
     const currExercise = exercises.find((x) => x.id === id);
@@ -79,15 +93,27 @@ const Exercises = ({ workoutDay, handleUpdateExercises }) => {
     setShowConfirmModal(false);
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
-    //API
-    console.log(id);
-    addExerciseInWorkoutDay(id, workoutDay.id)
-      .then((response) => {
-        handleUpdateExercises(response.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
+    if (!checkExerciseIfAlreadyInDay(id)) {
+      addExerciseInWorkoutDay(id, workoutDay.id)
+        .then((response) => {
+          handleUpdateExercises(response.data);
+          setToastConfig({
+            severity: severityTypes.success,
+            message: toastMessages.exerciseAdded,
+          });
+        })
+        .catch((error) => {
+          const message = error.message;
+          setToastConfig({ severity: "error", message: { message } });
+        });
+    } else {
+      setToastConfig({
+        severity: severityTypes.warning,
+        message: toastMessages.exerciseAlreadyAddded,
       });
+    }
+
+    handleOpenToast();
   };
 
   const actions = {
@@ -127,7 +153,6 @@ const Exercises = ({ workoutDay, handleUpdateExercises }) => {
     });
     setShowConfirmModal(true);
   };
-
   return (
     <div>
       {showModal && (
@@ -143,6 +168,12 @@ const Exercises = ({ workoutDay, handleUpdateExercises }) => {
       <ExerciseFilter setFilterable={setFilterable} refreshPage={refreshPage} />
       <Table data={exercises} columns={tableColumnsInfo} actions={actions} />
       <Pagination pageable={pageable} setPageable={setPageable} />
+      <Toast
+        open={open}
+        onClose={handleClose}
+        severity={toastConfig.severity}
+        message={toastConfig.message}
+      />
     </div>
   );
 };

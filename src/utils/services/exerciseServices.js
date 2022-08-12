@@ -32,9 +32,3 @@ export function createExercise(model) {
 export function updateExercise(model) {
   return interceptedHttpClient.put(`${API_URL}/Exercises/update`, model);
 }
-//Exercise in workout day
-export function deleteExerciseInWorkoutDay(exerciseId, workoutDayId) {
-  return interceptedHttpClient.delete(
-    `${API_URL}/ExerciseInWorkoutDay/exercise/${exerciseId}/workoutDay/${workoutDayId}`
-  );
-}

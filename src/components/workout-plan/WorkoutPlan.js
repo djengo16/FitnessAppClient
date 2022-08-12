@@ -8,6 +8,9 @@ import { ConfirmModal } from "../modal/ConfirmModal";
 import { REMOVE_EXERCISE_FROM_PLAN } from "../../utils/constants";
 import { deleteExerciseInWorkoutDay } from "../../utils/services/exerciseInWorkoutDayService";
 import ExercisesInUserWorkoutPlan from "../exercises/ExercisesInUserWorkoutPlan";
+import Toast from "../toast/Toast";
+import useToast from "../../hooks/useToast";
+import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
 
 const WorkoutPlan = (props) => {
   const initialConfirmModalData = {
@@ -32,6 +35,14 @@ const WorkoutPlan = (props) => {
   const [confirmModalData, setConfirmModalData] = useState(
     initialConfirmModalData
   );
+
+  const {
+    open,
+    handleOpen: handleOpenToast,
+    handleClose,
+    toastConfig,
+    setToastConfig,
+  } = useToast();
 
   const openDetailsModal = (name) => {
     let exercise = workoutDay.exercisesInWorkoutDays.find(
@@ -129,6 +140,11 @@ const WorkoutPlan = (props) => {
           prev.exercisesInWorkoutDays = filtered;
           return prev;
         });
+        setToastConfig({
+          severity: severityTypes.success,
+          message: toastMessages.exerciseRemoved,
+        });
+        handleOpenToast();
         hideConfirmModal();
       }
     );
@@ -136,7 +152,8 @@ const WorkoutPlan = (props) => {
   const updateExercises = (exercise) => {
     setWorkoutDay((prev) => {
       prev.exercisesInWorkoutDays = [...prev.exercisesInWorkoutDays, exercise];
-      return [prev];
+      console.log("");
+      return { ...prev };
     });
   };
 
@@ -164,6 +181,12 @@ const WorkoutPlan = (props) => {
       <ExercisesInUserWorkoutPlan
         workoutDay={workoutDay}
         handleUpdateExercises={updateExercises}
+      />
+      <Toast
+        open={open}
+        onClose={handleClose}
+        severity={toastConfig.severity}
+        message={toastConfig.message}
       />
     </div>
   );

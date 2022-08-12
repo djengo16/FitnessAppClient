@@ -26,6 +26,9 @@ import ExerciseForm from "../../components/exercise-form/ExerciseForm";
 import { getExerciseById } from "../../utils/services/exerciseServices";
 import Spinner from "../../components/spinner/Spinner";
 import { buildExerciseColumnsInAdminPage } from "../../utils/builders/tableColumnsBuilder";
+import useToast from "../../hooks/useToast";
+import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
+import Toast from "../../components/toast/Toast";
 
 function Admin() {
   const tableColumnsInfo = buildExerciseColumnsInAdminPage();
@@ -95,6 +98,14 @@ function Admin() {
    */
   const [exerciseEntity, setExerciseEntity] = useState(initalExerciseEntity);
 
+  const {
+    open,
+    handleOpen: handleOpenToast,
+    handleClose,
+    toastConfig,
+    setToastConfig,
+  } = useToast();
+
   /* First mounting of the component triggers api call to health check endpoint and
     gets info if the App is Healthy or not, after that it does the same check every 
     10 minutes and updates the current status.
@@ -161,8 +172,18 @@ function Admin() {
     deleteExercise(id)
       .then((response) => {
         setExercises(exercises.filter((x) => x.id !== id));
+        setToastConfig({
+          severity: severityTypes.success,
+          message: toastMessages.exerciseDeleted,
+        });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setToastConfig({
+          severity: severityTypes.error,
+          message: error.message,
+        });
+      });
+    handleOpenToast();
     setShowConfirmModal(false);
   };
 
@@ -180,9 +201,18 @@ function Admin() {
         ...prev,
         currentPage: pageable.totalPages,
       }));
+      setToastConfig({
+        severity: severityTypes.success,
+        message: toastMessages.exerciseCreated,
+      });
     } else if (operation === "update") {
       setUpdatedCount((prev) => prev + 1);
+      setToastConfig({
+        severity: severityTypes.info,
+        message: toastMessages.exerciseUpdated,
+      });
     }
+    handleOpenToast();
     hideModal();
   };
 
@@ -313,6 +343,12 @@ function Admin() {
           </div>
         )}
       </div>
+      <Toast
+        open={open}
+        onClose={handleClose}
+        severity={toastConfig.severity}
+        message={toastConfig.message}
+      />
     </Fragment>
   );
 }

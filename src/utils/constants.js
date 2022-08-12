@@ -9,4 +9,7 @@ export const DELETE_EXERCISE_MESSAGE =
 export const REMOVE_EXERCISE_FROM_PLAN =
   "Are you sure you want to remove this exercise from your plan?";
 
+export const ADD_EXERCISE_TO_PLAN =
+  "Are you sure you want to add this exercise to your plan?";
+
 export const HEALTHY_STATUS = "Healthy";

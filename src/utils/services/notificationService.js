@@ -10,6 +10,5 @@ export function getTrainingNotification(id) {
 }
 
 export function viewNotificationRequest(id) {
-  console.log(id);
   return interceptedHttpClient.put(`${API_URL}/Notifications/view/${id}`);
 }

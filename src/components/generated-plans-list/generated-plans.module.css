@@ -1,8 +1,1 @@
 @import url("../../theme.css");
-
-.plan-title {
-  margin-bottom: 0;
-  margin-right: 1rem;
-  color: var(--textInput);
-  font-weight: bold;
-}

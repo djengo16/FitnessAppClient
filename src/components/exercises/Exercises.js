@@ -5,11 +5,13 @@ import { buildExerciseColumnsInUserPage } from "../../utils/builders/tableColumn
 import { useEffect, useState } from "react";
 import Button from "../button/Button";
 import { getAllExercises } from "../../utils/services/exerciseServices";
-import { DATA_PER_PAGE } from "../../utils/constants";
+import { ADD_EXERCISE_TO_PLAN, DATA_PER_PAGE } from "../../utils/constants";
 import { Modal } from "../modal/Modal";
 import ExerciseDetails from "../exercise-details/ExerciseDetails";
+import { ConfirmModal } from "../modal/ConfirmModal";
+import { addExerciseInWorkoutDay } from "../../utils/services/exerciseInWorkoutDayService";
 
-const Exercises = (props) => {
+const Exercises = ({ workoutDay, handleUpdateExercises }) => {
   const tableColumnsInfo = buildExerciseColumnsInUserPage();
 
   const initalPageable = {
@@ -24,9 +26,23 @@ const Exercises = (props) => {
     difficulty: 0,
   };
 
+  const initialConfirmModalData = {
+    onConfirm: () => {},
+    onCancel: () => {},
+    message: "",
+    action: "",
+  };
+
   const [showModal, setShowModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const [confirmModalData, setConfirmModalData] = useState(
+    initialConfirmModalData
+  );
+
   const [pageable, setPageable] = useState(initalPageable);
   const [filterable, setFilterable] = useState(initialFilterable);
+
   const [exercises, setExercises] = useState();
   const [exerciseDetails, setExerciseDetails] = useState({
     name: "",
@@ -59,6 +75,21 @@ const Exercises = (props) => {
     setExerciseDetails(currExercise);
   };
 
+  const handleAddExercise = (id) => {
+    setShowConfirmModal(false);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
+    //API
+    console.log(id);
+    addExerciseInWorkoutDay(id, workoutDay.id)
+      .then((response) => {
+        handleUpdateExercises(response.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   const actions = {
     createAddAndDetailsBtn: (id) => (
       <div className="d-flex justify-content-between">
@@ -69,14 +100,13 @@ const Exercises = (props) => {
         >
           Details
         </Button>
-        {/* //TODO: MAKE ADD BUTTON WORK
         <Button
-          onClick={(result) => ""}
+          onClick={setupAddExerciseConfirmModal.bind(null, id)}
           buttonStyle="btn-secondary"
           buttonSize="btn-small"
         >
           Add
-        </Button> */}
+        </Button>
       </div>
     ),
   };
@@ -88,9 +118,16 @@ const Exercises = (props) => {
     }));
   };
 
-  // data={workoutDay.exercisesInWorkoutDays}
-  //     columns={props.tableColumnsInfo}
-  //     actions={actions}
+  const setupAddExerciseConfirmModal = (id) => {
+    setConfirmModalData({
+      onConfirm: () => handleAddExercise(id),
+      onCancel: () => setShowConfirmModal(false),
+      message: ADD_EXERCISE_TO_PLAN,
+      action: "Adding!",
+    });
+    setShowConfirmModal(true);
+  };
+
   return (
     <div>
       {showModal && (
@@ -102,6 +139,7 @@ const Exercises = (props) => {
           <ExerciseDetails exercise={exerciseDetails} />
         </Modal>
       )}
+      {showConfirmModal && <ConfirmModal {...confirmModalData} />}
       <ExerciseFilter setFilterable={setFilterable} refreshPage={refreshPage} />
       <Table data={exercises} columns={tableColumnsInfo} actions={actions} />
       <Pagination pageable={pageable} setPageable={setPageable} />

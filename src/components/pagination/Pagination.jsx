@@ -6,7 +6,8 @@ function Pagination({pageable: {totalPages, currentPage}, setPageable}){
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
-  const handlePaginationClick = (pageNum) => {
+  const handlePaginationClick = (e, pageNum) => {
+    e.preventDefault();
     //In case we hit prev button and returns -1 or something ..
 
     if(pageNum >= 1 && pageNum <= totalPages){
@@ -16,30 +17,24 @@ function Pagination({pageable: {totalPages, currentPage}, setPageable}){
       }));
     }
   }
-  const handlePreviousPageClick = () => {
-    handlePaginationClick(currentPage - 1);
-  }
-  const handleNextPageClick = () => {
-    handlePaginationClick(currentPage + 1);
-  }
 
   return (
     <nav className={`${styles['pagination-nav']} center-block`}>
       <ul className='pagination'>
-      <li className="page-item">
-      <a onClick={handlePreviousPageClick} className="page-link" href="#" aria-label="Previous">
+      <li onClick={(e) =>  handlePaginationClick(e, currentPage - 1)} className="page-item">
+      <a className="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
         {pageNumbers.map(number => (
           <li key={number} className={`page-item ${currentPage === number ? styles['active-item'] : ''}`}>
-            <a onClick={() => handlePaginationClick(number)} href="#" className='page-link'>
+            <a onClick={(e) => handlePaginationClick(e, number)} href="#" className='page-link'>
               {number}
             </a>
           </li>
         ))}
-        <li className="page-item">
-      <a onClick={handleNextPageClick} className="page-link" href="#" aria-label="Next">
+        <li onClick={(e) => handlePaginationClick(e, currentPage + 1)} className="page-item">
+      <a  className="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

@@ -16,7 +16,6 @@ const UserWorkoutPlan = () => {
     getUserById(params.id).then((response) => setUser(response.data));
     getUserWorkoutPlan(params.id, params.planId).then((response) => {
       setWorkoutPlan(response.data);
-      console.log(response);
     });
   }, [params.id, params.planId]);
 

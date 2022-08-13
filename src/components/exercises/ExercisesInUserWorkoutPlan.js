@@ -14,7 +14,6 @@ const ExercisesInUserWorkoutPlan = (props) => {
         <Accordion.Body className={boostrapCustomizedStyles["acc-body"]}>
           <Exercises
             workoutDay={props.workoutDay}
-            setWorkoutDay={props.setWorkoutDay}
             handleUpdateExercises={props.handleUpdateExercises}
           />
         </Accordion.Body>

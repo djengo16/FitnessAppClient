@@ -1,7 +1,6 @@
 import styles from "./exercise-details.module.css";
 
 const ExerciseDetails = (props) => {
-  console.log(props.exercise);
   const difficultyOptions = {
     1: "Easy",
     2: "Medium",

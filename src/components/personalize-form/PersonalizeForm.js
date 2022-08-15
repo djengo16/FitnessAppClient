@@ -14,13 +14,19 @@ import styles from "./personalize.module.css";
 import { personalize } from "../../utils/services/workoutsService";
 
 const PersonalizeForm = ({ userId, onFormSubmit }) => {
-  const [difficultyOptions, setDifficultyOptions] = useState("");
+  const advancement = [
+    { key: 1, value: "Beginner" },
+    { key: 2, value: "Intermediate" },
+    { key: 3, value: "Advanced" },
+  ];
+
+  const [difficultyOptions, setDifficultyOptions] = useState(advancement);
   const [goalOptions, setGoalOptions] = useState("");
 
   useEffect(() => {
-    getDifficultyOptions().then((response) => {
-      setDifficultyOptions(response.data);
-    });
+    // getDifficultyOptions().then((response) => {
+    //   setDifficultyOptions(response.data);
+    // });
     getGoalOptions().then((response) => {
       setGoalOptions(response.data);
     });
@@ -82,7 +88,7 @@ const PersonalizeForm = ({ userId, onFormSubmit }) => {
               min="3"
               max="5"
               name="days"
-              label="How many days do you want to train?"
+              label="How many days per week do you want to train?"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.days}
@@ -116,7 +122,7 @@ const PersonalizeForm = ({ userId, onFormSubmit }) => {
               min="1"
               max="10"
               name="count"
-              label="How many programs do you want to generate?"
+              label="How many programs do you want to be generated?"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.count}

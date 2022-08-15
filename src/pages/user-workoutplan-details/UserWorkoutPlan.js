@@ -28,6 +28,7 @@ const UserWorkoutPlan = () => {
         <WorkoutPlan
           tableColumnsInfo={buildWorkoutPlanColumns("full")}
           workoutPlan={workoutPlan}
+          type="userWorkoutPlan"
         />
       )}
     </div>

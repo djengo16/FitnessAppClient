@@ -17,11 +17,12 @@ export async function login(userData) {
   setActivePlanId(tokenStorage.decodeToken().nameid);
 }
 
-function setActivePlanId(userId) {
+export function setActivePlanId(userId) {
   getUserActivePlanId(userId).then((response) => {
     const planId = response.data;
     if (planId) {
       localStorage.setItem("activePlanId", planId);
+      return planId;
     }
   });
 }
@@ -40,9 +41,7 @@ export async function register(userData) {
 }
 
 export async function logout() {
-  localStorage.removeItem("token");
-  localStorage.setItem({ IsLoggedIn: "0" });
-  localStorage.removeItem("activePlanId");
+  localStorage.clear();
 }
 
 /**

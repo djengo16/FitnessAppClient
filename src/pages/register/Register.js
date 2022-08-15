@@ -9,11 +9,6 @@ import { useState } from "react";
 import Button from "../../components/button/Button";
 
 export default function Register() {
-  const [errorMessages, setErrorMessages] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
   const [navigate, setNavigate] = useState(false);
 
   return (
@@ -44,7 +39,6 @@ export default function Register() {
             errors.confirmPassword = `Error: ${errorMessageConstats.passwordsMatch}`;
           }
 
-          setErrorMessages(errors);
           return errors;
         }}
         onSubmit={(values, { setSubmitting, setFieldError }) => {
@@ -64,13 +58,14 @@ export default function Register() {
           handleBlur,
           handleSubmit,
           isSubmitting,
+          errors,
           /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit} className={formStyles["form"]}>
             <label
               name="email"
               className={`${formStyles["form-label"]} ${
-                errorMessages.email ? formStyles["label-input-error"] : ""
+                errors.email ? formStyles["label-input-error"] : ""
               }`}
             >
               Email
@@ -83,13 +78,13 @@ export default function Register() {
               onBlur={handleBlur}
               value={values.email}
               className={`${formStyles["form-input"]} ${
-                errorMessages.email ? formStyles["form-input-error"] : ""
+                errors.email ? formStyles["form-input-error"] : ""
               }`}
             />
             <label
               name="password"
               className={`${formStyles["form-label"]} ${
-                errorMessages.password ? formStyles["label-input-error"] : ""
+                errors.password ? formStyles["label-input-error"] : ""
               }`}
             >
               Password
@@ -102,15 +97,13 @@ export default function Register() {
               onBlur={handleBlur}
               value={values.password}
               className={`${formStyles["form-input"]} ${
-                errorMessages.password ? formStyles["form-input-error"] : ""
+                errors.password ? formStyles["form-input-error"] : ""
               }`}
             />
             <label
               name="confirmPassword"
               className={`${formStyles["form-label"]} ${
-                errorMessages.confirmPassword
-                  ? formStyles["label-input-error"]
-                  : ""
+                errors.confirmPassword ? formStyles["label-input-error"] : ""
               }`}
             >
               Confirm Password
@@ -123,9 +116,7 @@ export default function Register() {
               onBlur={handleBlur}
               value={values.confirmPassword}
               className={`${formStyles["form-input"]} ${
-                errorMessages.confirmPassword
-                  ? formStyles["form-input-error"]
-                  : ""
+                errors.confirmPassword ? formStyles["form-input-error"] : ""
               }`}
             />
             <div className={`${formStyles["form-error"]}`}>

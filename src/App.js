@@ -13,6 +13,9 @@ import { AdminRoute } from "./utils/guards/AdminRoute";
 import Personalize from "./pages/personalize-plan/Personalize";
 import UserWorkoutPlan from "./pages/user-workoutplan-details/UserWorkoutPlan";
 import { ActiveUserRoute } from "./utils/guards/ActiveUserRoute";
+import UserWorkoutPlans from "./pages/user-details/UserWorkoutPlans";
+import UserChangePassword from "./pages/user-details/UserChangePassword";
+import UserInfo from "./pages/user-details/UserInfo";
 
 function App() {
   return (
@@ -46,7 +49,25 @@ function App() {
         >
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<Users />} />
-          <Route path="/users/:id" element={<UserDetails />} />
+          <Route path="/users/:id" element={<UserDetails />}>
+            <Route path="info" element={<UserInfo />} />
+            <Route
+              path="workoutplans"
+              element={
+                <ActiveUserRoute>
+                  <UserWorkoutPlans />
+                </ActiveUserRoute>
+              }
+            />
+            <Route
+              path="changepassword"
+              element={
+                <ActiveUserRoute>
+                  <UserChangePassword />
+                </ActiveUserRoute>
+              }
+            />
+          </Route>
           <Route
             path="/users/:id/workoutplan/:planId"
             element={

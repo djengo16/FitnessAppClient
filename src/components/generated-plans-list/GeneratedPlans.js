@@ -12,12 +12,11 @@ import { buildWorkoutPlanColumns } from "../../utils/builders/tableColumnsBuilde
 import useToast from "../../hooks/useToast";
 import Toast from "../toast/Toast";
 import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
-import { WifiTetheringErrorRoundedTwoTone } from "@mui/icons-material";
+import { setActivePlanId } from "../../utils/services/authService";
 function CustomToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
     console.log("totally custom!")
   );
-
   return (
     <Button
       type="button"
@@ -30,13 +29,14 @@ function CustomToggle({ children, eventKey }) {
     </Button>
   );
 }
-
 const GeneratedPlans = ({ plans }) => {
   let counter = 0;
-  const [redirect, setRedirect] = useState(false);
-  const [userId, setUserId] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [redirect, setRedirect] = useState({
+    doRedirect: false,
+    url: "",
+  });
 
+  const [isLoading, setIsLoading] = useState(false);
   const {
     open,
     handleOpen: handleOpenToast,
@@ -44,7 +44,6 @@ const GeneratedPlans = ({ plans }) => {
     toastConfig,
     setToastConfig,
   } = useToast();
-
   const handlePlanChoose = (id) => {
     const planToAssign = plans.find((plan) => plan.id === id);
     setIsLoading(true);
@@ -56,11 +55,14 @@ const GeneratedPlans = ({ plans }) => {
           severity: severityTypes.success,
           message: toastMessages.assignedProgram,
         });
+        setActivePlanId(planToAssign.userId);
         handleOpenToast();
         setInterval(() => {
           setIsLoading(false);
-          setUserId(planToAssign.userId);
-          setRedirect(true);
+          setRedirect({
+            doRedirect: true,
+            url: `/users/${planToAssign.userId}/workoutplan/${id}`,
+          });
         }, 3000);
       })
       .catch((err) => {
@@ -73,7 +75,7 @@ const GeneratedPlans = ({ plans }) => {
   };
   return (
     <Fragment>
-      {redirect && <Navigate to={`/users/${userId}`} exact={true} />}
+      {redirect.doRedirect && <Navigate to={redirect.url} exact={true} />}
       {isLoading && <Spinner />}
       {!isLoading && (
         <Accordion defaultActiveKey="1" className={`mt-3`}>

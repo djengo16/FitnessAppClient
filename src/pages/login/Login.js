@@ -9,10 +9,6 @@ import { useState } from "react";
 import Button from "../../components/button/Button";
 
 export default function Login() {
-  const [errorMessages, setErrorMessages] = useState({
-    email: "",
-    password: "",
-  });
   const [navigate, setNavigate] = useState(false);
   return (
     <Card className={cardStyles["card-wrapper-10p"]}>
@@ -34,7 +30,6 @@ export default function Login() {
           } else if (values.password.length < 6) {
             errors.password = `Error: ${errorMessageConstats.passwordMinLength}`;
           }
-          setErrorMessages(errors);
           return errors;
         }}
         onSubmit={(values, { setSubmitting, setFieldError }) => {
@@ -57,13 +52,14 @@ export default function Login() {
           handleBlur,
           handleSubmit,
           isSubmitting,
+          errors,
           /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit} className={formStyles["form"]}>
             <label
               name="email"
               className={`${formStyles["form-label"]} ${
-                errorMessages.email ? formStyles["label-input-error"] : ""
+                errors.email ? formStyles["label-input-error"] : ""
               }`}
             >
               Email
@@ -76,13 +72,13 @@ export default function Login() {
               onBlur={handleBlur}
               value={values.email}
               className={`${formStyles["form-input"]} ${
-                errorMessages.email ? formStyles["form-input-error"] : ""
+                errors.email ? formStyles["form-input-error"] : ""
               }`}
             />
             <label
               name="password"
               className={`${formStyles["form-label"]} ${
-                errorMessages.password ? formStyles["label-input-error"] : ""
+                errors.password ? formStyles["label-input-error"] : ""
               }`}
             >
               Password
@@ -95,7 +91,7 @@ export default function Login() {
               onBlur={handleBlur}
               value={values.password}
               className={`${formStyles["form-input"]} ${
-                errorMessages.password ? formStyles["form-input-error"] : ""
+                errors.password ? formStyles["form-input-error"] : ""
               }`}
             />
             <div className={`${formStyles["form-error"]}`}>

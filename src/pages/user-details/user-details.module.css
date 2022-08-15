@@ -1,0 +1,23 @@
+.user-details {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-nav-section {
+  flex-basis: 30%;
+}
+.user-content-section {
+  flex-basis: 70%;
+}
+@media all and (max-width: 800px) {
+  .user-details {
+    flex-direction: column;
+  }
+  .user-nav-section {
+    flex-grow: 1;
+  }
+  .user-content-section {
+    flex-grow: 1;
+  }
+}

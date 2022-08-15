@@ -27,7 +27,7 @@ function ConfirmModalOverlay(props) {
       <main className={styles["modal-confirm-main"]}>
         <p className={styles["modal-message"]}>{props.message}</p>
       </main>
-      <footer className="d-flex justify-content-between align-items-end">
+      <footer className="d-flex justify-content-between align-items-end mb-3 p-1">
         <Button
           onClick={props.onConfirm}
           buttonStyle="btn-primary"
@@ -42,7 +42,6 @@ function ConfirmModalOverlay(props) {
         >
           No
         </Button>
-
       </footer>
     </div>
   );

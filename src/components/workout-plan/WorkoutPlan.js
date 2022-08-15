@@ -178,16 +178,20 @@ const WorkoutPlan = (props) => {
         columns={props.tableColumnsInfo}
         actions={actions}
       />
-      <ExercisesInUserWorkoutPlan
-        workoutDay={workoutDay}
-        handleUpdateExercises={updateExercises}
-      />
-      <Toast
-        open={open}
-        onClose={handleClose}
-        severity={toastConfig.severity}
-        message={toastConfig.message}
-      />
+      {props.type === "userWorkoutPlan" && (
+        <>
+          <ExercisesInUserWorkoutPlan
+            workoutDay={workoutDay}
+            handleUpdateExercises={updateExercises}
+          />
+          <Toast
+            open={open}
+            onClose={handleClose}
+            severity={toastConfig.severity}
+            message={toastConfig.message}
+          />
+        </>
+      )}
     </div>
   );
 };

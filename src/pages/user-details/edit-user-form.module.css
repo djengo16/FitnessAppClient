@@ -1,0 +1,17 @@
+.form-textarea {
+  width: 100%;
+  margin: 10px 0;
+}
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  background-color: var(--pageBackground);
+  height: 4rem;
+}

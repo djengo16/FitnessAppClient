@@ -20,6 +20,10 @@ const errorMessages = {
   trainingDaysAreRequired: "Training days are required!",
   goalisRequired: "Goal is are required!",
   programsCountInRange: "Please choose between [1-10] plans!",
+
+  //user
+  invalidFirstName: "First Name cannot contain special characters!",
+  invalidLastName: "Last Name cannot contain special characters!",
 };
 
 export default errorMessages;

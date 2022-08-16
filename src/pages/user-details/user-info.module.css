@@ -6,6 +6,7 @@
   box-shadow: var(--mainBoxShadow);
 }
 .user-profile-picture {
+  position: relative;
   width: 9rem;
   height: 9rem;
   color: black;
@@ -17,10 +18,10 @@
   text-align: left;
 }
 .user-picture {
-  flex-grow: 2;
+  flex-grow: 1;
 }
 .user-text-info {
-  flex-grow: 4;
+  flex-grow: 5;
 }
 .user-defatult-picture {
   padding: 5px;
@@ -57,6 +58,23 @@
   text-align: left;
   opacity: 0.8;
 }
+.change-picture-span {
+  background-color: var(--cardBackground);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  right: 25px;
+  bottom: -10px;
+  color: white;
+  cursor: pointer;
+  z-index: 1;
+}
+.change-picture-span:hover {
+  background-color: var(--cardBackgroundOp50);
+  outline: 1px solid white;
+}
 @media all and (max-width: 800px) {
   .user-text-info {
     align-items: center;
@@ -70,5 +88,10 @@
   }
   .user-heading {
     text-align: center;
+  }
+  .user-picture {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
   }
 }

@@ -1,19 +1,22 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import Button from "../../components/button/Button";
+import { Modal } from "../../components/modal/Modal";
 import { getUserById } from "../../utils/services/usersService";
+import EditUserForm from "./EditUserForm";
 import styles from "./user-info.module.css";
-
+import { HiOutlinePhotograph } from "react-icons/hi";
 const UserInfo = () => {
+  const modalTitle = "Updating information";
   const [userId, permision] = useOutletContext();
   const [user, setUser] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    console.log(userId);
     getUserById(userId).then((res) => {
       setUser(res.data);
     });
-  }, []);
+  }, [userId]);
 
   const userProfilePicture = user.profilePicture ? (
     <img
@@ -23,7 +26,7 @@ const UserInfo = () => {
     />
   ) : (
     <img
-      className={`${styles["user-profile-picture"]} ${styles["user-defatult-picture"]}`}
+      className={` ${styles["user-defatult-picture"]}`}
       src="/user-icon.svg"
       alt="User profile"
     />
@@ -63,23 +66,47 @@ const UserInfo = () => {
   );
 
   return (
-    <article className={styles["user-info"]}>
-      <section className={styles["user-info-top"]}>
-        <div className={styles["user-picture"]}>{userProfilePicture}</div>
-        <div className={styles["user-text-info"]}>
-          <h6 className={styles["user-heading"]}>Personal info</h6>
-          {personalInfo}
-        </div>
-      </section>
-      {user.description && (
-        <section className={styles["user-info-bottom"]}>
-          <h6 className={styles["user-heading"]}>About</h6>
-          <p className={styles["user-description"]}>{user.description}</p>
-          {permision && <Button>Edit profile</Button>}
-        </section>
+    <Fragment>
+      {openModal && (
+        <Modal title={modalTitle} onConfirm={setOpenModal.bind(null, false)}>
+          <EditUserForm
+            user={user}
+            setUser={setUser}
+            onCancel={setOpenModal.bind(null, false)}
+          />
+        </Modal>
       )}
-    </article>
+      <article className={styles["user-info"]}>
+        <section className={styles["user-info-top"]}>
+          <div className={styles["user-picture"]}>
+            <div className={styles["user-profile-picture"]}>
+              <span
+                className={styles["change-picture-span"]}
+                title="Upload photo"
+              >
+                <HiOutlinePhotograph />
+              </span>
+              {userProfilePicture}
+            </div>
+          </div>
+          <div className={styles["user-text-info"]}>
+            <h6 className={styles["user-heading"]}>Personal info</h6>
+            {personalInfo}
+          </div>
+        </section>
+        {user.description && (
+          <section className={styles["user-info-bottom"]}>
+            <h6 className={styles["user-heading"]}>About</h6>
+            <p className={styles["user-description"]}>{user.description}</p>
+            {permision && (
+              <Button onClick={setOpenModal.bind(null, true)}>
+                Edit profile
+              </Button>
+            )}
+          </section>
+        )}
+      </article>
+    </Fragment>
   );
 };
 export default UserInfo;
-//{"id":"1289df60-06e9-4ad1-aa24-655490004565","email":"admin@sample.com","description":null,"profilePicture":null,"firstName":null,"lastName":null,"registeredOn":"1.1.0001 г."}

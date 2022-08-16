@@ -7,8 +7,10 @@
   text-align: left;
   padding: 0;
   padding-left: 0.3rem;
-  border-left: 2px solid var(--cardBackground);
+  border-right: 2px solid var(--cardBackground);
+  padding-right: 1rem;
   margin-right: 1rem;
+  height: 9rem;
 }
 .user-ul li a {
   margin-bottom: 0.5rem;
@@ -25,7 +27,8 @@
 @media all and (max-width: 800px) {
   .user-ul {
     text-align: center;
-    border-left: 0px;
+    height: auto;
+    border-right: 0px;
     border-bottom: 2px solid var(--cardBackground);
   }
   .user-ul li a {

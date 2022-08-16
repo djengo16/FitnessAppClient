@@ -67,7 +67,7 @@ function Users() {
       <Button
         type="button"
         isLink={true}
-        to={`/users/${userId}`}
+        to={`/users/${userId}/info`}
         buttonStyle="btn-primary"
         buttonSize="btn-small"
       >

@@ -8,6 +8,7 @@ const toastMessages = {
   assignedProgram: "You succefully assigned program!",
   updatedUser: "Successfully updated your profile!",
   updatedProfilePicture: "Successfully updated your profile picture!",
+  changedPassword: "Successfully changed your password!",
 };
 
 const severityTypes = {

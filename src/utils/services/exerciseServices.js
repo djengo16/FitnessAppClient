@@ -30,5 +30,5 @@ export function createExercise(model) {
   return interceptedHttpClient.post(`${API_URL}/Exercises/create`, model);
 }
 export function updateExercise(model) {
-  return interceptedHttpClient.put(`${API_URL}/Exercises/update`, model);
+  return interceptedHttpClient.patch(`${API_URL}/Exercises/update`, model);
 }

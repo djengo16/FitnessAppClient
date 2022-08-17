@@ -6,6 +6,7 @@ const toastMessages = {
   exerciseCreated: "Successfully created exercise!",
   exerciseUpdated: "Successfully updated exercise!",
   assignedProgram: "You succefully assigned program!",
+  updatedUser: "Successfully updated your profile!",
 };
 
 const severityTypes = {

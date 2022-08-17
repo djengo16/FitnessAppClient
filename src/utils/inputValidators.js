@@ -5,4 +5,14 @@ const validatePasswordLength = (password) => password.length >= 6;
 
 const validateUserName = (name) => /^[a-zA-Z]+$/.test(name);
 
-export { validateEmail, validatePasswordLength, validateUserName };
+const validatePhoneNumber = (number) =>
+  /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(
+    number
+  );
+
+export {
+  validateEmail,
+  validatePasswordLength,
+  validateUserName,
+  validatePhoneNumber,
+};

@@ -3,20 +3,50 @@ import { useOutletContext } from "react-router-dom";
 import Button from "../../components/button/Button";
 import { Modal } from "../../components/modal/Modal";
 import { getUserById } from "../../utils/services/usersService";
-import EditUserForm from "./EditUserForm";
+import UserEditForm from "./UserEditForm";
 import styles from "./user-info.module.css";
 import { HiOutlinePhotograph } from "react-icons/hi";
+import useToast from "../../hooks/useToast";
+import Toast from "../../components/toast/Toast";
+import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
+import errorMessages from "../../utils/messages/errorMessages";
+
 const UserInfo = () => {
   const modalTitle = "Updating information";
   const [userId, permision] = useOutletContext();
   const [user, setUser] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const {
+    open,
+    handleOpen: handleOpenToast,
+    handleClose,
+    toastConfig,
+    setToastConfig,
+  } = useToast();
 
   useEffect(() => {
     getUserById(userId).then((res) => {
       setUser(res.data);
     });
   }, [userId]);
+
+  const handleUpdateUser = (success, updatedUser, errorMessage) => {
+    if (success) {
+      setUser(updatedUser);
+      setToastConfig({
+        severity: severityTypes.info,
+        message: toastMessages.updatedUser,
+      });
+    } else {
+      setToastConfig({
+        severity: severityTypes.error,
+        message: errorMessage,
+      });
+    }
+
+    handleOpenToast();
+    setOpenModal(false);
+  };
 
   const userProfilePicture = user.profilePicture ? (
     <img
@@ -37,7 +67,7 @@ const UserInfo = () => {
       <li
         className={`${styles["user-info-top-li"]} row justify-content-flex-start`}
       >
-        <label className="col-4">Date of join</label>
+        <label className="col-4">Date of joining</label>
         <p className="col-4 mb-1">{user.registeredOn}</p>
       </li>
       <li
@@ -50,7 +80,7 @@ const UserInfo = () => {
         <li
           className={`${styles["user-info-top-li"]} row justify-content-flex-start`}
         >
-          <label className="col-4">FirstName</label>
+          <label className="col-4">First name</label>
           <p className="col-4 mb-1">{user.firstName}</p>
         </li>
       )}
@@ -58,8 +88,16 @@ const UserInfo = () => {
         <li
           className={`${styles["user-info-top-li"]} row justify-content-flex-start`}
         >
-          <label className="col-4">LastName</label>
+          <label className="col-4">Last name</label>
           <p className="col-4 mb-1">{user.lastName}</p>
+        </li>
+      )}
+      {user.phoneNumber && (
+        <li
+          className={`${styles["user-info-top-li"]} row justify-content-flex-start`}
+        >
+          <label className="col-4">Phone number</label>
+          <p className="col-4 mb-1">{user.phoneNumber}</p>
         </li>
       )}
     </ul>
@@ -69,9 +107,9 @@ const UserInfo = () => {
     <Fragment>
       {openModal && (
         <Modal title={modalTitle} onConfirm={setOpenModal.bind(null, false)}>
-          <EditUserForm
+          <UserEditForm
             user={user}
-            setUser={setUser}
+            onUserUpdate={handleUpdateUser}
             onCancel={setOpenModal.bind(null, false)}
           />
         </Modal>
@@ -106,6 +144,12 @@ const UserInfo = () => {
           </section>
         )}
       </article>
+      <Toast
+        open={open}
+        onClose={handleClose}
+        severity={toastConfig.severity}
+        message={toastConfig.message}
+      />
     </Fragment>
   );
 };

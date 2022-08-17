@@ -24,6 +24,7 @@ const errorMessages = {
   //user
   invalidFirstName: "First Name cannot contain special characters!",
   invalidLastName: "Last Name cannot contain special characters!",
+  invalidPhoneNumber: "Invalid phone number!",
 };
 
 export default errorMessages;

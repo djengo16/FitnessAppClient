@@ -1,6 +1,19 @@
-.form-textarea {
+.user-form {
+  margin: 0 2rem;
+}
+.user-form textarea {
   width: 100%;
   margin: 10px 0;
+}
+.small-inputs-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.small-inputs-section input {
+  width: 350px;
+  max-width: 100%;
 }
 .form-footer {
   display: flex;
@@ -14,4 +27,15 @@
   margin-right: 0;
   background-color: var(--pageBackground);
   height: 4rem;
+}
+.form-footer button {
+  margin: 0;
+}
+
+@media all and (min-height: 800px) {
+  .user-form input,
+  .user-form textarea {
+    line-height: 2;
+    font-size: 1.1rem;
+  }
 }

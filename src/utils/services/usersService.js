@@ -1,8 +1,7 @@
 import axios from "axios";
-import { ADMIN_ROLE, API_URL } from "./../environment";
+import { API_URL } from "./../environment";
 import { DATA_PER_PAGE } from "../constants";
 import httpParamsBuilder from "../builders/httpParamsBuilder";
-import tokenStorage from "./tokenStorage";
 import interceptedHttpClient from "../httpClient/interceptedHttpClient";
 
 export function getAllUsers(search = "", page = 1, count = DATA_PER_PAGE) {
@@ -26,4 +25,7 @@ export async function getUserActivePlanId(userId) {
     `${API_URL}/Users/activePlanId`,
     httpParamsBuilder({ userId })
   );
+}
+export async function updateUser(data) {
+  return interceptedHttpClient.put(`${API_URL}/Users/edit`, data);
 }

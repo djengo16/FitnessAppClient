@@ -7,6 +7,10 @@ import { register } from "../../utils/services/authService";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import Button from "../../components/button/Button";
+import {
+  validateEmail,
+  validatePasswordLength,
+} from "../../utils/inputValidators";
 
 export default function Register() {
   const [navigate, setNavigate] = useState(false);
@@ -26,14 +30,12 @@ export default function Register() {
 
           if (!values.email) {
             errors.email = `Error: ${errorMessageConstats.emptyEmail}`;
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
+          } else if (!validateEmail(values.email)) {
             errors.email = `Error: ${errorMessageConstats.invalidEmail}`;
           }
           if (!values.password) {
             errors.password = `Error: ${errorMessageConstats.emptyPassword}`;
-          } else if (values.password.length < 6) {
+          } else if (validatePasswordLength(values.password)) {
             errors.password = `Error: ${errorMessageConstats.passwordMinLength}`;
           } else if (values.password !== values.confirmPassword) {
             errors.confirmPassword = `Error: ${errorMessageConstats.passwordsMatch}`;

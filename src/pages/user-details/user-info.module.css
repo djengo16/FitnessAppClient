@@ -1,0 +1,120 @@
+@import url("../../theme.css");
+.user-info {
+  background-color: var(--workoutCardBackground);
+  padding: 0.7rem;
+  border-radius: 4px;
+  box-shadow: var(--mainBoxShadow);
+}
+.user-heading {
+  text-align: left;
+}
+.user-picture-section {
+  flex-grow: 1;
+}
+.user-text-info {
+  flex-grow: 5;
+}
+.user-defatult-picture {
+  padding: 5px;
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+  color: black;
+  border: 1.5px solid white;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.user-info-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.user-info-top-ul {
+  padding: 0;
+  text-align: left;
+  padding-left: 1rem;
+  padding-top: 0.5;
+  color: var(--textInput);
+}
+.user-info-top-li {
+  font-size: 0.8rem;
+}
+.user-info-top-li label {
+  padding: 0;
+  font-weight: 600;
+}
+.user-info-top-li p {
+  padding: 0;
+  font-weight: 400;
+  opacity: 0.8;
+}
+.user-info-bottom {
+  margin-top: 2rem;
+}
+.user-description {
+  font-size: 0.9rem;
+  text-align: left;
+  opacity: 0.8;
+}
+.user-profile-picture {
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+  color: black;
+  border: 1.5px solid white;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.user-picture {
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+}
+.change-picture-span {
+  background-color: var(--cardBackground);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  right: 25px;
+  bottom: -10px;
+  color: white;
+  cursor: pointer;
+  z-index: 1;
+}
+.img-input {
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  position: absolute;
+  right: 25px;
+  bottom: -10px;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+.change-picture-span:hover {
+  background-color: var(--cardBackgroundOp50);
+  outline: 1px solid white;
+}
+@media all and (max-width: 800px) {
+  .user-text-info {
+    align-items: center;
+    margin-top: 2rem;
+  }
+  .user-info-top-ul li {
+    justify-content: center;
+  }
+  .user-text-info {
+    margin-top: 1rem;
+  }
+  .user-heading {
+    text-align: center;
+  }
+  .user-picture-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+}

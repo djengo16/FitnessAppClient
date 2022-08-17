@@ -2,6 +2,7 @@ import tokenStorage from "./tokenStorage";
 import axios from "axios";
 import { ADMIN_ROLE, API_URL } from "./../environment";
 import { getUserActivePlanId } from "./usersService";
+import interceptedHttpClient from "../httpClient/interceptedHttpClient";
 
 /**
  *
@@ -42,6 +43,10 @@ export async function register(userData) {
 
 export async function logout() {
   localStorage.clear();
+}
+
+export async function changePassword(data) {
+  return interceptedHttpClient.put(`${API_URL}/Users/changepassword`, data);
 }
 
 /**

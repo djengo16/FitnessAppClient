@@ -29,3 +29,10 @@ export async function getUserActivePlanId(userId) {
 export async function updateUser(data) {
   return interceptedHttpClient.put(`${API_URL}/Users/edit`, data);
 }
+//updatePicture
+export async function updateUserPicture(userId, pictureUrl) {
+  return interceptedHttpClient.put(`${API_URL}/Users/updatePicture`, {
+    userId,
+    pictureUrl,
+  });
+}

@@ -5,7 +5,17 @@
   border-radius: 4px;
   box-shadow: var(--mainBoxShadow);
 }
-.user-profile-picture {
+.user-heading {
+  text-align: left;
+}
+.user-picture-section {
+  flex-grow: 1;
+}
+.user-text-info {
+  flex-grow: 5;
+}
+.user-defatult-picture {
+  padding: 5px;
   position: relative;
   width: 9rem;
   height: 9rem;
@@ -14,22 +24,10 @@
   border-radius: 50%;
   object-fit: cover;
 }
-.user-heading {
-  text-align: left;
-}
-.user-picture {
-  flex-grow: 1;
-}
-.user-text-info {
-  flex-grow: 5;
-}
-.user-defatult-picture {
-  padding: 5px;
-}
 .user-info-top {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 .user-info-top-ul {
   padding: 0;
@@ -58,6 +56,20 @@
   text-align: left;
   opacity: 0.8;
 }
+.user-profile-picture {
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+  color: black;
+  border: 1.5px solid white;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.user-picture {
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+}
 .change-picture-span {
   background-color: var(--cardBackground);
   border-radius: 50%;
@@ -70,6 +82,17 @@
   color: white;
   cursor: pointer;
   z-index: 1;
+}
+.img-input {
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  position: absolute;
+  right: 25px;
+  bottom: -10px;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
 }
 .change-picture-span:hover {
   background-color: var(--cardBackgroundOp50);
@@ -89,7 +112,7 @@
   .user-heading {
     text-align: center;
   }
-  .user-picture {
+  .user-picture-section {
     display: flex;
     justify-content: center;
     margin-bottom: 1rem;

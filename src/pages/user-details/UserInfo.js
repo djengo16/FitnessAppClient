@@ -2,20 +2,28 @@ import { Fragment, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import Button from "../../components/button/Button";
 import { Modal } from "../../components/modal/Modal";
-import { getUserById } from "../../utils/services/usersService";
+import {
+  getUserById,
+  updateUserPicture,
+} from "../../utils/services/usersService";
 import UserEditForm from "./UserEditForm";
 import styles from "./user-info.module.css";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import useToast from "../../hooks/useToast";
 import Toast from "../../components/toast/Toast";
 import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
-import errorMessages from "../../utils/messages/errorMessages";
+import { uploadImage } from "../../utils/services/imageService";
+import { GetCloudinaryLink } from "../../utils/environment";
+import Spinner from "../../components/spinner/Spinner";
 
 const UserInfo = () => {
   const modalTitle = "Updating information";
   const [userId, permision] = useOutletContext();
   const [user, setUser] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [uploadedImageAsBinary, setUploadedImageAsBinary] = useState("");
+
   const {
     open,
     handleOpen: handleOpenToast,
@@ -48,19 +56,90 @@ const UserInfo = () => {
     setOpenModal(false);
   };
 
-  const userProfilePicture = user.profilePicture ? (
-    <img
-      className={styles["user-profile-picture"]}
-      src={user.profilePicture}
-      alt="User profile"
-    />
-  ) : (
-    <img
-      className={` ${styles["user-defatult-picture"]}`}
-      src="/user-icon.svg"
-      alt="User profile"
-    />
-  );
+  const handleFileChange = (event) => {
+    const binary = event.target.files[0];
+    setUploadedImageAsBinary(binary);
+  };
+
+  const handleSaveImage = () => {
+    let newPictureUrl;
+    /**
+     * First uploading image to cloudinary
+     * then we get img id from the cloudinary api and generate an img url
+     * then send put request to th server, to update user profile picture url
+     */
+    setIsLoading(true);
+    uploadImage(uploadedImageAsBinary)
+      .then((res) => {
+        newPictureUrl = GetCloudinaryLink(res.data.public_id);
+
+        updateUserPicture(userId, newPictureUrl).then((res) => {
+          setUploadedImageAsBinary("");
+
+          setUser((prev) => ({
+            ...prev,
+            profilePicture: newPictureUrl,
+          }));
+
+          setToastConfig({
+            severity: severityTypes.success,
+            message: toastMessages.updatedProfilePicture,
+          });
+          handleOpenToast();
+        });
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const handleDiscardImage = () => {
+    setUploadedImageAsBinary("");
+  };
+
+  const userProfilePicture = (function () {
+    let src = "";
+    if (uploadedImageAsBinary) {
+      src = URL.createObjectURL(uploadedImageAsBinary);
+    } else if (user.profilePicture) {
+      src = user.profilePicture;
+    } else {
+      src = "/user-icon.svg";
+    }
+
+    return (
+      <img
+        className={styles["user-profile-picture"]}
+        src={src}
+        alt="User profile"
+      />
+    );
+  })();
+
+  const userOperations = (function () {
+    if (isLoading) {
+      return (
+        <div>
+          <Spinner />
+        </div>
+      );
+    } else if (permision && uploadedImageAsBinary) {
+      return (
+        <div>
+          <Button onClick={handleSaveImage} buttonStyle="btn-secondary">
+            Save
+          </Button>
+          <Button onClick={handleDiscardImage} buttonStyle="btn-danger">
+            Discard
+          </Button>
+        </div>
+      );
+    } else if (permision) {
+      return (
+        <div>
+          <Button onClick={setOpenModal.bind(null, true)}>Edit profile</Button>
+        </div>
+      );
+    }
+  })();
 
   const personalInfo = (
     <ul className={styles["user-info-top-ul"]}>
@@ -116,14 +195,26 @@ const UserInfo = () => {
       )}
       <article className={styles["user-info"]}>
         <section className={styles["user-info-top"]}>
-          <div className={styles["user-picture"]}>
-            <div className={styles["user-profile-picture"]}>
-              <span
-                className={styles["change-picture-span"]}
-                title="Upload photo"
-              >
-                <HiOutlinePhotograph />
-              </span>
+          <div className={styles["user-picture-section"]}>
+            <div className={styles["user-picture"]}>
+              {permision && (
+                <>
+                  <input
+                    type="file"
+                    name="file"
+                    id="file"
+                    className={`${styles["img-input"]} `}
+                    onChange={handleFileChange}
+                  />
+                  <label
+                    title="Upload photo"
+                    htmlFor="file"
+                    className={styles["change-picture-span"]}
+                  >
+                    <HiOutlinePhotograph />
+                  </label>
+                </>
+              )}
               {userProfilePicture}
             </div>
           </div>
@@ -136,11 +227,7 @@ const UserInfo = () => {
           <section className={styles["user-info-bottom"]}>
             <h6 className={styles["user-heading"]}>About</h6>
             <p className={styles["user-description"]}>{user.description}</p>
-            {permision && (
-              <Button onClick={setOpenModal.bind(null, true)}>
-                Edit profile
-              </Button>
-            )}
+            {userOperations}
           </section>
         )}
       </article>

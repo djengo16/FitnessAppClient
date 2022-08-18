@@ -8,8 +8,15 @@ export function deleteExerciseInWorkoutDay(exerciseId, workoutDayId) {
 }
 
 export function addExerciseInWorkoutDay(exerciseId, workoutDayId) {
-  return interceptedHttpClient.put(`${API_URL}/ExerciseInWorkoutDay`, {
+  return interceptedHttpClient.post(`${API_URL}/ExerciseInWorkoutDay`, {
     exerciseId,
     workoutDayId,
   });
+}
+
+export function updateRangeExerciseInWorkoutDay(data) {
+  return interceptedHttpClient.put(
+    `${API_URL}/ExerciseInWorkoutDay/updateRange`,
+    data
+  );
 }

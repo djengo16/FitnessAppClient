@@ -16,12 +16,32 @@ function Table(props) {
    * @returns { cell with data/text or button with action,
    *  for example 'user details' btn that will redirect to user details page }
    */
-  const cellLoader = (data) => {
+  const cellLoader = (data, index) => {
     // iterate column times, so we can create columns with actions too, not only text-data
     return props.columns.map((column) => {
       // first if check will create all cells with normal text data in it
       if (column.type === "cell") {
         return <td>{data[column.field]}</td>;
+      } else if (column.type === "numeric-editable") {
+        if (props.editing) {
+          return (
+            <td>
+              <div className={styles["editable-cell"]}>
+                <span>{data[column.field]}</span>
+                <div className={styles.actions}>
+                  <button onClick={() => props.onDecrease(column.field, index)}>
+                    −
+                  </button>
+                  <button onClick={() => props.onIncrease(column.field, index)}>
+                    +
+                  </button>
+                </div>
+              </div>
+            </td>
+          );
+        } else {
+          return <td>{data[column.field]}</td>;
+        }
       } else {
         /**
          * This check returns cell with button, (user details/delete/edit button) that is associated with the current row's data.
@@ -53,8 +73,8 @@ function Table(props) {
       </thead>
       <tbody>
         {props.data &&
-          props.data.map((current) => {
-            return <tr key={current.id}>{cellLoader(current)}</tr>;
+          props.data.map((current, index) => {
+            return <tr key={current.id}>{cellLoader(current, index)}</tr>;
           })}
       </tbody>
     </table>

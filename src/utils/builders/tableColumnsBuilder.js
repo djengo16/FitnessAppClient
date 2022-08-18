@@ -4,25 +4,25 @@ export function buildWorkoutPlanColumns(type) {
       title: "Exercise Name",
       field: "name",
       type: "cell",
-      width: "40%",
+      width: "30%",
     },
     {
       title: "Sets",
       field: "sets",
       type: "cell",
-      width: "10%",
+      width: "15%",
     },
     {
       title: "Min reps",
       field: "minReps",
       type: "cell",
-      width: "10%",
+      width: "15%",
     },
     {
       title: "Max reps",
       field: "maxReps",
       type: "cell",
-      width: "10%",
+      width: "15%",
     },
     {
       title: "Details",
@@ -36,6 +36,38 @@ export function buildWorkoutPlanColumns(type) {
 
   const userOperationColumns = [
     {
+      title: "Exercise Name",
+      field: "name",
+      type: "cell",
+      width: "30%",
+    },
+    {
+      title: "Sets",
+      field: "sets",
+      type: "numeric-editable",
+      width: "15%",
+    },
+    {
+      title: "Min reps",
+      field: "minReps",
+      type: "numeric-editable",
+      width: "15%",
+    },
+    {
+      title: "Max reps",
+      field: "maxReps",
+      type: "numeric-editable",
+      width: "15%",
+    },
+    {
+      title: "Details",
+      field: "details",
+      dataField: "name",
+      action: "createDetailsBtn",
+      type: "button",
+      width: "15%",
+    },
+    {
       title: "Remove from plan",
       field: "details",
       dataField: "name",
@@ -47,7 +79,7 @@ export function buildWorkoutPlanColumns(type) {
 
   switch (type) {
     case "full":
-      return defaultColumns.concat(userOperationColumns);
+      return userOperationColumns;
     default:
       return defaultColumns;
   }

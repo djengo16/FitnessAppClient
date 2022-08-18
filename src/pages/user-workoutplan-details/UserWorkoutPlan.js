@@ -11,6 +11,7 @@ const UserWorkoutPlan = () => {
   const params = useParams();
   const [workoutPlan, setWorkoutPlan] = useState("");
   const [user, setUser] = useState("");
+  //sets, reps
 
   useEffect(() => {
     getUserById(params.id).then((response) => setUser(response.data));
@@ -28,7 +29,7 @@ const UserWorkoutPlan = () => {
         <WorkoutPlan
           tableColumnsInfo={buildWorkoutPlanColumns("full")}
           workoutPlan={workoutPlan}
-          type="userWorkoutPlan"
+          for="user-plan"
         />
       )}
     </div>

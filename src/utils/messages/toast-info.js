@@ -9,6 +9,7 @@ const toastMessages = {
   updatedUser: "Successfully updated your profile!",
   updatedProfilePicture: "Successfully updated your profile picture!",
   changedPassword: "Successfully changed your password!",
+  updatedSetsAndReps: "Successfully updated exercise's sets and reps!",
 };
 
 const severityTypes = {

@@ -6,6 +6,7 @@ import { ADMIN_ROLE } from "../../../utils/environment";
 import NotificationLabel from "../../notification/NotificationLabel";
 
 export function Header() {
+  const userId = tokenStorage.decodeToken().nameid;
   const navigate = useNavigate();
 
   const handleNavClick = (isActive) => {
@@ -21,9 +22,11 @@ export function Header() {
     navigate("login");
   };
   const handleWorkoutPlan = () => {
-    const userId = tokenStorage.decodeToken().nameid;
     const planId = localStorage.getItem("activePlanId");
     navigate(`/users/${userId}/workoutplan/${planId}`);
+  };
+  const handleProfile = () => {
+    navigate(`/users/${userId}/info`);
   };
 
   const getAdminLinks = () => {
@@ -78,12 +81,13 @@ export function Header() {
       <div className={styles["user-items"]}>
         <NotificationLabel />
         <div className={styles.dropdown}>
-          <a href="#">
+          <a href="#" onClick={handleProfile}>
             <img src="/user-icon.svg" alt="" />
           </a>
           <div>
-            <a onClick={handleLogout}>Logout</a>
+            <a onClick={handleProfile}>Profile</a>
             <a onClick={handleWorkoutPlan}>My plan</a>
+            <a onClick={handleLogout}>Logout</a>
           </div>
         </div>
       </div>

@@ -289,6 +289,7 @@ const WorkoutPlan = (props) => {
         editing={editingSetsAndReps}
       />
       {props.for === "user-plan" && additionalSection}
+
     </div>
   );
 };

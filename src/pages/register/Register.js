@@ -35,7 +35,7 @@ export default function Register() {
           }
           if (!values.password) {
             errors.password = `Error: ${errorMessageConstats.emptyPassword}`;
-          } else if (validatePasswordLength(values.password)) {
+          } else if (!validatePasswordLength(values.password)) {
             errors.password = `Error: ${errorMessageConstats.passwordMinLength}`;
           } else if (values.password !== values.confirmPassword) {
             errors.confirmPassword = `Error: ${errorMessageConstats.passwordsMatch}`;

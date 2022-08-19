@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import Button from "../../components/button/Button";
 import { Modal } from "../../components/modal/Modal";
@@ -15,14 +15,17 @@ import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
 import { uploadImage } from "../../utils/services/imageService";
 import { GetCloudinaryLink } from "../../utils/environment";
 import Spinner from "../../components/spinner/Spinner";
+import { setProfilePictureToStorage } from "../../utils/services/authService";
+import UserContext from "../../context/user-context";
 
 const UserInfo = () => {
   const modalTitle = "Updating information";
-  const [userId, permision] = useOutletContext();
+  const [utargetUserId, permision] = useOutletContext();
   const [user, setUser] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedImageAsBinary, setUploadedImageAsBinary] = useState("");
+  const [loggedUser, setLoggedUserData] = useContext(UserContext);
 
   const {
     open,
@@ -33,10 +36,10 @@ const UserInfo = () => {
   } = useToast();
 
   useEffect(() => {
-    getUserById(userId).then((res) => {
+    getUserById(utargetUserId).then((res) => {
       setUser(res.data);
     });
-  }, [userId]);
+  }, [utargetUserId]);
 
   const handleUpdateUser = (success, updatedUser, errorMessage) => {
     if (success) {
@@ -71,9 +74,20 @@ const UserInfo = () => {
     setIsLoading(true);
     uploadImage(uploadedImageAsBinary)
       .then((res) => {
+        //get new pic url from cloudinary
         newPictureUrl = GetCloudinaryLink(res.data.public_id);
 
-        updateUserPicture(userId, newPictureUrl).then((res) => {
+        //set picture to storage
+        setProfilePictureToStorage(utargetUserId, newPictureUrl);
+
+        //set picture to context
+        setLoggedUserData((prev) => ({
+          ...prev,
+          profilePictureUrl: newPictureUrl,
+        }));
+
+        //update in server
+        updateUserPicture(utargetUserId, newPictureUrl).then((res) => {
           setUploadedImageAsBinary("");
 
           setUser((prev) => ({
@@ -81,6 +95,7 @@ const UserInfo = () => {
             profilePicture: newPictureUrl,
           }));
 
+          //config and open toast
           setToastConfig({
             severity: severityTypes.success,
             message: toastMessages.updatedProfilePicture,
@@ -113,7 +128,7 @@ const UserInfo = () => {
       />
     );
   })();
-
+  console.log(permision);
   const userOperations = (function () {
     if (isLoading) {
       return (
@@ -223,13 +238,16 @@ const UserInfo = () => {
             {personalInfo}
           </div>
         </section>
-        {user.description && (
-          <section className={styles["user-info-bottom"]}>
-            <h6 className={styles["user-heading"]}>About</h6>
-            <p className={styles["user-description"]}>{user.description}</p>
-            {userOperations}
-          </section>
-        )}
+
+        <section className={styles["user-info-bottom"]}>
+          {user.description && (
+            <>
+              <h6 className={styles["user-heading"]}>About</h6>
+              <p className={styles["user-description"]}>{user.description}</p>
+            </>
+          )}
+          {userOperations}
+        </section>
       </article>
       <Toast
         open={open}

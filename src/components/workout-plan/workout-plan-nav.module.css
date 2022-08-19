@@ -41,6 +41,13 @@
   color: var(--cardBackground);
   text-shadow: var(--mainBoxShadow);
 }
+.nav-status-label {
+  position: absolute;
+  width: 200px;
+  top: -2rem;
+  left: -20px;
+  font-size: 0.8rem;
+}
 @media all and (max-width: 600px) {
   .workout-ul {
     flex-direction: column;

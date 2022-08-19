@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
+import StatusLabel from "../status-label/StatusLabel";
 import styles from "./workout-plan-nav.module.css";
-const WorkoutPlanNav = ({ trainingDays, onNavClick }) => {
+const WorkoutPlanNav = ({ trainingDays, onNavClick, planStatus }) => {
   const daysOfWeek = {
     1: "Monday",
     2: "Tuesday",
@@ -28,7 +29,9 @@ const WorkoutPlanNav = ({ trainingDays, onNavClick }) => {
   };
 
   return (
-    <nav className={`${styles["workout-nav"]} d-flex justify-content-between`}>
+    <nav
+      className={`${styles["workout-nav"]} d-flex justify-content-between align-items-end`}
+    >
       <ul className={`${styles["workout-ul"]} `}>
         {Object.keys(daysOfWeek).map((key) => {
           return (
@@ -47,7 +50,13 @@ const WorkoutPlanNav = ({ trainingDays, onNavClick }) => {
           );
         })}
       </ul>
-      <h3 className={styles["curr-day-text"]}>{selectedDay}</h3>
+      <div style={{ position: "relative" }}>
+        <span className={styles["nav-status-label"]}>
+          {`Status: ${planStatus ? "Active " : "Inactive "}`}
+          <StatusLabel status={planStatus} targetStatus={true} />
+        </span>
+        <h3 className={styles["curr-day-text"]}>{selectedDay}</h3>
+      </div>
     </nav>
   );
 };

@@ -45,7 +45,10 @@
   z-index: 10;
   padding: 0 40px;
 }
-
+.user-img {
+  width: 37px;
+  border-radius: 50%;
+}
 .navbar .dropdown > a {
   display: block;
   border: 1px solid #fff;

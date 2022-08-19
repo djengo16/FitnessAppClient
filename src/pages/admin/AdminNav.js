@@ -18,7 +18,7 @@ const AdminNav = (props) => {
           >
             Exercises
           </li>
-          <li
+          {/* <li
             className={
               props.selectedNavItem === adminNavItems.other &&
               `${styles["active-li"]}`
@@ -27,7 +27,7 @@ const AdminNav = (props) => {
           >
             {" "}
             Other
-          </li>
+          </li> */}
         </ul>
         {props.selectedNavItem === adminNavItems.exercises && (
           <SearchBar

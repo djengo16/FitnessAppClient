@@ -8,7 +8,7 @@ import UserNav from "./UserNav";
 function UserDetails() {
   const params = useParams();
   const [permision, setPermision] = useState(false);
-  const [userId, setUserId] = useState(params.id);
+  const [targetUserId, setUserId] = useState(params.id);
 
   useEffect(() => {
     setUserId(params.id);
@@ -23,7 +23,7 @@ function UserDetails() {
           <UserNav permision={permision} />
         </section>
         <section className={styles["user-content-section"]}>
-          <Outlet context={[userId, permision]} />
+          <Outlet context={[targetUserId, permision]} />
         </section>
       </div>
     </div>

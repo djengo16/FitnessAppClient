@@ -4,10 +4,13 @@ import { logout } from "../../../utils/services/authService";
 import tokenStorage from "../../../utils/services/tokenStorage";
 import { ADMIN_ROLE } from "../../../utils/environment";
 import NotificationLabel from "../../notification/NotificationLabel";
+import { useContext } from "react";
+import UserContext from "../../../context/user-context";
 
 export function Header() {
   const userId = tokenStorage.decodeToken().nameid;
   const navigate = useNavigate();
+  const [userData, setUserData] = useContext(UserContext);
 
   const handleNavClick = (isActive) => {
     let activeStyle = { backgroundColor: "" };
@@ -16,8 +19,9 @@ export function Header() {
       : "transparent";
     return activeStyle;
   };
-
   const handleLogout = () => {
+    //clear context, logout and navigate
+    setUserData("");
     logout();
     navigate("login");
   };
@@ -44,6 +48,15 @@ export function Header() {
       );
     }
   };
+  const userImg = userData.profilePictureUrl ? (
+    <img
+      className={styles["user-img"]}
+      src={userData.profilePictureUrl}
+      alt=""
+    />
+  ) : (
+    <img src="/user-icon.svg" alt="" />
+  );
 
   return (
     <div className={styles.navbar}>
@@ -82,7 +95,7 @@ export function Header() {
         <NotificationLabel />
         <div className={styles.dropdown}>
           <a href="#" onClick={handleProfile}>
-            <img src="/user-icon.svg" alt="" />
+            {userImg}
           </a>
           <div>
             <a onClick={handleProfile}>Profile</a>

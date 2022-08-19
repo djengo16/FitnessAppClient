@@ -208,8 +208,11 @@ const WorkoutPlan = (props) => {
   };
 
   /**
-   *
-   *
+   * We keep the updated exercises ids in a unique set, so we can
+   * use them later in this function.
+   * So the function iterates over this ids and creates collection of
+   * objects (only with updated exercises). Then we send this collection
+   * to the server and save the data, so everything is up to date.
    */
   const handleSaveSetsAndReps = () => {
     setEditingSetsAndReps(false);
@@ -243,7 +246,7 @@ const WorkoutPlan = (props) => {
 
   const additionalSection = (
     <div id="addiitonal-plan-section">
-      <div className="d-flex justify-content-around align-items-center mt-3">
+      <div className="d-flex justify-content-center mt-3">
         {!editingSetsAndReps ? (
           <Button onClick={handleEditing}>Change sets/reps</Button>
         ) : (
@@ -279,6 +282,7 @@ const WorkoutPlan = (props) => {
       <WorkoutPlanNav
         trainingDays={workoutDaysOfWeekAsNumber}
         onNavClick={handleNavClick}
+        planStatus={props.workoutPlan.isActive}
       />
       <Table
         data={workoutDay.exercisesInWorkoutDays}

@@ -7,6 +7,7 @@ import {
 } from "../../utils/services/usersService";
 import WorkoutPlan from "../../components/workout-plan/WorkoutPlan";
 import { buildWorkoutPlanColumns } from "../../utils/builders/tableColumnsBuilder";
+import NotHaveProgram from "../../components/program-not-assigned/NotHaveProgram";
 const UserWorkoutPlan = () => {
   const params = useParams();
   const [workoutPlan, setWorkoutPlan] = useState("");
@@ -22,15 +23,19 @@ const UserWorkoutPlan = () => {
 
   return (
     <div className={pageStyles["page"]}>
-      <h4 className={pageStyles["page-title"]}>
-        {user.email}'s Workout program
-      </h4>
-      {workoutPlan && (
-        <WorkoutPlan
-          tableColumnsInfo={buildWorkoutPlanColumns("full")}
-          workoutPlan={workoutPlan}
-          for="user-plan"
-        />
+      {workoutPlan ? (
+        <>
+          <h4 className={pageStyles["page-title"]}>
+            {user.email}'s Workout program
+          </h4>
+          <WorkoutPlan
+            tableColumnsInfo={buildWorkoutPlanColumns("full")}
+            workoutPlan={workoutPlan}
+            for="user-plan"
+          />
+        </>
+      ) : (
+        <NotHaveProgram />
       )}
     </div>
   );

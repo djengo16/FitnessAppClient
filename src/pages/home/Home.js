@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className={pageStyles["page"]}>
       <h4 className={pageStyles["page-title"]}>
-        Welcome: {user} to FitnesApp!
+        Welcome to FitnessApp {user} !
       </h4>
     </div>
   );

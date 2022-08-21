@@ -36,7 +36,7 @@
   font-size: 16px;
   position: absolute;
   top: -0.5rem;
-  right: -1.5rem;
+  right: 1px;
   color: var(--textInput);
 }
 .status-label {

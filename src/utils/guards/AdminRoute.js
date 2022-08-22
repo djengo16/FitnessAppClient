@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import tokenStorage from "../services/tokenStorage";
+import { tokenStorage } from "../services/storageService";
 import { ADMIN_ROLE } from "../environment";
 
 export function AdminRoute({ children }) {

@@ -5,7 +5,7 @@ import {
   getTrainingNotification,
   viewNotificationRequest,
 } from "../../utils/services/notificationService";
-import tokenStorage from "../../utils/services/tokenStorage";
+import { tokenStorage } from "../../utils/services/storageService";
 import { timeSince } from "../../utils/services/dateService";
 import { getUserActivePlanId } from "../../utils/services/usersService";
 import { useNavigate } from "react-router-dom";

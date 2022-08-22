@@ -1,4 +1,4 @@
-import tokenStorage from "../services/tokenStorage";
+import { tokenStorage } from "../services/storageService";
 export default function headerConfig() {
   const token = tokenStorage.getToken();
   return {

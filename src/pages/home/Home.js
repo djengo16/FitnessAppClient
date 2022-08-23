@@ -1,4 +1,4 @@
-import tokenStorage from "../../utils/services/tokenStorage";
+import { tokenStorage } from "../../utils/services/storageService";
 import pageStyles from "../../styles/page.module.css";
 
 function Home() {

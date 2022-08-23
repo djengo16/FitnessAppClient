@@ -1,14 +1,13 @@
 import styles from "./header.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../../utils/services/authService";
-import tokenStorage from "../../../utils/services/tokenStorage";
+import { tokenStorage } from "../../../utils/services/storageService";
 import { ADMIN_ROLE } from "../../../utils/environment";
 import NotificationLabel from "../../notification/NotificationLabel";
 import { useContext } from "react";
 import UserContext from "../../../context/user-context";
 
 export function Header() {
-  const userId = tokenStorage.decodeToken().nameid;
   const navigate = useNavigate();
   const [userData, setUserData] = useContext(UserContext);
 
@@ -27,10 +26,10 @@ export function Header() {
   };
   const handleWorkoutPlan = () => {
     const planId = localStorage.getItem("activePlanId");
-    navigate(`/users/${userId}/workoutplan/${planId}`);
+    navigate(`/users/${userData.userId}/workoutplan/${planId}`);
   };
   const handleProfile = () => {
-    navigate(`/users/${userId}/info`);
+    navigate(`/users/${userData.userId}/info`);
   };
 
   const getAdminLinks = () => {

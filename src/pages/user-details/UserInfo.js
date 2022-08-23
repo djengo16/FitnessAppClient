@@ -12,11 +12,14 @@ import { HiOutlinePhotograph } from "react-icons/hi";
 import useToast from "../../hooks/useToast";
 import Toast from "../../components/toast/Toast";
 import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
-import { uploadImage } from "../../utils/services/imageService";
+import {
+  getUserProfilePicture,
+  uploadImage,
+} from "../../utils/services/imageService";
 import { GetCloudinaryLink } from "../../utils/environment";
 import Spinner from "../../components/spinner/Spinner";
-import { setProfilePictureToStorage } from "../../utils/services/authService";
 import UserContext from "../../context/user-context";
+import { userStorage } from "../../utils/services/storageService";
 
 const UserInfo = () => {
   const modalTitle = "Updating information";
@@ -78,7 +81,12 @@ const UserInfo = () => {
         newPictureUrl = GetCloudinaryLink(res.data.public_id);
 
         //set picture to storage
-        setProfilePictureToStorage(utargetUserId, newPictureUrl);
+        getUserProfilePicture(utargetUserId).then((res) => {
+          const profilePictureUrl = res.data;
+          if (profilePictureUrl) {
+            userStorage.saveUserProfilePictureUrl(profilePictureUrl);
+          }
+        });
 
         //set picture to context
         setLoggedUserData((prev) => ({
@@ -128,7 +136,7 @@ const UserInfo = () => {
       />
     );
   })();
-  console.log(permision);
+
   const userOperations = (function () {
     if (isLoading) {
       return (

@@ -52,7 +52,6 @@ const UserChangePassword = () => {
               resetForm();
             })
             .catch((res) => {
-              console.log(res);
               setToastConfig({
                 severity: severityTypes.error,
                 message: res.response.data,

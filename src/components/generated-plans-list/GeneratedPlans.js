@@ -12,7 +12,7 @@ import { buildWorkoutPlanColumns } from "../../utils/builders/tableColumnsBuilde
 import useToast from "../../hooks/useToast";
 import Toast from "../toast/Toast";
 import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
-import { setActivePlanId } from "../../utils/services/authService";
+import { getUserActivePlanId } from "../../utils/services/usersService";
 function CustomToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
     console.log("totally custom!")
@@ -44,9 +44,11 @@ const GeneratedPlans = ({ plans }) => {
     toastConfig,
     setToastConfig,
   } = useToast();
+
   const handlePlanChoose = (id) => {
     const planToAssign = plans.find((plan) => plan.id === id);
     setIsLoading(true);
+
     assignProgram(planToAssign)
       .then(() => {
         //configure toast message and setinterval to prevent immediate redirect
@@ -55,7 +57,16 @@ const GeneratedPlans = ({ plans }) => {
           severity: severityTypes.success,
           message: toastMessages.assignedProgram,
         });
-        setActivePlanId(planToAssign.userId);
+
+        //setActivePlan
+        getUserActivePlanId(planToAssign.userId).then((res) => {
+          const planId = res.data;
+          if (planId) {
+            localStorage.setItem("activePlanId", planId);
+          }
+        });
+
+        //toast config
         handleOpenToast();
         setInterval(() => {
           setIsLoading(false);

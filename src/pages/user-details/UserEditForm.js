@@ -16,7 +16,6 @@ const UserEditForm = ({ user, onUserUpdate, onCancel }) => {
         ...user,
       }}
       validate={(values) => {
-        console.log(values);
         const errors = {};
         if (!values.email) {
           errors.email = `Error: ${errorMessages.emptyEmail}`;

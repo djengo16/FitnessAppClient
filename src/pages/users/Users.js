@@ -11,6 +11,7 @@ import Pagination from "../../components/pagination/Pagination";
 import SearchBar from "../../components/searchbar/SearchBar";
 import Button from "../../components/button/Button";
 import Spinner from "../../components/spinner/Spinner";
+import { buildUserColumns } from "../../utils/builders/tableColumnsBuilder";
 
 function Users() {
   const initalPageable = {
@@ -40,28 +41,7 @@ function Users() {
     );
   }, [pageable.currentPage, searchParams]);
 
-  const tableColumnsInfo = [
-    {
-      title: "ID",
-      field: "id",
-      type: "cell", //cell/button (options),
-      width: "50vw", //(some size -> px, %, rem...),
-    },
-    {
-      title: "Email",
-      field: "email",
-      type: "cell", //cell/button (options),
-      width: "30vw", //(some size -> px, %, rem...),
-    },
-    {
-      title: "Action",
-      field: "action",
-      dataField: "id", //since we need user id for this action we add one extra property
-      action: "createUserDetailsBtn", //this property will help when creating the button
-      type: "button", //cell/button (options),
-      width: "20vw", //(some size -> px, %, rem...),
-    },
-  ];
+  const tableColumnsInfo = buildUserColumns();
   const actions = {
     createUserDetailsBtn: (userId) => (
       <Button
@@ -71,7 +51,7 @@ function Users() {
         buttonStyle="btn-primary"
         buttonSize="btn-small"
       >
-        Go to
+        View
       </Button>
     ),
   };

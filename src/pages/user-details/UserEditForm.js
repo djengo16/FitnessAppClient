@@ -95,7 +95,7 @@ const UserEditForm = ({ user, onUserUpdate, onCancel }) => {
             />
             <Input
               id="phoneNumber"
-              type="number"
+              type="text"
               name="phoneNumber"
               label="Phone Number"
               onChange={handleChange}

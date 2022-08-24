@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import styles from "./table.module.css";
+import eFilterStyles from "../exercises/exercise-filter.module.css";
+import btnStyles from "../button/button.module.css";
 /**
  * @param { data={data that will be displayed on the cells}
  *          columns={table's columns with info}
@@ -9,6 +11,21 @@ import styles from "./table.module.css";
  */
 function Table(props) {
   useEffect(() => {}, [props.columns, props.data]);
+
+  const handleCellChange = (e) => {
+    const saveBtn = e.target.nextElementSibling;
+    saveBtn.classList.remove(styles["save-btn-hidden"]);
+  };
+
+  const handleSaveCellData = (e, data) => {
+    const btn = e.target;
+    btn.classList.add(styles["save-btn-hidden"]);
+
+    //the select option vlaue
+    const selectedValue = btn.previousElementSibling.value;
+    props.handleSaveData(selectedValue, data);
+  };
+
   /**
    * @param { data that will be displayed in column with type 'cell',
    * for example userId, email etc.} data
@@ -22,7 +39,15 @@ function Table(props) {
       // first if check will create all cells with normal text data in it
       if (column.type === "cell") {
         return <td>{data[column.field]}</td>;
-      } else if (column.type === "numeric-editable") {
+      } 
+      /**
+       * In this cell we can edit the numeric value, after we receive
+       * true for the 'editig' props. When editing is true two buttons
+       * are displayed next to the numeric value. A button with plus 
+       * and another one with minus. These buttons can modify the
+       * value in the current ceel.
+       */
+      else if (column.type === "numeric-editable") {
         if (props.editing) {
           return (
             <td>
@@ -42,6 +67,40 @@ function Table(props) {
         } else {
           return <td>{data[column.field]}</td>;
         }
+      }
+      /**
+       * Cell with dropdown and update logic
+       * For example Admin role -> we have 2 options
+       * when the selected value changes, a Save button is displayed 
+       * right to the dropdown. Save triggers api call and updates the value
+       * on the server and on the client.
+       *  */ 
+      else if (column.type === "dropdown-editable") {
+        return (
+          <td>
+            <div>
+              <select
+                onChange={handleCellChange}
+                className={eFilterStyles["exercise-filter-select"]}
+              >
+                {column.options.map((opt) => {
+                  if (opt === data[column.field]) {
+                    return <option selected>{opt}</option>;
+                  }
+                  return <option>{opt}</option>;
+                })}
+              </select>
+              <button
+                className={`${styles["save-btn-hidden"]} ${btnStyles[`btn`]} ${
+                  btnStyles["btn-secondary"]
+                }`}
+                onClick={(e) => handleSaveCellData(e, data)}
+              >
+                Save
+              </button>
+            </div>
+          </td>
+        );
       } else {
         /**
          * This check returns cell with button, (user details/delete/edit button) that is associated with the current row's data.

@@ -151,3 +151,61 @@ export function buildExerciseColumnsInUserPage() {
     },
   ];
 }
+
+export function buildUserColumns() {
+  return [
+    {
+      title: "ID",
+      field: "id",
+      type: "cell", //cell/button (options),
+      width: "50vw", //(some size -> px, %, rem...),
+    },
+    {
+      title: "Email",
+      field: "email",
+      type: "cell", //cell/button (options),
+      width: "30vw", //(some size -> px, %, rem...),
+    },
+    {
+      title: "Action",
+      field: "action",
+      dataField: "id", //since we need user id for this action we add one extra property
+      action: "createUserDetailsBtn", //this property will help when creating the button
+      type: "button", //cell/button (options),
+      width: "20vw", //(some size -> px, %, rem...),
+    },
+  ];
+}
+
+export function buildUserColumnInAdminPanel() {
+  return [
+    {
+      title: "ID",
+      field: "id",
+      type: "cell", //cell/button (options),
+      width: "30%", //(some size -> px, %, rem...),
+    },
+    {
+      title: "Email",
+      field: "email",
+      type: "cell", //cell/button (options),
+      width: "20%", //(some size -> px, %, rem...),
+    },
+    {
+      title: "Role",
+      field: "role",
+      options: ["User", "Administrator"],
+      dataField: "id",
+      type: "dropdown-editable", //cell/button (options),
+      width: "30%", //(some size -> px, %, rem...),
+    },
+    {
+      title: "Action",
+      field: "action",
+      dataField: "id", //since we need user id for this action we add one extra property
+      action: "createUserDetailsBtn", //this property will help when creating the button
+      type: "button", //cell/button (options),
+      width: "10%", //(some size -> px, %, rem...),
+    },
+  ];
+}

@@ -10,6 +10,9 @@ const toastMessages = {
   updatedProfilePicture: "Successfully updated your profile picture!",
   changedPassword: "Successfully changed your password!",
   updatedSetsAndReps: "Successfully updated exercise's sets and reps!",
+
+  //roles
+  updatedRole: (user) => `${user}'s role was updated!`,
 };
 
 const severityTypes = {

@@ -18,20 +18,27 @@ const AdminNav = (props) => {
           >
             Exercises
           </li>
-          {/* <li
+          <li
             className={
-              props.selectedNavItem === adminNavItems.other &&
+              props.selectedNavItem === adminNavItems.users &&
               `${styles["active-li"]}`
             }
-            onClick={() => handleNavClick(adminNavItems.other)}
+            onClick={() => handleNavClick(adminNavItems.users)}
           >
             {" "}
-            Other
-          </li> */}
+            Users
+          </li>
         </ul>
         {props.selectedNavItem === adminNavItems.exercises && (
           <SearchBar
             placeholder={"Find Exercise"}
+            ref={props.searchParamsInputRef}
+            handleSearchParams={props.handleSearchParams}
+          />
+        )}
+        {props.selectedNavItem === adminNavItems.users && (
+          <SearchBar
+            placeholder={"Find Users"}
             ref={props.searchParamsInputRef}
             handleSearchParams={props.handleSearchParams}
           />

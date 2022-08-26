@@ -20,7 +20,7 @@ import UserContext from "../../context/user-context";
 
 const UserInfo = () => {
   const modalTitle = "Updating information";
-  const [utargetUserId, permision] = useOutletContext();
+  const [utargetUserId, permission] = useOutletContext();
   const [user, setUser] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -128,7 +128,7 @@ const UserInfo = () => {
       />
     );
   })();
-  console.log(permision);
+  console.log(permission);
   const userOperations = (function () {
     if (isLoading) {
       return (
@@ -136,7 +136,7 @@ const UserInfo = () => {
           <Spinner />
         </div>
       );
-    } else if (permision && uploadedImageAsBinary) {
+    } else if (permission && uploadedImageAsBinary) {
       return (
         <div>
           <Button onClick={handleSaveImage} buttonStyle="btn-secondary">
@@ -147,7 +147,7 @@ const UserInfo = () => {
           </Button>
         </div>
       );
-    } else if (permision) {
+    } else if (permission) {
       return (
         <div>
           <Button onClick={setOpenModal.bind(null, true)}>Edit profile</Button>
@@ -212,7 +212,7 @@ const UserInfo = () => {
         <section className={styles["user-info-top"]}>
           <div className={styles["user-picture-section"]}>
             <div className={styles["user-picture"]}>
-              {permision && (
+              {permission && (
                 <>
                   <input
                     type="file"

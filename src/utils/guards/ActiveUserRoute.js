@@ -1,11 +1,11 @@
 import { Navigate, useParams } from "react-router-dom";
-import { hasPermision } from "../../utils/services/authService";
+import { hasPermission } from "../../utils/services/authService";
 
 export function ActiveUserRoute({ children }) {
   const params = useParams();
-  const permision = hasPermision(params.id);
+  const permission = hasPermission(params.id);
 
-  if (permision) {
+  if (permission) {
     return children;
   }
   return <Navigate to="/" />;

@@ -99,7 +99,7 @@ const Exercises = ({ workoutDay, handleUpdateExercises }) => {
           handleUpdateExercises(response.data);
           setToastConfig({
             severity: severityTypes.success,
-            message: toastMessages.exerciseAdded,
+            message: toastMessages.exerciseAdded(response.data.name),
           });
         })
         .catch((error) => {

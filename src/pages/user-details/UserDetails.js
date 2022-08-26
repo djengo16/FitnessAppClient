@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import { hasPermision } from "../../utils/services/authService";
+import { hasPermission } from "../../utils/services/authService";
 import pageStyles from "../../styles/page.module.css";
 import styles from "./user-details.module.css";
 import UserNav from "./UserNav";
 
 function UserDetails() {
   const params = useParams();
-  const [permision, setPermision] = useState(false);
+  const [permission, setPermission] = useState(false);
   const [targetUserId, setUserId] = useState(params.id);
 
   useEffect(() => {
     setUserId(params.id);
-    setPermision(hasPermision(params.id));
+    setPermission(hasPermission(params.id));
   }, [params.id]);
 
   return (
@@ -20,10 +20,10 @@ function UserDetails() {
       <h4 className={pageStyles["page-title"]}>User Details</h4>
       <div className={styles["user-details"]}>
         <section className={styles["user-nav-section"]}>
-          <UserNav permision={permision} />
+          <UserNav permission={permission} />
         </section>
         <section className={styles["user-content-section"]}>
-          <Outlet context={[targetUserId, permision]} />
+          <Outlet context={[targetUserId, permission]} />
         </section>
       </div>
     </div>

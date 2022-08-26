@@ -1,5 +1,5 @@
 const toastMessages = {
-  exerciseAdded: "Exercise added successfully!",
+  exerciseAdded: (name) => `${name} added successfully to your training day!`,
   exerciseAlreadyAddded: "Exercise is already in your training day!",
   exerciseRemoved: "Successfully removed exercise from plan!",
   exerciseDeleted: "Successfully deleted exercise!",

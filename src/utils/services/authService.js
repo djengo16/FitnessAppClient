@@ -38,6 +38,22 @@ export async function changePassword(data) {
 }
 
 /**
+ * @param {userId: string, roleName: string} data
+ * @returns
+ */
+export async function addToRole(data) {
+  return interceptedHttpClient.put(`${API_URL}/Users/assignToRole`, data);
+}
+
+/**
+ * @param {userId: string, roleName: string} data
+ * @returns
+ */
+export async function removeFromRole(data) {
+  return interceptedHttpClient.put(`${API_URL}/Users/removeFromRole`, data);
+}
+
+/**
  *
  * @param {current logged user id} id
  * @returns {True if parameter id is equal to current logged user's id or current user is in admin role}

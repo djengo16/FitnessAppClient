@@ -249,6 +249,11 @@ const WorkoutPlan = (props) => {
   const additionalSection = (
     <div id="addiitonal-plan-section">
       <div className={styles["user-plan-operations"]}>
+        <CgArrowsExchange
+          style={{ fontWeight: "400" }}
+          size="1.5em"
+          className={styles["user-operations-icon"]}
+        />
         {!editingSetsAndReps ? (
           <>
             <CgArrowsExchange

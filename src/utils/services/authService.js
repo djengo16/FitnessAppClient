@@ -1,9 +1,7 @@
-import tokenStorage from "./tokenStorage";
+import { tokenStorage } from "./storageService";
 import axios from "axios";
 import { ADMIN_ROLE, API_URL } from "./../environment";
-import { getUserActivePlanId } from "./usersService";
 import interceptedHttpClient from "../httpClient/interceptedHttpClient";
-import { getUserProfilePicture } from "./imageService";
 
 /**
  *
@@ -16,32 +14,6 @@ export async function login(userData) {
   } catch (e) {
     throw new Error(e.response.data);
   }
-  let userId = tokenStorage.decodeToken().nameid;
-  setActivePlanId(userId);
-  setProfilePictureToStorage(userId);
-}
-
-export function setProfilePictureToStorage(userId, profilePicture) {
-  if (profilePicture) {
-    localStorage.setItem("profilePictureUrl", profilePicture);
-  } else {
-    getUserProfilePicture(userId).then((response) => {
-      const profilePictureUrl = response.data;
-      if (profilePictureUrl) {
-        localStorage.setItem("profilePictureUrl", profilePictureUrl);
-      }
-    });
-  }
-}
-
-export function setActivePlanId(userId) {
-  getUserActivePlanId(userId).then((response) => {
-    const planId = response.data;
-    if (planId) {
-      localStorage.setItem("activePlanId", planId);
-      return planId;
-    }
-  });
 }
 
 /**

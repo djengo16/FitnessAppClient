@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import GeneratedPlans from "../../components/generated-plans-list/GeneratedPlans";
 import PersonalizeForm from "../../components/personalize-form/PersonalizeForm";
+import UserContext from "../../context/user-context";
 import pageStyles from "../../styles/page.module.css";
-import tokenStorage from "../../utils/services/tokenStorage";
+import { tokenStorage } from "../../utils/services/storageService";
 
 const Personalize = () => {
-  const userId = tokenStorage.decodeToken().nameid;
+  const [{ userId }] = useContext(UserContext);
 
   const [workoutPlans, setWorkoutPlans] = useState([]);
   const [isPersonalized, setPersonalized] = useState(false);

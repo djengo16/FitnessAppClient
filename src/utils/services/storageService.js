@@ -21,4 +21,10 @@ const tokenStorage = {
   },
 };
 
-export default tokenStorage;
+const userStorage = {
+  saveActiveplanId: (planId) => localStorage.setItem("activePlanId", planId),
+  saveUserProfilePictureUrl: (url) =>
+    localStorage.setItem("profilePictureUrl", url),
+};
+
+export { tokenStorage, userStorage };

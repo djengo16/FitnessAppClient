@@ -9,7 +9,6 @@ import NotHaveProgram from "../../components/program-not-assigned/NotHaveProgram
 const UserWorkoutPlans = ({ user }) => {
   const params = useParams();
   const [plans, setPlans] = useState();
-  console.log(params);
   useEffect(() => {
     getUserWorkouts(params.id).then((response) => {
       response.data.forEach((plan, index) => {

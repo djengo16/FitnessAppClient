@@ -5,11 +5,17 @@ import errorMessageConstats from "../../utils/messages/errorMessages";
 import { Formik, ErrorMessage } from "formik";
 import { login } from "../../utils/services/authService";
 import { Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../../components/button/Button";
+import UserContext from "../../context/user-context";
+import { tokenStorage, userStorage } from "../../utils/services/storageService";
+import { getUserActivePlanId } from "../../utils/services/usersService";
+import { getUserProfilePicture } from "../../utils/services/imageService";
 
 export default function Login() {
   const [navigate, setNavigate] = useState(false);
+  const [userData, setUserData, loadContext] = useContext(UserContext);
+
   return (
     <Card className={cardStyles["card-wrapper-10p"]}>
       {navigate && <Navigate to="/" />}
@@ -35,7 +41,20 @@ export default function Login() {
         onSubmit={(values, { setSubmitting, setFieldError }) => {
           //  onFormSubmit(values);
           login(values)
-            .then(() => {
+            .then(async () => {
+              let userId = tokenStorage.decodeToken().nameid;
+
+              Promise.all([
+                getUserActivePlanId(userId),
+                getUserProfilePicture(userId),
+              ]).then((response) => {
+                const activePlanId = response[0].data;
+                const profilePicture = response[1].data;
+                userStorage.saveActiveplanId(activePlanId);
+                userStorage.saveUserProfilePictureUrl(profilePicture);
+                loadContext();
+              });
+
               setNavigate(true);
             })
             .catch((err) => {

@@ -59,7 +59,7 @@ export async function removeFromRole(data) {
  * @returns {True if parameter id is equal to current logged user's id or current user is in admin role}
  *
  */
-export function hasPermision(id) {
+export function hasPermission(id) {
   const token = tokenStorage.decodeToken();
   const activeUserId = token.nameid;
   const activeUserRole = token.role;

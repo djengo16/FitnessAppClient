@@ -28,7 +28,7 @@ const userNavs = [
   },
 ];
 
-const UserNav = ({ permision }) => {
+const UserNav = ({ permission }) => {
   const { pathname } = useLocation();
   const active = pathname.split("/").pop();
 
@@ -36,7 +36,7 @@ const UserNav = ({ permision }) => {
     <nav className={styles["user-nav"]}>
       <ul className={styles["user-ul"]}>
         {userNavs.map((nav) => {
-          if ((nav.private && permision) || !nav.private) {
+          if ((nav.private && permission) || !nav.private) {
             return (
               <li key={nav.id}>
                 <NavLink

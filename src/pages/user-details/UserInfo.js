@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import Button from "../../components/button/Button";
 import { Modal } from "../../components/modal/Modal";
 import {
@@ -23,12 +23,14 @@ import { userStorage } from "../../utils/services/storageService";
 
 const UserInfo = () => {
   const modalTitle = "Updating information";
-  const [utargetUserId, permision] = useOutletContext();
+  const [targetUserId, permision] = useOutletContext();
   const [user, setUser] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedImageAsBinary, setUploadedImageAsBinary] = useState("");
   const [loggedUser, setLoggedUserData] = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const {
     open,
@@ -39,10 +41,10 @@ const UserInfo = () => {
   } = useToast();
 
   useEffect(() => {
-    getUserById(utargetUserId).then((res) => {
+    getUserById(targetUserId).then((res) => {
       setUser(res.data);
     });
-  }, [utargetUserId]);
+  }, [targetUserId]);
 
   const handleUpdateUser = (success, updatedUser, errorMessage) => {
     if (success) {
@@ -81,7 +83,7 @@ const UserInfo = () => {
         newPictureUrl = GetCloudinaryLink(res.data.public_id);
 
         //set picture to storage
-        getUserProfilePicture(utargetUserId).then((res) => {
+        getUserProfilePicture(targetUserId).then((res) => {
           const profilePictureUrl = res.data;
           if (profilePictureUrl) {
             userStorage.saveUserProfilePictureUrl(profilePictureUrl);
@@ -95,7 +97,7 @@ const UserInfo = () => {
         }));
 
         //update in server
-        updateUserPicture(utargetUserId, newPictureUrl).then((res) => {
+        updateUserPicture(targetUserId, newPictureUrl).then((res) => {
           setUploadedImageAsBinary("");
 
           setUser((prev) => ({
@@ -116,6 +118,10 @@ const UserInfo = () => {
 
   const handleDiscardImage = () => {
     setUploadedImageAsBinary("");
+  };
+
+  const handleSendMessage = () => {
+    navigate(`/messages/${targetUserId}`);
   };
 
   const userProfilePicture = (function () {
@@ -159,9 +165,17 @@ const UserInfo = () => {
       return (
         <div>
           <Button onClick={setOpenModal.bind(null, true)}>Edit profile</Button>
+          {loggedUser.userId !== targetUserId && (
+            <Button onClick={handleSendMessage}>Send message</Button>
+          )}
         </div>
       );
     }
+    return (
+      <div>
+        <Button onClick={handleSendMessage}>Send message</Button>
+      </div>
+    );
   })();
 
   const personalInfo = (

@@ -49,10 +49,14 @@ const Chat = () => {
       //Configure and open socket conntection in specific channel
       const url = `${API_URL_SOCKET}/messages/${res.data.id}`;
       socket = new WebSocket(url);
-
       //Listen for new messages
       listen();
     });
+
+    return () => {
+      //close socket on component unmount (when we left the chat page)
+      socket.close();
+    };
   }, []);
 
   const listen = () => {

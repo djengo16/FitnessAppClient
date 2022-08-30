@@ -38,3 +38,31 @@ export function getDateHour(date) {
   const messageCreated = new Date(date);
   return timeFormat.format(messageCreated);
 }
+/**
+ * Gets some date and returns "Today" if date is Today, "Yesterday" if date is Yesterday,
+ * If it's this year the return is for example (Day of week, month, date), and if it's another
+ * year we add the year also
+ * @param {new Date()} date
+ * @returns {formated message date}
+ */
+
+export const getMessagesDate = (date) => {
+  const dateConfig = {
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+  };
+
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  if (today.toDateString() === date.toDateString()) {
+    return "Today";
+  } else if (yesterday.toDateString() === date.toDateString()) {
+    return "Yesterday";
+  } else if (today.getFullYear() - date.getFullYear() !== 0) {
+    dateConfig["year"] = "numeric";
+  }
+  return date.toLocaleDateString("en-us", dateConfig);
+};

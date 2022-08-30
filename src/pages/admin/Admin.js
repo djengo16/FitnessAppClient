@@ -62,9 +62,7 @@ function Admin() {
     ) {
       //this will trigger child's useffect and then will set curr page to 1
       if (selectedNavItem === adminNavItems.exercises) {
-        console.log("a");
         setSearchParamsExercises(searchParamsInputRef.current.value);
-        console.log(selectedNavItem);
       } else {
         setSearchParamsUsers(searchParamsInputRef.current.value);
       }

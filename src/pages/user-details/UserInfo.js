@@ -23,7 +23,9 @@ import { userStorage } from "../../utils/services/storageService";
 
 const UserInfo = () => {
   const modalTitle = "Updating information";
-  const [targetUserId, permision] = useOutletContext();
+
+  const [targetUserId, permission] = useOutletContext();
+
   const [user, setUser] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -150,7 +152,7 @@ const UserInfo = () => {
           <Spinner />
         </div>
       );
-    } else if (permision && uploadedImageAsBinary) {
+    } else if (permission && uploadedImageAsBinary) {
       return (
         <div>
           <Button onClick={handleSaveImage} buttonStyle="btn-secondary">
@@ -161,7 +163,7 @@ const UserInfo = () => {
           </Button>
         </div>
       );
-    } else if (permision) {
+    } else if (permission) {
       return (
         <div>
           <Button onClick={setOpenModal.bind(null, true)}>Edit profile</Button>
@@ -234,7 +236,7 @@ const UserInfo = () => {
         <section className={styles["user-info-top"]}>
           <div className={styles["user-picture-section"]}>
             <div className={styles["user-picture"]}>
-              {permision && (
+              {permission && (
                 <>
                   <input
                     type="file"

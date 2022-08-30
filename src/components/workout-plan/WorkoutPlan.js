@@ -16,6 +16,7 @@ import useToast from "../../hooks/useToast";
 import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
 import styles from "./workout-plan.module.css";
 import { CgArrowsExchange } from "react-icons/cg";
+import { AiOutlineCheck } from "react-icons/ai";
 const indexesOfUpdatedExercises = new Set();
 
 const WorkoutPlan = (props) => {
@@ -254,11 +255,25 @@ const WorkoutPlan = (props) => {
           className={styles["user-operations-icon"]}
         />
         {!editingSetsAndReps ? (
-          <Button onClick={handleEditing}>Change sets/reps</Button>
+          <>
+            <CgArrowsExchange
+              style={{ fontWeight: "400" }}
+              size="1.5em"
+              className={styles["user-operations-icon"]}
+            />
+            <Button onClick={handleEditing}>Change sets/reps</Button>
+          </>
         ) : (
-          <Button onClick={handleSaveSetsAndReps} buttonStyle="btn-secondary">
-            Save
-          </Button>
+          <>
+            <AiOutlineCheck
+              style={{ fontWeight: "400" }}
+              size="1.5em"
+              className={styles["user-operations-icon"]}
+            />
+            <Button onClick={handleSaveSetsAndReps} buttonStyle="btn-secondary">
+              Save
+            </Button>
+          </>
         )}
       </div>
       <ExercisesInUserWorkoutPlan
@@ -299,7 +314,6 @@ const WorkoutPlan = (props) => {
         editing={editingSetsAndReps}
       />
       {props.for === "user-plan" && additionalSection}
-
     </div>
   );
 };

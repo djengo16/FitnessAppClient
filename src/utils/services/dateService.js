@@ -24,6 +24,11 @@ export function timeSince(date) {
   }
   return Math.floor(seconds) + " seconds ago";
 }
+
+const timeFormat = new Intl.DateTimeFormat("en", {
+  timeStyle: "short",
+  hourCycle: "h24",
+});
 /**
  *
  * @param {datetime} date
@@ -31,11 +36,5 @@ export function timeSince(date) {
  */
 export function getDateHour(date) {
   const messageCreated = new Date(date);
-  const minutes = messageCreated.getMinutes().toLocaleString();
-  const time =
-    messageCreated.getHours() +
-    ":" +
-    (minutes.length === 1 ? "0" + minutes : minutes);
-
-  return time;
+  return timeFormat.format(messageCreated);
 }

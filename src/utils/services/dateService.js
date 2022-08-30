@@ -24,3 +24,17 @@ export function timeSince(date) {
   }
   return Math.floor(seconds) + " seconds ago";
 }
+
+const timeFormat = new Intl.DateTimeFormat("en", {
+  timeStyle: "short",
+  hourCycle: "h24",
+});
+/**
+ *
+ * @param {datetime} date
+ * @returns hours and minutes as string
+ */
+export function getDateHour(date) {
+  const messageCreated = new Date(date);
+  return timeFormat.format(messageCreated);
+}

@@ -1,0 +1,57 @@
+.msg-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  background: #ddd;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+}
+.user-name {
+  margin: 0;
+  margin-left: 0.5rem;
+}
+
+.msg {
+  display: flex;
+  margin: 10px;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.msg-bubble {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  max-width: 450px;
+}
+
+.msg-text {
+  margin: 0;
+  text-align: left;
+}
+.msg-date {
+  text-align: right;
+  font-size: 0.85em;
+}
+
+/* right */
+.msg-right {
+  flex-direction: row-reverse;
+}
+.msg-right .msg-bubble {
+  border-bottom-right-radius: 0;
+  margin-right: 0.5rem;
+  color: white;
+  background-color: var(--primary);
+}
+/* left */
+.msg-right {
+  flex-direction: row-reverse;
+}
+.msg-left .msg-bubble {
+  border-bottom-left-radius: 0;
+  margin-right: 0.5rem;
+  background: var(--workoutCardBackground);
+}

@@ -16,6 +16,7 @@ import { ActiveUserRoute } from "./utils/guards/ActiveUserRoute";
 import UserWorkoutPlans from "./pages/user-details/UserWorkoutPlans";
 import UserChangePassword from "./pages/user-details/UserChangePassword";
 import UserInfo from "./pages/user-details/UserInfo";
+import Chat from "./pages/chat/Chat";
 
 function App() {
   return (
@@ -85,6 +86,8 @@ function App() {
               </AdminRoute>
             }
           />
+
+          <Route path="/messages/:id" element={<Chat />} />
         </Route>
       </Routes>
     </div>

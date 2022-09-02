@@ -2,9 +2,9 @@ import httpParamsBuilder from "../builders/httpParamsBuilder";
 import { API_URL } from "../environment";
 import interceptedHttpClient from "../httpClient/interceptedHttpClient";
 
-export function getTrainingNotification(id) {
+export function getAllNotifications(id) {
   return interceptedHttpClient.get(
-    `${API_URL}/Notifications/trainingDay`,
+    `${API_URL}/Notifications/all`,
     httpParamsBuilder({ id })
   );
 }

@@ -31,13 +31,14 @@ const divideMessagesByDate = (messages) => {
   const messagesMap = new Map();
 
   messages.forEach((current, index) => {
-    const key = current.createdOn.slice(0, current.createdOn.indexOf("T"));
+    const key = new Date(current.createdOn).toDateString();
     if (messagesMap.get(key)) {
       messagesMap.get(key).push(current);
     } else {
       messagesMap.set(key, [current]);
     }
   });
+  console.log(messagesMap);
   return messagesMap;
 };
 
@@ -91,18 +92,18 @@ const Chat = () => {
       //close socket on component unmount (when we left the chat page)
       socket.close();
     };
-  }, []);
+  }, [targetUserId]);
 
   const listen = () => {
     socket.onmessage = (event) => {
       const newMessage = JSON.parse(event.data);
       newMessage.createdOn = new Date();
-      const key = new Date().toISOString().slice(0, 10);
+      const key = new Date().toDateString();
       setConversation((prev) => {
         if (prev.messages.get(key)) {
           prev.messages.get(key).push(newMessage);
         } else {
-          prev.messages.set(key, newMessage);
+          prev.messages.set(key, [newMessage]);
         }
         return {
           id: prev.id,

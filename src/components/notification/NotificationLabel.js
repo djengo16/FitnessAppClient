@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from "./notification.module.css";
 import {
-  getTrainingNotification,
+  getAllNotifications,
   viewNotificationRequest,
 } from "../../utils/services/notificationService";
 import { tokenStorage } from "../../utils/services/storageService";
@@ -17,21 +17,33 @@ const NotificationLabel = () => {
 
   let navigate = useNavigate();
   const userId = tokenStorage.decodeToken()?.nameid;
-  const fiveMinutesInMiliseconds = 1000 * 60 * 10;
+  const fiveMinutesInMiliseconds = 1000 * 60 * 0.3;
 
   const getNotifications = useCallback(() => {
-    getTrainingNotification(userId).then((response) => {
+    getAllNotifications(userId).then((response) => {
       const data = response.data;
-      if (data.isViewed) {
+
+      if (!data) {
         return;
       }
-      const possibleDuplication = notifications.find((x) => x.id === data.id);
 
-      if (data && !possibleDuplication)
-        setNotifications((prev) => {
-          prev.unshift(data);
-          return [...prev];
+      let newArrivedNotifications = [];
+
+      response.data.forEach((notification) => {
+        const possibleDuplication = notifications.find(
+          (x) => x.id === notification.id
+        );
+        if (!possibleDuplication) {
+          newArrivedNotifications.push(notification);
+        }
+      });
+
+      setNotifications((prev) => {
+        newArrivedNotifications.forEach((notification) => {
+          prev.unshift(notification);
         });
+        return [...prev];
+      });
     });
   }, [notifications, userId]);
 
@@ -65,6 +77,13 @@ const NotificationLabel = () => {
       getUserActivePlanId(userId).then((response) => {
         navigate(`/users/${userId}/workoutplan/${response.data}`);
       });
+    } else if (notificationToView.type === 1) {
+      //clean notification
+      viewNotificationRequest(id).then((res) => {
+        setNotifications((prev) => prev.filter((x) => x.id !== id));
+      });
+
+      navigate(`/messages/${notificationToView.redirectId}`);
     }
   };
 

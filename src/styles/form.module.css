@@ -1,7 +1,7 @@
 @import url("../theme.css");
 .form {
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 30px;
 }
 .form-label {
@@ -12,7 +12,7 @@
 .form-input {
   width: 98%;
   background-color: var(--pageBackground);
-  line-height: 2.5;
+  line-height: 2;
   margin: 10px 0;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;

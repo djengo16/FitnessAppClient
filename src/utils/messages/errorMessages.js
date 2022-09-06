@@ -2,6 +2,8 @@ const errorMessages = {
   //authentication
   emptyEmail: "Email must not be empty!",
   invalidEmail: "Invalid email address!",
+  firstNameRequired: "First name is required!",
+  lastNameRequired: "Last name is required!",
   emptyPassword: "Password must not be empty!",
   passwordMinLength: "Password must be at least 6 characters long!",
   passwordsMatch: "Passwords do NOT match!",

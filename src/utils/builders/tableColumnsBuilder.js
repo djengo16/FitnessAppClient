@@ -1,27 +1,29 @@
+import { columnTypes } from "../constants";
+
 export function buildWorkoutPlanColumns(type) {
   const defaultColumns = [
     {
       title: "Exercise Name",
       field: "name",
-      type: "cell",
+      type: columnTypes.cell,
       width: "30%",
     },
     {
       title: "Sets",
       field: "sets",
-      type: "cell",
+      type: columnTypes.cell,
       width: "15%",
     },
     {
       title: "Min reps",
       field: "minReps",
-      type: "cell",
+      type: columnTypes.cell,
       width: "15%",
     },
     {
       title: "Max reps",
       field: "maxReps",
-      type: "cell",
+      type: columnTypes.cell,
       width: "15%",
     },
     {
@@ -29,7 +31,7 @@ export function buildWorkoutPlanColumns(type) {
       field: "details",
       dataField: "name",
       action: "createDetailsBtn",
-      type: "button",
+      type: columnTypes.button,
       width: "15%",
     },
   ];
@@ -38,25 +40,25 @@ export function buildWorkoutPlanColumns(type) {
     {
       title: "Exercise Name",
       field: "name",
-      type: "cell",
+      type: columnTypes.cell,
       width: "30%",
     },
     {
       title: "Sets",
       field: "sets",
-      type: "numeric-editable",
+      type: columnTypes.numericEditable,
       width: "15%",
     },
     {
       title: "Min reps",
       field: "minReps",
-      type: "numeric-editable",
+      type: columnTypes.numericEditable,
       width: "15%",
     },
     {
       title: "Max reps",
       field: "maxReps",
-      type: "numeric-editable",
+      type: columnTypes.numericEditable,
       width: "15%",
     },
     {
@@ -64,7 +66,7 @@ export function buildWorkoutPlanColumns(type) {
       field: "details",
       dataField: "name",
       action: "createDetailsBtn",
-      type: "button",
+      type: columnTypes.button,
       width: "15%",
     },
     {
@@ -72,7 +74,7 @@ export function buildWorkoutPlanColumns(type) {
       field: "details",
       dataField: "name",
       action: "createRemoveBtn",
-      type: "button",
+      type: columnTypes.button,
       width: "15%",
     },
   ];
@@ -90,19 +92,19 @@ export function buildExerciseColumnsInAdminPage() {
     {
       title: "ID",
       field: "id",
-      type: "cell",
+      type: columnTypes.cell,
       width: "10vw",
     },
     {
       title: "Exercise Name",
       field: "name",
-      type: "cell",
+      type: columnTypes.cell,
       width: "30vw",
     },
     {
       title: "Muscle group",
       field: "muscleGroup",
-      type: "cell",
+      type: columnTypes.cell,
       width: "30vw",
     },
     {
@@ -110,7 +112,7 @@ export function buildExerciseColumnsInAdminPage() {
       field: "action",
       dataField: "id",
       action: "createEditAndDeleteBtn",
-      type: "button",
+      type: columnTypes.button,
       width: "30vw",
     },
   ];
@@ -120,25 +122,25 @@ export function buildExerciseColumnsInUserPage() {
     {
       title: "ID",
       field: "id",
-      type: "cell",
+      type: columnTypes.cell,
       width: "10%",
     },
     {
       title: "Exercise Name",
       field: "name",
-      type: "cell",
+      type: columnTypes.cell,
       width: "30%",
     },
     {
       title: "Muscle group",
       field: "muscleGroup",
-      type: "cell",
+      type: columnTypes.cell,
       width: "20%",
     },
     {
       title: "Difficulty",
       field: "difficulty",
-      type: "cell",
+      type: columnTypes.cell,
       width: "20%",
     },
     {
@@ -146,7 +148,7 @@ export function buildExerciseColumnsInUserPage() {
       field: "action",
       dataField: "id",
       action: "createAddAndDetailsBtn",
-      type: "button",
+      type: columnTypes.button,
       width: "20%",
     },
   ];
@@ -155,24 +157,24 @@ export function buildExerciseColumnsInUserPage() {
 export function buildUserColumns() {
   return [
     {
-      title: "ID",
-      field: "id",
-      type: "cell", //cell/button (options),
-      width: "50vw", //(some size -> px, %, rem...),
+      title: "User",
+      field: ["profilePicture", "name"],
+      type: columnTypes.cellWithProfilePicture, //picture + data
+      width: "50vw",
     },
     {
       title: "Email",
       field: "email",
-      type: "cell", //cell/button (options),
-      width: "30vw", //(some size -> px, %, rem...),
+      type: columnTypes.cell,
+      width: "30vw",
     },
     {
-      title: "Action",
+      title: "Profile",
       field: "action",
-      dataField: "id", //since we need user id for this action we add one extra property
-      action: "createUserDetailsBtn", //this property will help when creating the button
-      type: "button", //cell/button (options),
-      width: "20vw", //(some size -> px, %, rem...),
+      dataField: "id",
+      action: "createUserDetailsBtn",
+      type: columnTypes.button,
+      width: "20vw",
     },
   ];
 }
@@ -182,13 +184,13 @@ export function buildUserColumnInAdminPanel() {
     {
       title: "ID",
       field: "id",
-      type: "cell", //cell/button (options),
+      type: columnTypes.cell,
       width: "30%", //(some size -> px, %, rem...),
     },
     {
       title: "Email",
       field: "email",
-      type: "cell", //cell/button (options),
+      type: columnTypes.cell,
       width: "20%", //(some size -> px, %, rem...),
     },
     {
@@ -196,7 +198,7 @@ export function buildUserColumnInAdminPanel() {
       field: "role",
       options: ["User", "Administrator"],
       dataField: "id",
-      type: "dropdown-editable", //cell/button (options),
+      type: columnTypes.dropdownEditable,
       width: "30%", //(some size -> px, %, rem...),
     },
     {
@@ -204,7 +206,7 @@ export function buildUserColumnInAdminPanel() {
       field: "action",
       dataField: "id", //since we need user id for this action we add one extra property
       action: "createUserDetailsBtn", //this property will help when creating the button
-      type: "button", //cell/button (options),
+      type: columnTypes.button,
       width: "10%", //(some size -> px, %, rem...),
     },
   ];

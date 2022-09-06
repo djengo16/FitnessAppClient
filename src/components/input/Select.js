@@ -39,6 +39,14 @@ const Select = ({
       >
         {options &&
           options.map((option) => {
+            console.log(option.value, value);
+            if (option.value === value) {
+              return (
+                <option selected key={option.key} value={option.key}>
+                  {option.value}
+                </option>
+              );
+            }
             return (
               <option key={option.key} value={option.key}>
                 {option.value}

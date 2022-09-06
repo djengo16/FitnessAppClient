@@ -14,10 +14,10 @@ let socket;
 
 /**
  *  message = {
- *  "senderId": "1289df60-06e9-4ad1-aa24-655490004565",
- *   "recipientId": "08f02f9c-a558-41f0-80da-5918bcb2f1ac",
- *  "createdOn": "2022-08-29T11:32:14.7227312",
- *   "body": "asd"
+ *   senderId,
+ *   recipientId,
+ *   createdOn,
+ *   body,
  *  }
  *
  * Gets collestions of messages and returns Map with messages.
@@ -182,7 +182,9 @@ const Chat = () => {
             src={targetProfilePicture}
             alt="User profile"
           />
-          <h5 className={styles["user-name"]}>{targetUser.email}</h5>
+          <h5
+            className={styles["user-name"]}
+          >{`${targetUser.firstName} ${targetUser.lastName}`}</h5>
         </header>
         <main ref={chatMain} className={styles["chat-main"]}>
           <div className={styles["chat-box-messages"]}>{messages}</div>

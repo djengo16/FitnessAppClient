@@ -50,6 +50,7 @@ function UsersInAdmin({ searchParams: parrentseArchParams }) {
     getAllUsers(searchParams, pageable.currentPage, DATA_PER_PAGE).then(
       (response) => {
         setUsers(response.data.users);
+        console.log(response.data.users);
         setPageable((prev) => ({
           ...prev,
           totalUsersPerPage: response.data.totalData,

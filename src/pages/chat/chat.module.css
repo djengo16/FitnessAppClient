@@ -68,3 +68,7 @@ border-top-right-radius: 5px;
   font-size: 0.7rem;
   padding: 0.5rem;
 }
+.user-name {
+  margin: 0;
+  margin-left: 0.5rem;
+}

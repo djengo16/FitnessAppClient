@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import styles from "./table.module.css";
 import eFilterStyles from "../exercises/exercise-filter.module.css";
 import btnStyles from "../button/button.module.css";
+import { columnTypes } from "../../utils/constants";
+
 /**
  * @param { data={data that will be displayed on the cells}
  *          columns={table's columns with info}
@@ -37,17 +39,42 @@ function Table(props) {
     // iterate column times, so we can create columns with actions too, not only text-data
     return props.columns.map((column) => {
       // first if check will create all cells with normal text data in it
-      if (column.type === "cell") {
+      if (column.type === columnTypes.cell) {
         return <td>{data[column.field]}</td>;
-      } 
-      /**
-       * In this cell we can edit the numeric value, after we receive
-       * true for the 'editig' props. When editing is true two buttons
-       * are displayed next to the numeric value. A button with plus 
-       * and another one with minus. These buttons can modify the
-       * value in the current ceel.
-       */
-      else if (column.type === "numeric-editable") {
+      } else if (column.type === columnTypes.cellWithProfilePicture) {
+        return (
+          <td>
+            {data.profilePicture ? (
+              <div className={styles["cell-with-img"]}>
+                <img
+                  className={styles["cell-img"]}
+                  alt="profile"
+                  src={data.profilePicture}
+                ></img>
+
+                <p>{data[column.field[1]]}</p>
+              </div>
+            ) : (
+              <div className={styles["cell-with-img"]}>
+                <img
+                  className={styles["cell-img"]}
+                  alt="profile"
+                  src="./user-icon.svg"
+                ></img>
+
+                <p>{data[column.field[1]]}</p>
+              </div>
+            )}
+          </td>
+        );
+      } else if (column.type === columnTypes.numericEditable) {
+        /**
+         * In this cell we can edit the numeric value, after we receive
+         * true for the 'editig' props. When editing is true two buttons
+         * are displayed next to the numeric value. A button with plus
+         * and another one with minus. These buttons can modify the
+         * value in the current ceel.
+         */
         if (props.editing) {
           return (
             <td>
@@ -67,15 +94,14 @@ function Table(props) {
         } else {
           return <td>{data[column.field]}</td>;
         }
-      }
-      /**
-       * Cell with dropdown and update logic
-       * For example Admin role -> we have 2 options
-       * when the selected value changes, a Save button is displayed 
-       * right to the dropdown. Save triggers api call and updates the value
-       * on the server and on the client.
-       *  */ 
-      else if (column.type === "dropdown-editable") {
+      } else if (column.type === columnTypes.dropdownEditable) {
+        /**
+         * Cell with dropdown and update logic
+         * For example Admin role -> we have 2 options
+         * when the selected value changes, a Save button is displayed
+         * right to the dropdown. Save triggers api call and updates the value
+         * on the server and on the client.
+         *  */
         return (
           <td>
             <div>

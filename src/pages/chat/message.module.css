@@ -8,10 +8,7 @@
   background-size: cover;
   border-radius: 50%;
 }
-.user-name {
-  margin: 0;
-  margin-left: 0.5rem;
-}
+
 
 .msg {
   display: flex;

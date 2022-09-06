@@ -13,3 +13,11 @@ export const ADD_EXERCISE_TO_PLAN =
   "Are you sure you want to add this exercise to your plan?";
 
 export const HEALTHY_STATUS = "Healthy";
+
+export const columnTypes = {
+  cell: "cell",
+  cellWithProfilePicture: "cell-with-few-profile-picture",
+  numericEditable: "numeric-editable",
+  dropdownEditable: "dropdown-editable",
+  button: "button",
+};

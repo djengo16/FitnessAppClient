@@ -21,6 +21,8 @@ export default function Register() {
       <Formik
         initialValues={{
           email: "",
+          firstName: "",
+          lastName: "",
           password: "",
           confirmPassword: "",
           server: "",
@@ -32,6 +34,12 @@ export default function Register() {
             errors.email = `Error: ${errorMessageConstats.emptyEmail}`;
           } else if (!validateEmail(values.email)) {
             errors.email = `Error: ${errorMessageConstats.invalidEmail}`;
+          }
+          if (values.firstName === "") {
+            errors.firstName = `Error: ${errorMessageConstats.firstNameRequired}`;
+          }
+          if (values.lastName === "") {
+            errors.lastName = `Error: ${errorMessageConstats.lastNameRequired}`;
           }
           if (!values.password) {
             errors.password = `Error: ${errorMessageConstats.emptyPassword}`;
@@ -84,6 +92,44 @@ export default function Register() {
               }`}
             />
             <label
+              name="firstName"
+              className={`${formStyles["form-label"]} ${
+                errors.firstName ? formStyles["label-input-error"] : ""
+              }`}
+            >
+              First Name
+            </label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.firstName}
+              className={`${formStyles["form-input"]} ${
+                errors.firstName ? formStyles["form-input-error"] : ""
+              }`}
+            />
+            <label
+              name="lastName"
+              className={`${formStyles["form-label"]} ${
+                errors.lastName ? formStyles["label-input-error"] : ""
+              }`}
+            >
+              Last Name
+            </label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.lastName}
+              className={`${formStyles["form-input"]} ${
+                errors.lastName ? formStyles["form-input-error"] : ""
+              }`}
+            />
+            <label
               name="password"
               className={`${formStyles["form-label"]} ${
                 errors.password ? formStyles["label-input-error"] : ""
@@ -122,26 +168,13 @@ export default function Register() {
               }`}
             />
             <div className={`${formStyles["form-error"]}`}>
-              <ErrorMessage
-                className={formStyles["error-message"]}
-                name="email"
-                component="span"
-              />
-              <ErrorMessage
-                className={formStyles["error-message"]}
-                name="password"
-                component="span"
-              />
-              <ErrorMessage
-                className={formStyles["error-message"]}
-                name="confirmPassword"
-                component="span"
-              />
-              <ErrorMessage
-                className={formStyles["error-message"]}
-                name="server"
-                component="span"
-              />
+              {Object.keys(values).map((value) => (
+                <ErrorMessage
+                  className={formStyles["error-message"]}
+                  name={value}
+                  component="span"
+                />
+              ))}
             </div>
             <div className={"d-flex justify-content-between"}>
               <Button

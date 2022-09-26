@@ -42,7 +42,7 @@
 
 .navbar .dropdown {
   position: relative;
-  z-index: 10;
+  z-index: 1;
   padding: 0 40px;
 }
 .user-img {

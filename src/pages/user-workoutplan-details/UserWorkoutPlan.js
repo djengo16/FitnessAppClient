@@ -20,13 +20,13 @@ const UserWorkoutPlan = () => {
       setWorkoutPlan(response.data);
     });
   }, [params.id, params.planId]);
-
+  console.log(user);
   return (
     <div className={pageStyles["page"]}>
       {workoutPlan ? (
         <>
           <h4 className={pageStyles["page-title"]}>
-            {user.email}'s Workout program
+            {user.firstName} {user.lastName}'s workout program
           </h4>
           <WorkoutPlan
             tableColumnsInfo={buildWorkoutPlanColumns("full")}

@@ -16,10 +16,16 @@ const Personalize = () => {
     setPersonalized(true);
   };
 
+  const personalizeTitle = isPersonalized ? (
+    <h4 className={pageStyles["page-title"]}>Choose a workout plan!</h4>
+  ) : (
+    <h4 className={pageStyles["page-title"]}>Get a workout plan!</h4>
+  );
+
   return (
     <div className={pageStyles["page"]}>
       <div>
-        <h4 className={pageStyles["page-title"]}>Get a workout plan!</h4>
+        {personalizeTitle}
         {!isPersonalized ? (
           <PersonalizeForm userId={userId} onFormSubmit={handleWorkoutPlans} />
         ) : (

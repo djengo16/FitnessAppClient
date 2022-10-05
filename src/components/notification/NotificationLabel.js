@@ -3,9 +3,10 @@ import { useCallback, useEffect, useState } from "react";
 import styles from "./notification.module.css";
 import {
   getAllNotifications,
+  setupTrainingDayNotification,
   viewNotificationRequest,
 } from "../../utils/services/notificationService";
-import { tokenStorage } from "../../utils/services/storageService";
+import { tokenStorage, userStorage } from "../../utils/services/storageService";
 import { timeSince } from "../../utils/services/dateService";
 import { getUserActivePlanId } from "../../utils/services/usersService";
 import { useNavigate } from "react-router-dom";
@@ -49,6 +50,12 @@ const NotificationLabel = () => {
 
   useEffect(() => {
     if (isFirstRender) {
+      //Setup training day notification
+      let activePlanId = userStorage.getActivePlanId();
+      if (activePlanId) {
+        setupTrainingDayNotification(userId, activePlanId);
+      }
+      //Get All notification
       getNotifications();
       setIsFirstRender(false);
     }

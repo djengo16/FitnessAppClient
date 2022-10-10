@@ -13,6 +13,7 @@ import useToast from "../../hooks/useToast";
 import Toast from "../toast/Toast";
 import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
 import { getUserActivePlanId } from "../../utils/services/usersService";
+import { setupTrainingDayNotification } from "../../utils/services/notificationService";
 function CustomToggle({ children, eventKey }) {
   const decoratedOnClick = useAccordionButton(eventKey, () =>
     console.log("totally custom!")
@@ -62,7 +63,10 @@ const GeneratedPlans = ({ plans }) => {
         getUserActivePlanId(planToAssign.userId).then((res) => {
           const planId = res.data;
           if (planId) {
+            //Local storage
             localStorage.setItem("activePlanId", planId);
+            //Notification
+            setupTrainingDayNotification(planToAssign.userId, planId);
           }
         });
 

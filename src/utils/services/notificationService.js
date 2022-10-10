@@ -12,3 +12,10 @@ export function getAllNotifications(id) {
 export function viewNotificationRequest(id) {
   return interceptedHttpClient.put(`${API_URL}/Notifications/view/${id}`);
 }
+
+export function setupTrainingDayNotification(userId, activePlanId) {
+  console.log(userId, activePlanId);
+  return interceptedHttpClient.post(
+    `${API_URL}/Notifications/setup/trainingDay/${userId}/${activePlanId}`
+  );
+}

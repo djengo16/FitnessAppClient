@@ -1,6 +1,12 @@
 const tokenIndetifier = "token";
 var Buffer = require("buffer/").Buffer;
 
+const storageItems = {
+  activePlanId: "activePlanId",
+  profilePictureUrl: "profilePictureUrl",
+  token: "token",
+};
+
 const tokenStorage = {
   saveToken: (token) => localStorage.setItem(tokenIndetifier, token),
   getToken: () => localStorage.getItem(tokenIndetifier),
@@ -22,9 +28,11 @@ const tokenStorage = {
 };
 
 const userStorage = {
-  saveActiveplanId: (planId) => localStorage.setItem("activePlanId", planId),
+  saveActiveplanId: (planId) =>
+    localStorage.setItem(storageItems.activePlanId, planId),
+  getActivePlanId: () => localStorage.getItem(storageItems.activePlanId),
   saveUserProfilePictureUrl: (url) =>
-    localStorage.setItem("profilePictureUrl", url),
+    localStorage.setItem(storageItems.profilePictureUrl, url),
 };
 
 export { tokenStorage, userStorage };

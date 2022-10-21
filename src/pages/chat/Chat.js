@@ -9,8 +9,12 @@ import { getUserById } from "../../utils/services/usersService";
 import UserContext from "../../context/user-context";
 import Message from "./Message";
 import { getMessagesDate } from "../../utils/services/dateService";
+import useToast from "../../hooks/useToast";
+import Toast from "../../components/toast/Toast";
+import { severityTypes, toastMessages } from "../../utils/messages/toast-info";
 
 let socket;
+const allowedCharactersCount = 3500;
 
 /**
  *  message = {
@@ -69,6 +73,14 @@ const Chat = () => {
     });
   };
 
+  const {
+    open,
+    handleOpen: handleOpenToast,
+    handleClose,
+    toastConfig,
+    setToastConfig,
+  } = useToast();
+
   useEffect(() => {
     getUserById(targetUserId).then((res) => {
       setTargetUser(res.data);
@@ -115,18 +127,28 @@ const Chat = () => {
   };
 
   const handleSendMessage = () => {
-    if (messageInput.current.value !== "") {
-      const msg = {
-        conversationId: conversation.id,
-        senderId: userId,
-        recipientId: targetUserId,
-        body: messageInput.current.value,
-      };
-
-      socket.send(JSON.stringify(msg));
-      messageInput.current.value = "";
+    //message should be not empty or bigger than 3500 characters
+    if (messageInput.current.value === "") {
       return;
     }
+    if (messageInput.current.value.length > allowedCharactersCount) {
+      setToastConfig({
+        severity: severityTypes.warning,
+        message: toastMessages.messageTooLong,
+      });
+      handleOpenToast();
+      return;
+    }
+
+    const msg = {
+      conversationId: conversation.id,
+      senderId: userId,
+      recipientId: targetUserId,
+      body: messageInput.current.value,
+    };
+
+    socket.send(JSON.stringify(msg));
+    messageInput.current.value = "";
   };
 
   /**
@@ -175,6 +197,12 @@ const Chat = () => {
 
   return (
     <div className={styles["chat"]}>
+      <Toast
+        open={open}
+        onClose={handleClose}
+        severity={toastConfig.severity}
+        message={toastConfig.message}
+      />
       <section className={styles["chat-box"]}>
         <header className={styles["chat-header"]}>
           <img

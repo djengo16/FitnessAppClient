@@ -9,7 +9,6 @@
   border-radius: 50%;
 }
 
-
 .msg {
   display: flex;
   margin: 10px;
@@ -27,6 +26,7 @@
 .msg-text {
   margin: 0;
   text-align: left;
+  word-break: break-all;
 }
 .msg-date {
   text-align: right;
